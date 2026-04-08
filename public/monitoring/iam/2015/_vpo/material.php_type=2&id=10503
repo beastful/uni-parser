@@ -1,0 +1,767 @@
+<!-- Cached copy, generated 20:11 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+
+  $(".block").click(function() {
+    	$(this).parent().children(".blockcontent").slideToggle(300,function() {
+		if ($(this).css('display')=='none') {
+ 		  $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+ 		 } else {
+		  $('body, html').animate({scrollTop: $(this).parent().offset().top-3}, 250);
+    	 }
+         set_Copyright();
+        });
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+      });
+  $(document).ready(function(){
+     $(".blockcontent").each(function(indx, element){
+       if ($(this).css('display')=='none')
+ 		 $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+       else
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+
+        set_Copyright();
+     })
+  });
+
+  $('.inst').hover(function(e) {
+
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                      //$('.inst_add').css('text-decoration','none');
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){ //alert('f');
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    //alert($(this).attr('ugs'));
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+  $(document).ready(function(){
+
+     $('#cv_e').text(set_ending($('#cv').text()));
+     $('#cf_e').text(set_ending($('#cf').text()));
+     createChart();
+
+
+  });
+
+  $('#show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom']
+                                   });
+  	          myMap.controls.add('mapTools');
+  	          myMap.controls.add('zoomControl');
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: 'img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds());
+
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+})
+
+function set_ending(R) {
+  if((R%10==0) | ((R%10>=5) & (R%10<=9)) | ((R>10) & (R%100<15))) return "ов";
+  else if(((R > 10) & (R%100>=15) & (R%10=='1')) | ((R <= 10) & (R%10=='1'))) return "";
+  else  return "а";
+}
+
+ </script>
+
+
+
+<body id="body" style="display:block; min-width:800px;padding:0px 0px;font:normal 400 16px Calibri;">
+<div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+  <div id='maps'></div>
+  <div style='float:right;position:absolute;top:0px;right:0px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+</div>
+
+
+<center>
+<p style='text-align:center'>Информационно-аналитические материалы по результатам проведения<br>
+мониторинга деятельности образовательных организаций высшего образования 2015 года</p>
+
+<table style='margin:40px 40px;'>
+          <td style='border:none;height:150px;padding-left:164px;vertical-align:middle;font-size:40px;background: url(../../../img/temp/gerb/Kursk_oblast.png) 0px center no-repeat; background-size: contain; '>Курская область</td>
+        </table><script>
+   function createChart() {
+       $('#chart1').kendoChart({
+	                           legend: {visible: false},
+	                           seriesDefaults: {type: "bar", stack: true,
+	                                                labels: {visible: false,  background: "rgba(255,255,255,0.6)", color:"#000",
+	   						                        format: "N0"    },
+	                   },
+	                           series: [{
+	                               name: "st_1",
+	                               data: [6, 4],
+	                               color: "#34BD45"
+	                           }, {
+	                               name: "st_0",
+	                               data: [1, 2],
+	                               color: "#606060"
+	                           }, {
+	                               name: "st_3",
+	                               data: [, ],
+	                               color: "#C4CFEE"
+	                           }, {
+	                               name: "st_4",
+	                               data: [3, ],
+	                               color: "#D74F4F"
+	                           }, {
+	                               name: "st_5",
+	                               data: [, ],
+	                               color: "#D3D3D3"
+	                           }],
+	                           valueAxis: {max: 11, line: {visible: false }, minorGridLines: { visible: true }},
+	                           categoryAxis: [{
+	                               categories: ["вузы", "филиалы"], labels: {font:"13px Calibri"},
+	                               majorGridLines: {visible: false}
+	                           }],
+	                           tooltip: {visible: true,template: "#= value #"}
+                    });
+
+          $('#chart2').kendoChart({
+	                          legend: {visible: false},
+	                          seriesDefaults: {type: "bar", stack: true,
+	                                               labels: {visible: false,  background: "rgba(255,255,255,0.6)",   color:"#000",
+	  						                        format: "N0"    },
+	                  },
+	                          series: [{
+	                              name: "st_1",
+	                              data: [,1,,,,],
+	                              color: "#34BD45"
+	                          }, {
+	                              name: "st_0",
+	                              data: [,,1,,,],
+	                              color: "#606060"
+	                          }, {
+	                              name: "st_3",
+	                              data: [,,,,,],
+	                              color: "#C4CFEE"
+	                          }, {
+	                              name: "st_4",
+	                              data: [,,,,,1],
+	                              color: "#D74F4F"
+	                          }, {
+	                              name: "st_5",
+	                              data: [,,,,,],
+	                              color: "#D3D3D3"
+	                          }],
+	                          valueAxis: {max: 2, line: {visible: false }, minorGridLines: { visible: true }},
+	                          categoryAxis: [{
+
+
+	                              categories: ["военной и силовой","медицинской","сельскохозяйственной","творческой","спортивной","транспортной"], labels: {font:"12px Calibri"},
+	                              majorGridLines: {visible: false}
+	                          }],
+	                          tooltip: {visible: true,template: "#= value #"}
+                    });
+
+   }
+
+
+
+
+
+            </script>
+
+
+<p style='text-align:center'>Министерство образования и науки Российской Федерации<br>
+Департамент государственной политики в сфере высшего
+образования</p>
+</center><br />
+
+<div>
+  <div class="block section" style="">
+	 1. Перечень показателей для анализа эффективности деятельности образовательной организации<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+        <table id='metodika' width="100%" >
+          <tr><td></td><td style='text-align:center;'><b>Единица измерения</b></td><td style='text-align:center;'><b>Специфика<br />деятельности</b></td><td style='text-align:center;'><b>Пороговое значение</b></td></tr>
+          <tr style='background:#eee;'><td colspan='4'><b>E.1. Образовательная деятельность</b></td></td></tr>
+          <tr><td style='padding-left:15px;'>Е.1.1. Средний балл единого государственного экзамена (далее ЕГЭ) студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td rowspan='2' class='vfirew'>60,00</td></tr>          <tr><td style='padding-left:15px;'>Е.1.2. Средний балл студентов, принятых по результатам ЕГЭ и результатам испытаний профессиональной направленности/творческих испытаний (проводимых по 100-бальной шкале) на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.2. Научно-исследовательская деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.2.1. Объем научно-исследовательских и опытно-конструкторских работ (далее НИОКР в расчете на одного научно-педагогического работника (далее НПР)</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td rowspan='2' class='vfirew'>51,28</td></tr>          <tr><td style='padding-left:15px;'>Е.2.2. Объем НИОКР и средств, направленных на творческие проекты, в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.3. Международная деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес численности иностранных студентов, обучающихся по программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>1,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.4. Финансово-экономическая деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Доходы образовательной организации из всех источников в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td>Все</td>
+              <td class='vfirew'>1 327,57</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.5. Заработная плата ППС</b></td></tr>
+          <tr><td style='padding-left:15px;'>Отношение заработной платы профессорско-преподавательского состава к средней заработной плате по экономике региона</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>125,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.6. Трудоустройство (показатель для вузов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес выпускников, трудоустроившихся в течение календарного года, следующего за годом выпуска, в общей численности выпускников образовательной организации обучавшихся по основным образовательным программам высшего образования</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>75,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.7. Контингент студентов (показатель для филиалов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Приведенный контингент студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td>Все</td>
+              <td class='vfirew'>220,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.8. Дополнительные показатели образовательных организаций</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.8.1. Доля преподавателей военно-профессиональных, специальных учебных дисциплин, имеющих профильное высшее образование, опыт работы в войсках (на флотах), штабах, управлениях, частях, воинских формированиях, организациях, не менее 5 лет, воинское (специальное) звание не ниже «майор», а также боевой опыт, в том числе ликвидации чрезвычайных ситуаций природного и техногенного характера или государственные награды, государственные или отраслевые почетные звания, государственные премии</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p></td>
+              <td class='vfirew'>50,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.2. Доля работников (приведенных к числу ставок) из числа профессорско-преподавательского состава, имеющих государственные почетные звания, лауреатов международных и всероссийских конкурсов, лауреатов государственных премий, в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+              <td class='vfirew'>51,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.3. Доля студентов, включенных в списки кандидатов в спортивные сборные команды Российской Федерации по видам спорта, в общей численности студентов</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td class='vfirew'>5,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.4. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям раздела 14.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p></td>
+              <td class='vfirew'>69,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.5. Среднегодовой контингент обучающихся по программам повышения квалификации и профессиональной переподготовки, реализуемых на базе образовательных программ и направлений подготовки, отражающих специфику образовательной организации</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p></td>
+              <td class='vfirew'>7,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.6. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям разделов 03.00.00, 05.20.00, 06.00.00, 25.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td class='vfirew'>59,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.7. Численность сотрудников, из числа ППС (приведенных к доле ставки), имеющих ученые степени кандидата или доктора наук, в расчете на 100 студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p></td>
+              <td class='vfirew'>2,78</td></tr>
+        </table>
+        <p style='margin-top:10px;font-size:13px;'><a href='attach/АК-30_05вн_30.03.2015.pdf' style='padding-left:19px; background:url(../../../img/save_pdf_act.png) left center no-repeat;'>Методика расчета показателей мониторинга эффективности образовательных организаций высшего образования 2015 года (pdf)</a></p>
+
+  </div>
+</div>
+
+<div>
+  <div class="block section">
+	 2. Общая статистика<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <p>В мониторинге принимали участие: <b id='cv'>10</b> вуз<span id='cv_e'>(-ов)</span>, <b id='cf'>6</b> филиал<span id='cf_e'>(-ов)</span>.</span></p><div id='chart1' style='height:120px;'></div><p>В том числе образовательные организации, обладающие спецификой деятельности:</p><div id='chart2' style='height:260px;width:70%;'></div>
+
+
+    <div style='font-size:13px;'>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#34BD45;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили 4 и более показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#606060;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили менее 4 показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#C4CFEE;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - в стадии реорганизации/реорганизованы;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D74F4F;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - по результатам мониторинга 2014 года (по данным за 2013 год) не выполнили 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D3D3D3;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - проводится анализ достоверности предоставленных данных;</span>
+
+    </div>
+  </div>
+</div>
+<div>
+  <div class="block section">
+	 3. Результаты мониторинга деятельности образовательных организаций высшего образования по вузам и филиалам<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Математи-<br />еские и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=1966 icon='4' coordinates='36.265069, 51.740546' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1966'>Индустриальный институт</a><div id='add1966' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305022, г.Курск, ул. Союзная, д.67 корпус 1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>-  Общество с ограниченной ответственностью "Реванш"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:22.329376854599% 100%'>15,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:77.670623145401% 100%'>52,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=110288 icon='1' coordinates='36.235164, 51.751001' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110288'>Курская академия государственной и муниципальной службы </a><div id='add110288' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305044, г.Курск, улица Станционная, 9</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Администрация Курской области</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:11.044317069761% 100%'>79</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:88.955682930239% 100%'>636,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[3]</td>  <td id=1674 icon='0' coordinates='36.183035, 51.765055' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1674'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</a><div id='add1674' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305021, г.Курск, Карла Маркса 70</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство сельского хозяйства Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:1.4060170754845% 100%'>41,5</td><td class='dkont' style='background-size:8.4936983331075% 100%'>250,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:52.591814609026% 100%'>1552,3</td><td class='dkont' style='background-size:37.508469982382% 100%'>1107,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=110289 icon='4' coordinates='36.137751, 51.756878' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_6.png) right top no-repeat;'>
+                       <a href='inst.php?id=110289'>Курский автодорожный институт</a><div id='add110289' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305040, г.Курск, ул. 50 лет Октября, 169 А</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Винокуров Олег Витальевич</p><p style='padding-bottom:4px;'>- Волобуева Наталья Геннадьевна</p><p style='padding-bottom:4px;'>- Некоммерческое партнерство "Автомир"</p><p style='padding-bottom:4px;'>- Петридис Александр Викторович</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>27,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[7]</td>  <td id=1786 icon='1' coordinates='36.194875, 51.749094' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1786'>Курский государственный медицинский университет</a><div id='add1786' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305041, г.Курск, ул.Карла Маркса. Д.3</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство здравоохранения и социального развития Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:3.0487487643723% 100%'>175,8</td><td class='dkont' style='background-size:90.069888836862% 100%'>5193,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.8813623987652% 100%'>396,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=114 icon='1' coordinates='36.191748, 51.735493' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=114'>Курский государственный университет</a><div id='add114' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305000, г.Курск, ул. Радищева, 33</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:9.9489063666112% 100%'>519,9</td><td class='dkont' style='background-size:7.4937328970281% 100%'>391,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:37.378724381423% 100%'>1953,3</td><td class='dkont' style='background-size:32.902769007023% 100%'>1719,4</td><td class='dkont' style='background-size:7.7214535851656% 100%'>403,5</td><td class='dkont' style='background-size:4.5544137627495% 100%'>238</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=1851 icon='1' coordinates='36.191084, 51.736915' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1851'>Курский институт менеджмента, экономики и бизнеса</a><div id='add1851' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305000, г.Курск, ул. Радищева, 35</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Курская региональная организация Общероссийской общественной организации - Общество "Знание" России</p></div><div style='border-top:1px solid #888;padding-top:3px;font-size:13px;'>Предоставлена информация о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК:<br /><p style=''><a href='http://stat.miccedu.ru/mapsmon/files/1851/1851_21.01.15_10.16.41.pdf' target='_blank'>Стратегия развития вуза  Курск 2014-сайт.pdf</a></p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.6827632461435% 100%'>4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:97.317236753856% 100%'>145,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=1918 icon='4' coordinates='36.219470, 51.756242' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1918'>Региональный открытый социальный институт</a><div id='add1918' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305009, г.Курск, ул. Маяковского, д. 85</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Петров Антон Владимирович</p><p style='padding-bottom:4px;'>- Петров Владимир Николаевич</p></div><div style='border-top:1px solid #888;padding-top:3px;font-size:13px;'>Предоставлена информация о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК:<br /><p style=''><a href='http://stat.miccedu.ru/mapsmon/files/1918/1918_02.12.14_14.40.58.pdf' target='_blank'>Программа повышения эффективности РОСИ.pdf</a></p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:34.632034632035% 100%'>120</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:52.121212121212% 100%'>180,6</td><td class='dkont' style='background-size:13.015873015873% 100%'>45,1</td><td class='dkont' style='background-size:0.23088023088023% 100%'>0,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=2071 icon='1' coordinates='36.185667, 51.757708' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=2071'>Региональный финансово-экономический институт</a><div id='add2071' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305029, г.Курск, ул. Ломакина, д.17</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Аксенов Сергей Леонидович</p><p style='padding-bottom:4px;'>- Аксенова Татьяна Алексеевна</p><p style='padding-bottom:4px;'>- Ласкина Ирина Алексеевна</p><p style='padding-bottom:4px;'>- Негосударственное среднее специальное учебное заведение некоммерческое партнерство "Региональный финансово-экономический техникум"</p></div><div style='border-top:1px solid #888;padding-top:3px;font-size:13px;'>Предоставлена информация о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК:<br /><p style=''><a href='http://stat.miccedu.ru/mapsmon/files/2071/2071_04.12.14_17.28.33.pdf' target='_blank'>Программа_развития_РФЭИ_г.Курск.pdf</a></p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>1229</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[7]</td>  <td id=113 icon='1' coordinates='36.148018, 51.738137' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=113'>Юго-Западный государственный университет</a><div id='add113' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305040, г.Курск, ул. 50 лет Октября, д. 94</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:2.2596381315974% 100%'>138,5</td><td class='dkont' style='background-size:50.664023624231% 100%'>3105,4</td><td class='dkont' style='background-size:0.32630153524872% 100%'>20</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:44.694337036856% 100%'>2739,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.7783433671055% 100%'>109</td><td class='dkont' style='background-size:0.27735630496141% 100%'>17</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=12012732 icon='1' coordinates='36.188461, 51.750349' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012732'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </a><div id='add12012732' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305004, г.Курск, ул. Радищева, д.116</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Белгородский областной союз потребительских обществ</p><p style='padding-bottom:4px;'>- Межрегиональный кооперативный союз "Наука"</p><p style='padding-bottom:4px;'>- Потребительское общество "Содружество"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:11.647016791711% 100%'>32,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:88.352983208289% 100%'>247,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=10000771 icon='1' coordinates='36.190033, 51.756917' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000771'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</a><div id='add10000771' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305019, г.Курск, ул. Карла Маркса, д.53</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0.92644438788496% 100%'>9,1</td><td class='dkont' style='background-size:23.135657928226% 100%'>227,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:63.232374650038% 100%'>621,1</td><td class='dkont' style='background-size:6.3120386866887% 100%'>62</td><td class='dkont' style='background-size:2.8200559938916% 100%'>27,7</td><td class='dkont' style='background-size:3.5734283532706% 100%'>35,1</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=10003279 icon='1' coordinates='36.185379, 51.722696' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003279'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</a><div id='add10003279' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305001, г.Курск, ул. Софьи Перовской, д.16; 305006, г. Курск, ул. Павлуновского, д. 65</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>137,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=10006960 icon='1' coordinates='36.175040, 51.724292' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006960'>Курский филиал Финансового Университета при Правительстве Российской Федерации</a><div id='add10006960' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305016, г.Курск, ул. Ломоносова, д. 3</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Правительство Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>103,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[2]</td>  <td id=12012864 icon='0' coordinates='36.190473, 51.727466' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012864'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский институт государственного управления и права" в Курской области </a><div id='add12012864' class='inst_add'><div class='adr'><p><b>г. Курск</b></p><p style='padding:7px 0px;'>305000, г.Курск, ул. Луначарского, д. 8</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Индустриальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курская академия государственной и муниципальной службы </div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Курский автодорожный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный медицинский университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт менеджмента, экономики и бизнеса</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Региональный открытый социальный институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Региональный финансово-экономический институт</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Юго-Западный государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт кооперации (филиал) Автономной некоммерческой организации высшего профессионального образования "Белгородский университет кооперации, экономики и права" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский институт социального образования (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Российский государственный социальный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Курский филиал Финансового Университета при Правительстве Российской Федерации</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Юридическое лицо Российской Федерации - Общественная организация ветеранов органов внутренних дел и внутренних войск России</p><p style='padding-bottom:4px;'>- Юридическое лицо Российской Федерации - Общество с ограниченной ответственностью "Единый Капитал"</p><p style='padding-bottom:4px;'>- Юридическое лицо Российской Федерации - Общество с ограниченной ответственностью Научно-производственная компания "Московский центр развития образовательных технологий"</p><p style='padding-bottom:4px;'>- Юридическое лицо Российской Федерации - общество с ограниченной ответственностью Юридическая Компания "Стратегия тправовой защиты"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>20,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[2]</td>  <td id=12012979 icon='0' coordinates='35.363600, 52.329567' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012979'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Московский психолого- социальный университет" в г. Железногорске Курской области</a><div id='add12012979' class='inst_add'><div class='adr'><p><b>г. Железногорск</b></p><p style='padding:7px 0px;'>307170, Курская область г. Железногорск ул. Рокоссовского д. 54</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'>-</div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Некоммерческое партнёрство "Академия педагогических и социальных наук"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>62,3</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 11px/17px Calibri;color:#000;padding-top:5px;'>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_1_0.png) 0px 2px no-repeat;'> - выполнили 4 и более показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_0_0.png) 0px 2px no-repeat;'> - выполнили менее 4 показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_3_0.png) 0px 2px no-repeat;'> - вузы (филиалы), находящиеся в стадии реорганизации/реорганизованные</p>
+       <!--<p style='padding-left:17px;background:url(../../../img/temp/st_4_0.png) 0px 2px no-repeat;'> - вузы (филиалы), по результатам мониторинга прошлого года выполнившие менее 4-х показателей и не предоставившие информацию о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК</p>-->
+       <p style='padding-left:17px;background:url(../../../img/temp/st_5_0.png) 0px 2px no-repeat;'> - проводится анализ достоверности предоставленных данных; вузы (филиалы), по результатам мониторинга 2014 года (по данным за 2013 год) не выполнившие 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</p>
+       <p><i>[X]</i> - количество выполненных показателей</p><hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_1.png) no-repeat;'> - образовательные организации военной и силовой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> - образовательные организации медицинской направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> - образовательные организации сельскохозяйственной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> - образовательные организации творческой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> - образовательные организации спортивной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> - образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+<div>
+  <div class="block section">
+	 4. Эффективность региональной образовательной системы<sup>*</sup><div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+<table id='trud'>
+        <tr style='text-align:center;font: normal 400 13px/12px Calibri;'><td></td>
+            <!--<td style='width:9%;text-align:center;'><b>Количество ОО</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество УГС в регионе</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество допущенных к обработке, чел.</b></td>-->
+            <td style='width:15%;text-align:center;'><b>Численность выпускников 2013 года<sup>**</sup>, трудоустроенных в 2014 году, чел.</b></td>
+            <td style='width:15%;text-align:center;'><b>Доля трудоустроенных выпускников, %</b></td>
+            <td style='width:15%;text-align:center;'><b>Средняя заработная плата выпускников, тыс. руб.</b></td></tr><tr style='background:#eee;'><td style='text-align:left;'><!--Количество УГС в регионе - --></td>
+	        <td>8726</td>
+	        <td>76,9</b></td>
+            <td>21,47</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='1' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>01.00.00 - МАТЕМАТИКА И МЕХАНИКА</td>
+	        <td>17</td>
+	        <td>77,3</b></td>
+            <td>19,95</b></td> </tr><tr id='tr_vuz' ugs='1' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>17</td>
+	        <td>77,3</b></td>
+            <td>19,95</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='2' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>02.00.00 - КОМПЬЮТЕРНЫЕ И ИНФОРМАЦИОННЫЕ НАУКИ</td>
+	        <td>23</td>
+	        <td>63,9</b></td>
+            <td>21,56</b></td> </tr><tr id='tr_vuz' ugs='2' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>23</td>
+	        <td>63,9</b></td>
+            <td>21,56</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='4' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>04.00.00 - ХИМИЯ</td>
+	        <td>20</td>
+	        <td>90,9</b></td>
+            <td>18,43</b></td> </tr><tr id='tr_vuz' ugs='4' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>18</td>
+	        <td>90,0</b></td>
+            <td>18,47</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='5' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>05.00.00 - НАУКИ О ЗЕМЛЕ</td>
+	        <td>32</td>
+	        <td>76,2</b></td>
+            <td>15,55</b></td> </tr><tr id='tr_vuz' ugs='5' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>32</td>
+	        <td>76,2</b></td>
+            <td>15,55</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='8' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>08.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ СТРОИТЕЛЬСТВА</td>
+	        <td>448</td>
+	        <td>80,0</b></td>
+            <td>23,95</b></td> </tr><tr id='tr_vuz' ugs='8' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>448</td>
+	        <td>80,0</b></td>
+            <td>23,95</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='9' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>09.00.00 - ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА</td>
+	        <td>164</td>
+	        <td>73,9</b></td>
+            <td>23,04</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Индустриальный институт»</td>
+	        <td>27</td>
+	        <td>62,8</b></td>
+            <td>29,05</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>131</td>
+	        <td>76,6</b></td>
+            <td>21,89</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='10' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>10.00.00 - ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ</td>
+	        <td>39</td>
+	        <td>57,4</b></td>
+            <td>23,27</b></td> </tr><tr id='tr_vuz' ugs='10' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская академия государственной и муниципальной службы»</td>
+	        <td>9</td>
+	        <td>47,4</b></td>
+            <td>21,46</b></td> </tr><tr id='tr_vuz' ugs='10' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>30</td>
+	        <td>61,2</b></td>
+            <td>23,81</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='11' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>11.00.00 - ЭЛЕКТРОНИКА, РАДИОТЕХНИКА И СИСТЕМЫ СВЯЗИ</td>
+	        <td>42</td>
+	        <td>63,6</b></td>
+            <td>21,92</b></td> </tr><tr id='tr_vuz' ugs='11' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>36</td>
+	        <td>63,2</b></td>
+            <td>22,42</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='12' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>12.00.00 - ФОТОНИКА, ПРИБОРОСТРОЕНИЕ, ОПТИЧЕСКИЕ И БИОТЕХНИЧЕСКИЕ СИСТЕМЫ И ТЕХНОЛОГИИ</td>
+	        <td>19</td>
+	        <td>57,6</b></td>
+            <td>15,85</b></td> </tr><tr id='tr_vuz' ugs='12' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>19</td>
+	        <td>57,6</b></td>
+            <td>15,85</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='13' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>13.00.00 - ЭЛЕКТРО- И ТЕПЛОЭНЕРГЕТИКА</td>
+	        <td>195</td>
+	        <td>87,1</b></td>
+            <td>36,17</b></td> </tr><tr id='tr_vuz' ugs='13' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>195</td>
+	        <td>87,1</b></td>
+            <td>36,17</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='15' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>15.00.00 - МАШИНОСТРОЕНИЕ</td>
+	        <td>93</td>
+	        <td>77,5</b></td>
+            <td>29,57</b></td> </tr><tr id='tr_vuz' ugs='15' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>93</td>
+	        <td>77,5</b></td>
+            <td>29,57</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='18' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>18.00.00 - ХИМИЧЕСКИЕ ТЕХНОЛОГИИ</td>
+	        <td>16</td>
+	        <td>80,0</b></td>
+            <td>15,51</b></td> </tr><tr id='tr_vuz' ugs='18' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>16</td>
+	        <td>80,0</b></td>
+            <td>15,51</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='19' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>19.00.00 - ПРОМЫШЛЕННАЯ ЭКОЛОГИЯ И БИОТЕХНОЛОГИИ</td>
+	        <td>38</td>
+	        <td>88,4</b></td>
+            <td>24,73</b></td> </tr><tr id='tr_vuz' ugs='19' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>27</td>
+	        <td>100,0</b></td>
+            <td>28,52</b></td> </tr><tr id='tr_vuz' ugs='19' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>11</td>
+	        <td>68,8</b></td>
+            <td>15,42</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='20' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>20.00.00 - ТЕХНОСФЕРНАЯ БЕЗОПАСНОСТЬ И ПРИРОДООБУСТРОЙСТВО</td>
+	        <td>39</td>
+	        <td>59,1</b></td>
+            <td>18,05</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>21</td>
+	        <td>61,8</b></td>
+            <td>18,95</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>18</td>
+	        <td>56,3</b></td>
+            <td>17,00</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='21' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>21.00.00 - ПРИКЛАДНАЯ ГЕОЛОГИЯ, ГОРНОЕ ДЕЛО, НЕФТЕГАЗОВОЕ ДЕЛО И ГЕОДЕЗИЯ</td>
+	        <td>86</td>
+	        <td>88,7</b></td>
+            <td>30,32</b></td> </tr><tr id='tr_vuz' ugs='21' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>86</td>
+	        <td>88,7</b></td>
+            <td>30,32</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='23' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>23.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ НАЗЕМНОГО ТРАНСПОРТА</td>
+	        <td>49</td>
+	        <td>74,2</b></td>
+            <td>26,08</b></td> </tr><tr id='tr_vuz' ugs='23' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>49</td>
+	        <td>74,2</b></td>
+            <td>26,08</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='27' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>27.00.00 - УПРАВЛЕНИЕ В ТЕХНИЧЕСКИХ СИСТЕМАХ</td>
+	        <td>51</td>
+	        <td>76,1</b></td>
+            <td>18,53</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова»</td>
+	        <td>18</td>
+	        <td>72,0</b></td>
+            <td>16,29</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>33</td>
+	        <td>78,6</b></td>
+            <td>19,74</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='29' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>29.00.00 - ТЕХНОЛОГИИ ЛЕГКОЙ ПРОМЫШЛЕННОСТИ</td>
+	        <td>28</td>
+	        <td>66,7</b></td>
+            <td>13,10</b></td> </tr><tr id='tr_vuz' ugs='29' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>28</td>
+	        <td>66,7</b></td>
+            <td>13,10</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='31' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>31.00.00 - КЛИНИЧЕСКАЯ МЕДИЦИНА</td>
+	        <td>244</td>
+	        <td>48,4</b></td>
+            <td>18,59</b></td> </tr><tr id='tr_vuz' ugs='31' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>244</td>
+	        <td>48,4</b></td>
+            <td>18,59</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='32' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>32.00.00 - НАУКИ О ЗДОРОВЬЕ И ПРОФИЛАКТИЧЕСКАЯ МЕДИЦИНА</td>
+	        <td>16</td>
+	        <td>59,3</b></td>
+            <td>22,14</b></td> </tr><tr id='tr_vuz' ugs='32' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>16</td>
+	        <td>59,3</b></td>
+            <td>22,14</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='33' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>33.00.00 - ФАРМАЦИЯ</td>
+	        <td>148</td>
+	        <td>89,2</b></td>
+            <td>24,43</b></td> </tr><tr id='tr_vuz' ugs='33' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>148</td>
+	        <td>89,2</b></td>
+            <td>24,43</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='34' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>34.00.00 - СЕСТРИНСКОЕ ДЕЛО</td>
+	        <td>19</td>
+	        <td>79,2</b></td>
+            <td>23,31</b></td> </tr><tr id='tr_vuz' ugs='34' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>19</td>
+	        <td>79,2</b></td>
+            <td>23,31</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='35' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>35.00.00 - СЕЛЬСКОЕ, ЛЕСНОЕ И РЫБНОЕ ХОЗЯЙСТВО</td>
+	        <td>260</td>
+	        <td>61,5</b></td>
+            <td>20,28</b></td> </tr><tr id='tr_vuz' ugs='35' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова»</td>
+	        <td>260</td>
+	        <td>61,5</b></td>
+            <td>20,28</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='36' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>36.00.00 - ВЕТЕРИНАРИЯ И ЗООТЕХНИЯ</td>
+	        <td>132</td>
+	        <td>71,0</b></td>
+            <td>16,36</b></td> </tr><tr id='tr_vuz' ugs='36' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова»</td>
+	        <td>132</td>
+	        <td>71,0</b></td>
+            <td>16,36</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='37' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>37.00.00 - ПСИХОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>79</td>
+	        <td>75,2</b></td>
+            <td>16,04</b></td> </tr><tr id='tr_vuz' ugs='37' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>24</td>
+	        <td>92,3</b></td>
+            <td>16,75</b></td> </tr><tr id='tr_vuz' ugs='37' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>55</td>
+	        <td>69,6</b></td>
+            <td>15,74</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='38' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>38.00.00 - ЭКОНОМИКА И УПРАВЛЕНИЕ</td>
+	        <td>4619</td>
+	        <td>81,6</b></td>
+            <td>22,40</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Индустриальный институт»</td>
+	        <td>31</td>
+	        <td>73,8</b></td>
+            <td>26,88</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская академия государственной и муниципальной службы»</td>
+	        <td>257</td>
+	        <td>76,5</b></td>
+            <td>18,83</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова»</td>
+	        <td>352</td>
+	        <td>75,5</b></td>
+            <td>16,35</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>322</td>
+	        <td>79,1</b></td>
+            <td>19,85</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский институт менеджмента, экономики и бизнеса»</td>
+	        <td>276</td>
+	        <td>71,3</b></td>
+            <td>20,75</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Региональный финансово-экономический институт»</td>
+	        <td>2687</td>
+	        <td>85,5</b></td>
+            <td>24,59</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>687</td>
+	        <td>78,9</b></td>
+            <td>19,91</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='39' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>39.00.00 - СОЦИОЛОГИЯ И СОЦИАЛЬНАЯ РАБОТА</td>
+	        <td>37</td>
+	        <td>82,2</b></td>
+            <td>24,24</b></td> </tr><tr id='tr_vuz' ugs='39' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный медицинский университет» Министерства здравоохранения  Российской Федерации</td>
+	        <td>18</td>
+	        <td>90,0</b></td>
+            <td>33,51</b></td> </tr><tr id='tr_vuz' ugs='39' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>13</td>
+	        <td>72,2</b></td>
+            <td>17,33</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='40' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>40.00.00 - ЮРИСПРУДЕНЦИЯ</td>
+	        <td>814</td>
+	        <td>71,8</b></td>
+            <td>19,22</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Индустриальный институт»</td>
+	        <td>12</td>
+	        <td>60,0</b></td>
+            <td>26,32</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская академия государственной и муниципальной службы»</td>
+	        <td>96</td>
+	        <td>70,1</b></td>
+            <td>22,74</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курская государственная сельскохозяйственная академия имени профессора И.И.Иванова»</td>
+	        <td>112</td>
+	        <td>72,3</b></td>
+            <td>20,80</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>132</td>
+	        <td>72,9</b></td>
+            <td>16,00</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>462</td>
+	        <td>72,2</b></td>
+            <td>18,85</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='42' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>42.00.00 - СРЕДСТВА МАССОВОЙ ИНФОРМАЦИИ И ИНФОРМАЦИОННО-БИБЛИОТЕЧНОЕ ДЕЛО</td>
+	        <td>45</td>
+	        <td>63,4</b></td>
+            <td>18,45</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>37</td>
+	        <td>64,9</b></td>
+            <td>17,53</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский институт менеджмента, экономики и бизнеса»</td>
+	        <td>8</td>
+	        <td>57,1</b></td>
+            <td>22,68</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='43' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>43.00.00 - СЕРВИС И ТУРИЗМ</td>
+	        <td>73</td>
+	        <td>62,9</b></td>
+            <td>13,09</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>54</td>
+	        <td>65,9</b></td>
+            <td>12,51</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>19</td>
+	        <td>55,9</b></td>
+            <td>14,74</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='44' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>44.00.00 - ОБРАЗОВАНИЕ И ПЕДАГОГИЧЕСКИЕ НАУКИ</td>
+	        <td>689</td>
+	        <td>78,6</b></td>
+            <td>15,25</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>689</td>
+	        <td>78,6</b></td>
+            <td>15,25</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='45' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>45.00.00 - ЯЗЫКОЗНАНИЕ И ЛИТЕРАТУРОВЕДЕНИЕ</td>
+	        <td>53</td>
+	        <td>74,6</b></td>
+            <td>14,98</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>40</td>
+	        <td>75,5</b></td>
+            <td>14,58</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Юго-Западный государственный университет»</td>
+	        <td>13</td>
+	        <td>72,2</b></td>
+            <td>16,22</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='46' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>46.00.00 - ИСТОРИЯ И АРХЕОЛОГИЯ</td>
+	        <td>24</td>
+	        <td>82,8</b></td>
+            <td>14,10</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>24</td>
+	        <td>82,8</b></td>
+            <td>14,10</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='47' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>47.00.00 - ФИЛОСОФИЯ, ЭТИКА И РЕЛИГИОВЕДЕНИЕ</td>
+	        <td>16</td>
+	        <td>72,7</b></td>
+            <td>14,47</b></td> </tr><tr id='tr_vuz' ugs='47' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>16</td>
+	        <td>72,7</b></td>
+            <td>14,47</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='48' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>48.00.00 - ТЕОЛОГИЯ</td>
+	        <td>13</td>
+	        <td>68,4</b></td>
+            <td>8,89</b></td> </tr><tr id='tr_vuz' ugs='48' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>13</td>
+	        <td>68,4</b></td>
+            <td>8,89</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='54' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>54.00.00 - ИЗОБРАЗИТЕЛЬНОЕ И ПРИКЛАДНЫЕ ВИДЫ ИСКУССТВ</td>
+	        <td>24</td>
+	        <td>68,6</b></td>
+            <td>12,04</b></td> </tr><tr id='tr_vuz' ugs='54' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Курский государственный университет»</td>
+	        <td>24</td>
+	        <td>68,6</b></td>
+            <td>12,04</b></td> </tr></table><p style='font: normal 13px/14px Calibri;'><br /><sup>*</sup>Сведения о трудоустройстве выпускников образовательных организаций получены в рамках соглашения Минобрнауки России, Рособрнадзора и Пенсионного фонда России по данным, предоставленным образовательными организациями в ФРДО.</p><p style='font: normal 13px/14px Calibri;'><sup>**</sup>Приведены статистически значимые данные (численность выпускников по УГН(С) более 10 человек).</p>  </div>
+</div>
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+

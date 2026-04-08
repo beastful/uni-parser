@@ -1,0 +1,346 @@
+<!-- Cached copy, generated 02:05 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+var rMap;
+
+$(function() {
+  $('#wrongaddrq').hover(function(e) {$(this).children('.wrongaddra').css('display','block');},
+                         function(e) {$(this).children('.wrongaddra').css('display','none');});
+
+  $("#btn_navi").hover(function(e) {$('#ToC').stop().show(200);}
+                      ,function(e) {$('#ToC').stop().hide(0);});
+  $('#ToC').click(function(){ $('#ToC').stop().hide(0); });
+
+  $(window).scroll(function(){
+    $('#instheader').css('top',-1*Math.min(30,$(window).scrollTop()));
+  });
+
+
+  $(document).ready(function(){
+     ss = 21;
+	      while($('#inst_name').height()>26) {
+	        ss=ss-1;
+	        $('#inst_name').css('font-size',ss+'px');
+	        $('#inst_name').css('line-height',ss+'px');
+	        if(ss<17) $('#inst_name').css('font-weight','bold');
+     }
+
+
+     $('body').css('padding-top',$('#instheader').height()+parseInt($('#instheader').css('padding-bottom'))).children('#instheader').css('position','fixed');
+
+     set_Copyright();
+
+     $('.section').each(function(indx, el){
+       $('#ToC').html($('#ToC').html()+'<a href=#'+$(el).children('a').attr('name')+' onclick="$(\'a[name='+$(el).children('a').attr('name')+']\').parent(\'div\').parent(\'div\').children(\'.blockcontent\').slideDown(300,function(){if ($(\'.statistic_info\').length>0) rMap.setBounds(rMap.geoObjects.getBounds(),{checkZoomRange:true, zoomMargin: [170,550,10,10]});});">'+$(el).text()+'</a><br />');
+       $(el).parent('div').find('.subsection').each(function(i, sel){
+         $('#ToC').html($('#ToC').html()+'<a href=#'+$(sel).children('a').attr('name')+' style="margin-left:25px;font-size:13px;" onclick="$(\'a[name='+$(sel).children('a').attr('name')+']\').parent(\'span\').parent(\'.blockcontent\').slideDown(0);">'+$(sel).text()+'</a><br />');
+       });
+
+
+     });
+     $('#btn_navi').height($('#ToC').height()+20).css('top',($(window).height()-$('#ToC').height())/2+'px').children('div').hide(0);
+     $('#btn_navi').animate({left:-10},1000);
+
+     $('a[name]').css('top','-'+parseInt($('#instheader').height()-30+12)+'px');
+
+     ymaps.ready(function() {
+          var Map;
+          $('#maps').parent('div').append('<span style="font:normal 400 11px Tahoma;position:relative;" onmouseover="$(\'.wrongaddra\').fadeIn(50);" onmouseout="$(\'.wrongaddra\').fadeOut(50);"><span style="color:#888;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">Неверно отображается местоположение образовательной организации?</span> <span style="text-decorationnone;color:#222;display:none;position:absolute;left:375px;top:1px;border:1px solid #ccc;background:#eee;border-radius:3px;padding:0px 4px;white-space:nowrap;" class="wrongaddra">Обратитесь в ГИВЦ для уточнения адреса организации</span></span>');
+          Map = new ymaps.Map('maps', {
+                                     center: $('#post').attr('coordinates').split(/\s*,\s*/),
+                                     zoom: 15,
+                                     behaviors: ['default', 'scrollZoom'], controls: []
+                                 });
+
+	          Map.geoObjects.add(
+	          new ymaps.GeoObject({
+                                     geometry: {
+                                           type: "Point",
+                                           coordinates: $('#post').attr('coordinates').split(/\s*,\s*/), //res.geoObjects.get(0).geometry.getCoordinates()
+                                     },
+                                     properties: {
+                                           iconContent: '',
+                                           hintContent: '',
+                                           balloonContent: ''
+                                     }
+                                  })
+          );
+
+
+         rMap = new ymaps.Map('region_map', {
+                                     center: $('#post').attr('coordinates').split(/\s*,\s*/),
+                                     zoom: 5,
+                                     behaviors: [],
+									 controls: []
+                                 });
+
+          $('.anothervuz[coordinates]').each(function(idx,el){
+            if($(el).attr('coordinates')!='') {
+  	            rMap.geoObjects.add(
+		    	              new ymaps.GeoObject({
+		                                         geometry: {
+		                                               type: "Point",
+		                                               coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+		                                         },
+		                                         properties: {
+		                                               iconContent: '',
+		                                               hintContent: $(el).children('a').text(),
+		                                               balloonContent: ''
+		                                         }
+		                                      }, {
+		                                               iconLayout: 'default#image',
+		                                               iconImageHref: '../../../img/temp/st_map_'+$(el).attr('icon')+'.png',
+		                                               iconImageSize: [19, 15],
+		  											         iconImageOffset: [-6, -6]
+		                                      })
+             );
+            }
+          });
+	      rMap.geoObjects.add(
+	         new ymaps.GeoObject({
+                                     geometry: {
+                                           type: "Point",
+                                           coordinates: $('#post').attr('coordinates').split(/\s*,\s*/), //res.geoObjects.get(0).geometry.getCoordinates()
+                                     },
+                                     properties: {
+                                           iconContent: '',
+                                           hintContent: 'Екатеринбургский филиал Образовательного учреждения профсоюзов высшего образования «Академия труда и социальных отношений»',
+                                           balloonContent: ''
+                                     }
+                                  }, {
+                                     preset: 'twirl#nightDotIcon'
+                                  })
+          );
+          rMap.setBounds(rMap.geoObjects.getBounds(),{checkZoomRange:true, zoomMargin: [170,550,10,10]});
+
+     }); //ymaps.ready
+
+  }); //$(document).ready(function()
+
+
+
+})
+
+        function createChart(values, pzk) {
+                    $("#chart").kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: [1,1,1,1,1,1,1],
+                            width: "2px",
+                            color: "#FF0000",
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {
+                                visible: true
+                            }
+                        }],
+                        categoryAxis: {
+                            categories: ["Образовательная \n деятельность", "Научно-\nисследовательская \n деятельность", (pzk==1 ? "Международная \n деятельность" : "Финансово - \n экономическая \n деятельность"), (pzk==1 ? "Финансово - \n экономическая \n деятельность" : "Заработная \n плата ППС"), (pzk==1 ? "Заработная \n плата ППС" : "Трудоустройство"), (pzk==1 ? "Трудоустройство" : "Приведенный \n контингент"), "Дополнительный \n показатель"], labels: {font:"11px/12px Tahoma"}
+                        },
+                        valueAxis: {
+                            max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4),min: 0,
+                            visible: false,
+                            labels: { format: "" }
+                        },
+                        tooltip: { visible: true, template: "#= categoryAxis.categories #"},
+                        points:  { visible: true }
+                    });
+                }
+          function createChart_DOP(obj, N, count, median, values, pzk, type) {
+                    var categs = [];
+                    //if(N==7) alert(Math.max(Math.ceil(Math.max.apply(Math, values)),1.4));
+                    for(i=0;i<count;i++) {
+                      categs[i] = '' + N + '.' + (i+1);
+                      //values[i] = (values[i]!=1 ? 1.2: values[i]);
+                    }
+                    if(count==1) {
+                      categs[1] = '';
+                      categs[2] = '';
+                    }
+
+                    $('#'+obj+'').kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: median,
+                            width: "2px",
+                            color: (type=='a' ? "#20b2aa" : "#64400f"),
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {visible: true }
+                        }],
+                        categoryAxis: { categories: categs, labels: {font:"12px Tahoma"} },
+                        valueAxis: {max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4), min: 0, visible: false,labels: { format: "" }},
+                        tooltip: { visible: false, format: "${0} bln" },
+                        points:  { visible: true }
+                    });
+                }
+
+            </script>
+
+<style>
+  a {
+    color:#003;
+    text-decoration-style: dotted;
+    text-decoration-color:#99c;
+  }
+  .inst_add:before {
+    content: '';
+    display:none;
+}
+</style>
+
+<body id="body" style="display:block; min-width:1200px;padding:0px;font:normal 400 16px Calibri;">
+  <div id='btn_navi' style=''>
+    <div id='ToC' style='white-space:nowrap;padding:10px 15px 10px 15px;border-left:2px solid #9FCEB3;background:#485E76;box-shadow:-1px 0px 10px rgba(255,255,255,0.4);'></div>
+  </div>
+
+
+<table id="instheader" style="box-shadow:0px 2px 5px rgba(0,0,0,0.7);width: 100%;background: url(../../../img/monitoring_logo/lh_rr.png);position:fixed;top:0px;z-index:999;">
+  <tr style="height:74px; background: url(../../../img/monitoring_logo/lh_mm.png) 0px -66px;">
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, url(../../../img/monitoring_logo/lh_rr.png) 0px -66px;"></td>
+    <td style="border:none;min-width:1200px;width:1200px !important; background: url(../../../img/monitoring_logo/lh_m_material.png)  0px -66px no-repeat;text-align:right;vertical-align:top;">
+      <div id='doc_name' style="text-align:right;position:relative;padding:1px 30px 3px 0px;background:rgba(0,0,0,0.2);font:normal 400 13px Tahoma; color:#E3E4E8;">
+	               <a href='/' style='font-size:12px;background:url(../../../img/ti_home.svg) left top 1px no-repeat;padding-left:15px;'></a> | 
+				   <a href='/?m=vpo&year=2016' style='font-size:12px;color:#E3E4E8;text-decoration:none;'>Информационно-аналитические материалы по результатам проведения мониторинга
+	                эффективности деятельности образовательных организаций высшего образования 2016 года</a>
+	  </div>
+      <div id='inst_name' style='margin:11px 30px 0px;min-height:25px;font:normal normal 400 21px Arial; color:#E8EAF4;text-shadow:1px 1px 1px rgba(0,0,0,0.5);vertical-align:bottom;'>Екатеринбургский филиал Образовательного учреждения профсоюзов высшего образования «Академия труда и социальных отношений»</div>
+    </td>
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, url(../../../img/monitoring_logo/lh_rr.png) 0px -66px;"></td>
+  </tr>
+</table>
+
+
+
+<table style="width: 100%;">
+  <tr style="height:255px;">
+    <td style="background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;"></td>
+    <td style="width:1200px !important; background: #fff;border:none;padding-top:10px;">
+
+
+<div>
+  <div class="block section" style=""><a name='I'></a>I. Общие сведения</div>
+  <div class="blockcontent" style="display:block;">
+    <table id='info' cellspacing='2' style='color:#000;width:100%;'>
+                 <tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><b style='font-family:Cambria;'>Екатеринбургский филиал Образовательного учреждения профсоюзов высшего  образования «Академия труда и социальных отношений»</b></td></tr><tr><td class='tt'>Регион,<br />адрес</td>
+                     <td><a href='material.php?type=2&id=10804'>Свердловская область</a><br /><span id='post' coordinates='60.576705, 56.811768'>620146, Свердловская область, г. Екатеринбург, ул.Шаумяна, 83</span><span style='font:normal 700 11px/11px Arial;cursor:pointer;border:1px solid #bbb;background:#eee url(../../../img/struct_icon_1.png) 3px 1px no-repeat;border-radius:4px;padding:2px 5px 2px 22px;margin-left:10px;' onclick='$("#maps").parent("div").slideToggle(500);' id='onmap'>на карте</span><div style='display:none;'>
+                          <div id='maps' style='margin-top:5px;height:315px;min-width:500px;border:1px solid #aab;'></div>
+
+                       </div></td></tr><tr><td class='tt'>Ведомственная принадлежность</td>
+                     <td>Частные образовательные организации</td></tr><tr><td class='tt'>web-сайт</td>
+                     <td>http://www.atiso.ru</td></tr><tr><td class='tt'>Учредитель(и)</td>
+                     <td><p>Общественная организация Федерация Независимых Профсоюзов России</p></td></tr><tr><td class='tt'>Профиль организации</td>
+                     <td style='background:url(../../../img/temp/specific_0.png) 1px center no-repeat;padding-left:20px;'>образовательные организации, не имеющие специфики деятельности</td></tr><tr><td class='tt'>Результат оценки эффективности деятельности</td>
+                     <td style='background:url(../../../img/temp/st_4_0.png) left center no-repeat;padding-left:19px;font: normal 400 15px/15px Calibri;'>по результатам мониторинга 2015 года (по данным за 2014 год) не выполнил 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации</td></tr><tr><td colspan='2'><b>Сведения о головной образовательной организации</b></td></tr><tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><a href='inst.php?id=110148'>Академия труда и социальных отношений</a></td></tr><tr><td class='tt'>Регион</td>
+                     <td>г.Москва</td></tr><tr><td class='tt'>Результат оценки эффективности деятельности</td>
+                     <td style='background:url(../../../img/temp/st_1_0.png) left center no-repeat;padding-left:19px;font: normal 400 15px/15px Calibri;'>выполнил 4 или более показателей</td></tr></table>  </div>
+</div>
+
+
+<p style='font: normal 13px/14px Calibri;padding:10px 60px;'><sup>*</sup>Сведения по показателям мониторинга деятельности <b><u>не показаны</u></b> для образовательных организаций: <br /> - находящихся в стадии реорганизации;
+    <br /> - по результатам мониторинга 2015 года не выполнивших 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации.</p>
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2016.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2016.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2016.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+    </td>
+    <td style="background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, #ddd;border:none;"></td>
+  </tr>
+</table>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+
+</html>
+

@@ -1,0 +1,299 @@
+<!-- Cached copy, generated 22:16 -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+
+
+$(function() {
+  $('#wrongaddrq').hover(function(e) {$(this).children('.wrongaddra').css('display','block');},
+                         function(e) {$(this).children('.wrongaddra').css('display','none');});
+  $(".block").click(function() {
+    	$(this).parent().children(".blockcontent").slideToggle(300,function() {
+		if ($(this).css('display')=='none')  {
+ 		  $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+ 		 } else {
+ 		   $('body, html').animate({scrollTop: $(this).parent().offset().top-8-$('#instheader').height()-parseInt($('#instheader').css('padding-bottom'))+parseInt($('#instheader p').height())}, 250);
+    //alert($('#instheader').height()+parseInt($('#instheader').css('padding-bottom')));//-parseInt($('#instheader').css('top'))
+
+
+    	 }
+
+         set_Copyright();
+        });
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+      });
+  $("#btn_navi").hover(function(e) {$('#ToC').stop().show(200);}
+                      ,function(e) {$('#ToC').stop().hide(0);});
+  $('#ToC').click(function(){ $('#ToC').stop().hide(0); });
+
+  $(window).scroll(function(){
+    $('#instheader').css('top',-1*Math.min($('#instheader p').height(),$(window).scrollTop()));
+  });
+
+
+  $(document).ready(function(){
+     $('.inst_add').css('left',Math.min(0,-$('.inst_add').width()-$('#in_city').offset().left+$(window).width()-15));
+
+     $('body').css('padding-top',$('#instheader').height()+parseInt($('#instheader').css('padding-bottom'))+5).children('#instheader').css('position','fixed');
+
+
+     $(".blockcontent").each(function(indx, element){
+       if ($(this).css('display')=='none')
+ 		 $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+       else
+         $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+
+
+     });
+     set_Copyright();
+
+     $('.section').each(function(indx, el){
+       $('#ToC').html($('#ToC').html()+'<a href=#'+$(el).children('a').attr('name')+' onclick="$(\'a[name='+$(el).children('a').attr('name')+']\').parent(\'div\').parent(\'div\').children(\'.blockcontent\').slideDown(0);">'+$(el).text()+'</a><br />');
+       $(el).parent('div').find('.subsection').each(function(i, sel){
+         $('#ToC').html($('#ToC').html()+'<a href=#'+$(sel).children('a').attr('name')+' style="margin-left:25px;font-size:13px;" onclick="$(\'a[name='+$(sel).children('a').attr('name')+']\').parent(\'span\').parent(\'.blockcontent\').slideDown(0);">'+$(sel).text()+'</a><br />');
+       });
+
+
+     });
+     $('#btn_navi').height($('#ToC').height()+20).css('top',($(window).height()-$('#ToC').height())/2+'px').children('div').hide(0);
+     $('#btn_navi').animate({left:-10},1000);
+
+     $('a[name]').css('top','-'+parseInt($('#instheader span').height()+12)+'px');
+
+     ymaps.ready(function() {
+          var myMap;
+          $('#maps').parent('div').append('<span style="font:normal 400 11px Tahoma;position:relative;" onmouseover="$(\'.wrongaddra\').fadeIn(50);" onmouseout="$(\'.wrongaddra\').fadeOut(50);"><span style="color:#888;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">Неверно отображается местоположение образовательной организации?</span> <span style="text-decorationnone;color:#222;display:none;position:absolute;left:375px;top:1px;border:1px solid #ccc;background:#eee;border-radius:3px;padding:0px 4px;white-space:nowrap;" class="wrongaddra">Обратитесь в ГИВЦ для уточнения адреса организации</span></span>');
+          myMap = new ymaps.Map('maps', {
+                                     center: $('#post').attr('coordinates').split(/\s*,\s*/),
+                                     zoom: 15,
+                                     behaviors: ['default', 'scrollZoom'], controls: []
+                                 });
+
+	          myMap.geoObjects.add(
+	          new ymaps.GeoObject({
+                                     geometry: {
+                                           type: "Point",
+                                           coordinates: $('#post').attr('coordinates').split(/\s*,\s*/), //res.geoObjects.get(0).geometry.getCoordinates()
+                                     },
+                                     properties: {
+                                           iconContent: '',
+                                           hintContent: '',
+                                           balloonContent: ''
+                                     }
+                                  }, {
+                                     preset: 'islands#blackStretchyIcon'
+                                  })
+          );
+     }); //ymaps.ready
+
+  }); //$(document).ready(function()
+
+
+
+})
+ </script>
+
+
+<style>
+  a {
+    color:#003;
+    //text-decoration:none;
+    text-decoration-color:#99c;
+  }
+  .inst_add:before {
+    content: '';
+    display:none;
+}
+</style>
+<body id="body" style="display:block; min-width:800px;padding:0px 0px;font:normal 400 16px Calibri;">
+
+
+<div id='btn_navi' style=''>
+    <div id='ToC' style='white-space:nowrap;padding:10px 15px 10px 15px;border-left:2px solid #9FCEB3;background:#667F71;box-shadow:-1px 0px 10px rgba(255,255,255,0.4);'></div>
+</div>
+
+
+
+
+<center id='instheader' style='width:100%;box-shadow:0px 0px 5px 3px rgba(0,0,0,0.4);border-bottom:1px solid #87B5BA;background:url(../../../img/Light_blue_button.png) no-repeat;background-size:100% 100%;font-family:Cambria;padding-bottom:5px;position:fixed;top:0px;z-index:999;'><p style='text-align:center;'>Информационно-аналитические материалы по результатам проведения<br>
+мониторинга 2015 года деятельности образовательной организации высшего образования</p><span style='text-shadow:1px 1px 1px rgba(255,255,255,0.85);'><b>Верхнесалдинский филиал НАЧОУВО"Уральский институт экономики, управления и права"</b></span></center>
+   <script>
+        function createChart(values, pzk) {
+                    $("#chart").kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: [1,1,1,1,1,1,1],
+                            width: "2px",
+                            color: "#FF0000",
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {
+                                visible: true
+                            }
+                        }],
+                        categoryAxis: {
+                            categories: ["Образовательная \n деятельность", "Научно-исследовательская \n деятельность", "Международная \n деятельность", "Финансово - \n экономическая \n деятельность", "Заработная \n плата ППС", (pzk==1 ? "Трудоустройство" :"Приведенный \n контингент"), "Дополнительный \n показатель"], labels: {font:"15px/14px Calibri"}
+                        },
+                        valueAxis: {
+                            max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4),min: 0,
+                            visible: false,
+                            labels: { format: "" }
+                        },
+                        tooltip: { visible: false, format: "${0} bln" },
+                        points:  { visible: true }
+                    });
+                }
+          function createChart_DOP(obj, N, count, median, values, pzk, type) {
+                    var categs = [];
+                    //if(N==7) alert(Math.max(Math.ceil(Math.max.apply(Math, values)),1.4));
+                    for(i=0;i<count;i++) {
+                      categs[i] = '' + N + '.' + (i+1);
+                      //values[i] = (values[i]!=1 ? 1.2: values[i]);
+                    }
+                    if(count==1) {
+                      categs[1] = '';
+                      categs[2] = '';
+                    }
+
+                    $('#'+obj+'').kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: median,
+                            width: "2px",
+                            color: (type=='a' ? "#20b2aa" : "#64400f"),
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {visible: true }
+                        }],
+                        categoryAxis: { categories: categs, labels: {font:"14px Calibri"} },
+                        valueAxis: {max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4), min: 0, visible: false,labels: { format: "" }},
+                        tooltip: { visible: false, format: "${0} bln" },
+                        points:  { visible: true }
+                    });
+                }
+
+            </script>
+<div>
+  <div class="block section" style=""><a name='I'></a>
+	 I. Общие сведения<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <table id='info' cellspacing='2' >
+                 <tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><b style='font-family:Cambria;'>Верхнесалдинский филиал Негосударственного аккредитованного частного образовательного учреждения высшего образования "Уральский институт экономики, управления и права"</b></td></tr><tr><td class='tt'>Регион,<br />адрес</td>
+                     <td><a href='material.php?type=2&id=10804'>Свердловская область</a><br /><span id='post' coordinates='60.555999, 58.046644'>624760, Свердловская область, г.Верхняя Салда, ул. Воронина, д.13, корпус 1</span><span style='white-space:nowrap;'>
+                   <span style='font:normal 700 11px/11px Arial;cursor:pointer;border:1px solid #bbb;background:#eee url(../../../img/struct_icon_1.png) 3px 1px no-repeat;border-radius:4px;padding:2px 5px 2px 22px;margin-left:10px;' onclick='$("#maps").parent("div").slideToggle(500);' id='onmap'>на карте</span> |
+                   <span style='font:normal 700 11px/11px Arial;cursor:pointer;border:1px solid #bbb;background:#eee;border-radius:4px;padding:2px 5px;position:relative;' id='in_city' ><span style='text-decoration:underline;text-decoration-style:dotted;'>также в этом городе</span><div class='inst_add' style='width:450px;white-space:normal;top:19px;border-radius:2px;padding:5px;background:#FEFFEB;overflow-y:auto;max-height:600px;cursor:normal;'><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Филиал УрФУ в г. Верхняя Салда</div></div></span></span><div style='display:none;'>
+                          <div id='maps' style='margin-top:5px;height:315px;min-width:500px;border:1px solid #aab;'></div>
+
+                       </div></td></tr><tr><td class='tt'>Ректор</td>
+                     <td>Асадов Али Мамедович</td></tr><tr><td class='tt'>Ведомственная принадлежность</td>
+                     <td>Частные образовательные организации</td></tr><tr><td class='tt'>web-сайт</td>
+                     <td>http://www.urep.ru</td></tr><tr><td class='tt'>Учредитель(и)</td>
+                     <td><p>Асадов Али Мамедович</p><p>Бахрах Демьян Николаевич</p><p>Кириллова Мария Яковлевна</p><p>Мазуров Владимир Данилович</p><p>Нестерова Дарья Владимировна</p><p>Смирнов Алексей Иванович</p></td></tr><tr><td class='tt'>Профиль организации</td>
+                     <td style='background:url(../../../img/temp/specific_0.png) 1px center no-repeat;padding-left:20px;'>образовательные организации, не имеющие специфики деятельности</td></tr><tr><td class='tt'>Результат оценки эффективности деятельности</td>
+                     <td style='background:url(../../../img/temp/st_4_0.png) left center no-repeat;padding-left:19px;font: normal 400 15px/15px Calibri;'>по результатам мониторинга 2014 года (по данным за 2013 год) не выполнил 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК</td></tr><tr><td colspan='2'><b>Сведения о головной образовательной организации</b></td></tr><tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><a href='inst.php?id=2067'>Негосударственное аккредитованное частное образовательное учреждение высшего образования "Уральский институт экономики, управления и права"</a></td></tr><tr><td class='tt'>Регион</td>
+                     <td>Свердловская область</td></tr><tr><td class='tt'>Результат оценки эффективности деятельности</td>
+                     <td style='background:url(../../../img/temp/st_1_0.png) left center no-repeat;padding-left:19px;font: normal 400 15px/15px Calibri;'>выполнил 4 или более показателей</td></tr></table>  </div>
+</div>
+
+
+
+<p style='font: normal 13px/14px Calibri;padding:10px 60px;'><sup>*</sup>Сведения по показателям мониторинга деятельности <b><u>не показаны</u></b> для образовательных организаций: <br /> - находящихся в стадии реорганизации;
+    <br /> - по результатам мониторинга 2014 года не выполнивших 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК.</p>
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+
+</body>
+
+</html>

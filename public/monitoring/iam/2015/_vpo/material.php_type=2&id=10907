@@ -1,0 +1,548 @@
+<!-- Cached copy, generated 20:15 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+
+  $(".block").click(function() {
+    	$(this).parent().children(".blockcontent").slideToggle(300,function() {
+		if ($(this).css('display')=='none') {
+ 		  $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+ 		 } else {
+		  $('body, html').animate({scrollTop: $(this).parent().offset().top-3}, 250);
+    	 }
+         set_Copyright();
+        });
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+      });
+  $(document).ready(function(){
+     $(".blockcontent").each(function(indx, element){
+       if ($(this).css('display')=='none')
+ 		 $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+       else
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+
+        set_Copyright();
+     })
+  });
+
+  $('.inst').hover(function(e) {
+
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                      //$('.inst_add').css('text-decoration','none');
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){ //alert('f');
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    //alert($(this).attr('ugs'));
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+  $(document).ready(function(){
+
+     $('#cv_e').text(set_ending($('#cv').text()));
+     $('#cf_e').text(set_ending($('#cf').text()));
+     createChart();
+
+
+  });
+
+  $('#show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom']
+                                   });
+  	          myMap.controls.add('mapTools');
+  	          myMap.controls.add('zoomControl');
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: 'img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds());
+
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+})
+
+function set_ending(R) {
+  if((R%10==0) | ((R%10>=5) & (R%10<=9)) | ((R>10) & (R%100<15))) return "ов";
+  else if(((R > 10) & (R%100>=15) & (R%10=='1')) | ((R <= 10) & (R%10=='1'))) return "";
+  else  return "а";
+}
+
+ </script>
+
+
+
+<body id="body" style="display:block; min-width:800px;padding:0px 0px;font:normal 400 16px Calibri;">
+<div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+  <div id='maps'></div>
+  <div style='float:right;position:absolute;top:0px;right:0px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+</div>
+
+
+<center>
+<p style='text-align:center'>Информационно-аналитические материалы по результатам проведения<br>
+мониторинга деятельности образовательных организаций высшего образования 2015 года</p>
+
+<table style='margin:40px 40px;'>
+          <td style='border:none;height:150px;padding-left:170px;vertical-align:middle;font-size:40px;background: url(../../../img/temp/gerb/AltaiRepublicCoatofArms.png) 0px center no-repeat; background-size: contain; '>Республика Алтай</td>
+        </table><script>
+   function createChart() {
+       $('#chart1').kendoChart({
+	                           legend: {visible: false},
+	                           seriesDefaults: {type: "bar", stack: true,
+	                                                labels: {visible: false,  background: "rgba(255,255,255,0.6)", color:"#000",
+	   						                        format: "N0"    },
+	                   },
+	                           series: [{
+	                               name: "st_1",
+	                               data: [1, ],
+	                               color: "#34BD45"
+	                           }, {
+	                               name: "st_0",
+	                               data: [, ],
+	                               color: "#606060"
+	                           }, {
+	                               name: "st_3",
+	                               data: [, ],
+	                               color: "#C4CFEE"
+	                           }, {
+	                               name: "st_4",
+	                               data: [, ],
+	                               color: "#D74F4F"
+	                           }, {
+	                               name: "st_5",
+	                               data: [, ],
+	                               color: "#D3D3D3"
+	                           }],
+	                           valueAxis: {max: 2, line: {visible: false }, minorGridLines: { visible: true }},
+	                           categoryAxis: [{
+	                               categories: ["вузы", "филиалы"], labels: {font:"13px Calibri"},
+	                               majorGridLines: {visible: false}
+	                           }],
+	                           tooltip: {visible: true,template: "#= value #"}
+                    });
+
+          $('#chart2').kendoChart({
+	                          legend: {visible: false},
+	                          seriesDefaults: {type: "bar", stack: true,
+	                                               labels: {visible: false,  background: "rgba(255,255,255,0.6)",   color:"#000",
+	  						                        format: "N0"    },
+	                  },
+	                          series: [{
+	                              name: "st_1",
+	                              data: [,,,,,],
+	                              color: "#34BD45"
+	                          }, {
+	                              name: "st_0",
+	                              data: [,,,,,],
+	                              color: "#606060"
+	                          }, {
+	                              name: "st_3",
+	                              data: [,,,,,],
+	                              color: "#C4CFEE"
+	                          }, {
+	                              name: "st_4",
+	                              data: [,,,,,],
+	                              color: "#D74F4F"
+	                          }, {
+	                              name: "st_5",
+	                              data: [,,,,,],
+	                              color: "#D3D3D3"
+	                          }],
+	                          valueAxis: {max: 2, line: {visible: false }, minorGridLines: { visible: true }},
+	                          categoryAxis: [{
+
+
+	                              categories: ["военной и силовой","медицинской","сельскохозяйственной","творческой","спортивной","транспортной"], labels: {font:"12px Calibri"},
+	                              majorGridLines: {visible: false}
+	                          }],
+	                          tooltip: {visible: true,template: "#= value #"}
+                    });
+
+   }
+
+
+
+
+
+            </script>
+
+
+<p style='text-align:center'>Министерство образования и науки Российской Федерации<br>
+Департамент государственной политики в сфере высшего
+образования</p>
+</center><br />
+
+<div>
+  <div class="block section" style="">
+	 1. Перечень показателей для анализа эффективности деятельности образовательной организации<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+        <table id='metodika' width="100%" >
+          <tr><td></td><td style='text-align:center;'><b>Единица измерения</b></td><td style='text-align:center;'><b>Специфика<br />деятельности</b></td><td style='text-align:center;'><b>Пороговое значение</b></td></tr>
+          <tr style='background:#eee;'><td colspan='4'><b>E.1. Образовательная деятельность</b></td></td></tr>
+          <tr><td style='padding-left:15px;'>Е.1.1. Средний балл единого государственного экзамена (далее ЕГЭ) студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td rowspan='2' class='vfirew'>60,00</td></tr>          <tr><td style='padding-left:15px;'>Е.1.2. Средний балл студентов, принятых по результатам ЕГЭ и результатам испытаний профессиональной направленности/творческих испытаний (проводимых по 100-бальной шкале) на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.2. Научно-исследовательская деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.2.1. Объем научно-исследовательских и опытно-конструкторских работ (далее НИОКР в расчете на одного научно-педагогического работника (далее НПР)</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td rowspan='2' class='vfirew'>51,28</td></tr>          <tr><td style='padding-left:15px;'>Е.2.2. Объем НИОКР и средств, направленных на творческие проекты, в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.3. Международная деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес численности иностранных студентов, обучающихся по программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>1,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.4. Финансово-экономическая деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Доходы образовательной организации из всех источников в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td>Все</td>
+              <td class='vfirew'>1 327,57</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.5. Заработная плата ППС</b></td></tr>
+          <tr><td style='padding-left:15px;'>Отношение заработной платы профессорско-преподавательского состава к средней заработной плате по экономике региона</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>125,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.6. Трудоустройство (показатель для вузов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес выпускников, трудоустроившихся в течение календарного года, следующего за годом выпуска, в общей численности выпускников образовательной организации обучавшихся по основным образовательным программам высшего образования</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>75,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.7. Контингент студентов (показатель для филиалов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Приведенный контингент студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td>Все</td>
+              <td class='vfirew'>220,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.8. Дополнительные показатели образовательных организаций</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.8.1. Доля преподавателей военно-профессиональных, специальных учебных дисциплин, имеющих профильное высшее образование, опыт работы в войсках (на флотах), штабах, управлениях, частях, воинских формированиях, организациях, не менее 5 лет, воинское (специальное) звание не ниже «майор», а также боевой опыт, в том числе ликвидации чрезвычайных ситуаций природного и техногенного характера или государственные награды, государственные или отраслевые почетные звания, государственные премии</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p></td>
+              <td class='vfirew'>50,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.2. Доля работников (приведенных к числу ставок) из числа профессорско-преподавательского состава, имеющих государственные почетные звания, лауреатов международных и всероссийских конкурсов, лауреатов государственных премий, в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+              <td class='vfirew'>51,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.3. Доля студентов, включенных в списки кандидатов в спортивные сборные команды Российской Федерации по видам спорта, в общей численности студентов</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td class='vfirew'>5,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.4. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям раздела 14.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p></td>
+              <td class='vfirew'>69,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.5. Среднегодовой контингент обучающихся по программам повышения квалификации и профессиональной переподготовки, реализуемых на базе образовательных программ и направлений подготовки, отражающих специфику образовательной организации</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p></td>
+              <td class='vfirew'>7,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.6. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям разделов 03.00.00, 05.20.00, 06.00.00, 25.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td class='vfirew'>59,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.7. Численность сотрудников, из числа ППС (приведенных к доле ставки), имеющих ученые степени кандидата или доктора наук, в расчете на 100 студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p></td>
+              <td class='vfirew'>2,78</td></tr>
+        </table>
+        <p style='margin-top:10px;font-size:13px;'><a href='attach/АК-30_05вн_30.03.2015.pdf' style='padding-left:19px; background:url(../../../img/save_pdf_act.png) left center no-repeat;'>Методика расчета показателей мониторинга эффективности образовательных организаций высшего образования 2015 года (pdf)</a></p>
+
+  </div>
+</div>
+
+<div>
+  <div class="block section">
+	 2. Общая статистика<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <p>В мониторинге принимали участие: <b id='cv'>1</b> вуз<span id='cv_e'>(-ов)</span>, <b id='cf'>0</b> филиал<span id='cf_e'>(-ов)</span>.</span></p><div id='chart1' style='height:120px;'></div><p>В том числе образовательные организации, обладающие спецификой деятельности:</p><div id='chart2' style='height:260px;width:70%;'></div>
+
+
+    <div style='font-size:13px;'>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#34BD45;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили 4 и более показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#606060;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили менее 4 показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#C4CFEE;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - в стадии реорганизации/реорганизованы;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D74F4F;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - по результатам мониторинга 2014 года (по данным за 2013 год) не выполнили 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D3D3D3;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - проводится анализ достоверности предоставленных данных;</span>
+
+    </div>
+  </div>
+</div>
+<div>
+  <div class="block section">
+	 3. Результаты мониторинга деятельности образовательных организаций высшего образования по вузам и филиалам<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Математи-<br />еские и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=53 icon='1' coordinates='85.971432, 51.960268' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=53'>Горно-Алтайский государственный университет</a><div id='add53' class='inst_add'><div class='adr'><p><b>г. Горно-Алтайск</b></p><p style='padding:7px 0px;'>649000, Республика Алтай, г. Горно-Алтайск, ул. Ленкина, 1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'>-</div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:28.236172153578% 100%'>681</td><td class='dkont' style='background-size:3.6487270917987% 100%'>88</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:12.272991126959% 100%'>296</td><td class='dkont' style='background-size:18.185587527987% 100%'>438,6</td><td class='dkont' style='background-size:30.039804295547% 100%'>724,5</td><td class='dkont' style='background-size:6.7874616469027% 100%'>163,7</td><td class='dkont' style='background-size:0.82925615722697% 100%'>20</td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 11px/17px Calibri;color:#000;padding-top:5px;'>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_1_0.png) 0px 2px no-repeat;'> - выполнили 4 и более показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_0_0.png) 0px 2px no-repeat;'> - выполнили менее 4 показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_3_0.png) 0px 2px no-repeat;'> - вузы (филиалы), находящиеся в стадии реорганизации/реорганизованные</p>
+       <!--<p style='padding-left:17px;background:url(../../../img/temp/st_4_0.png) 0px 2px no-repeat;'> - вузы (филиалы), по результатам мониторинга прошлого года выполнившие менее 4-х показателей и не предоставившие информацию о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК</p>-->
+       <p style='padding-left:17px;background:url(../../../img/temp/st_5_0.png) 0px 2px no-repeat;'> - проводится анализ достоверности предоставленных данных; вузы (филиалы), по результатам мониторинга 2014 года (по данным за 2013 год) не выполнившие 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</p>
+       <p><i>[X]</i> - количество выполненных показателей</p><hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_1.png) no-repeat;'> - образовательные организации военной и силовой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> - образовательные организации медицинской направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> - образовательные организации сельскохозяйственной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> - образовательные организации творческой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> - образовательные организации спортивной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> - образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+<div>
+  <div class="block section">
+	 4. Эффективность региональной образовательной системы<sup>*</sup><div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+<table id='trud'>
+        <tr style='text-align:center;font: normal 400 13px/12px Calibri;'><td></td>
+            <!--<td style='width:9%;text-align:center;'><b>Количество ОО</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество УГС в регионе</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество допущенных к обработке, чел.</b></td>-->
+            <td style='width:15%;text-align:center;'><b>Численность выпускников 2013 года<sup>**</sup>, трудоустроенных в 2014 году, чел.</b></td>
+            <td style='width:15%;text-align:center;'><b>Доля трудоустроенных выпускников, %</b></td>
+            <td style='width:15%;text-align:center;'><b>Средняя заработная плата выпускников, тыс. руб.</b></td></tr><tr style='background:#eee;'><td style='text-align:left;'><!--Количество УГС в регионе - --></td>
+	        <td>762</td>
+	        <td>65,5</b></td>
+            <td>16,83</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='1' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>01.00.00 - МАТЕМАТИКА И МЕХАНИКА</td>
+	        <td>27</td>
+	        <td>73,0</b></td>
+            <td>17,56</b></td> </tr><tr id='tr_vuz' ugs='1' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>27</td>
+	        <td>73,0</b></td>
+            <td>17,56</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='3' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>03.00.00 - ФИЗИКА И АСТРОНОМИЯ</td>
+	        <td>22</td>
+	        <td>84,6</b></td>
+            <td>15,27</b></td> </tr><tr id='tr_vuz' ugs='3' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>22</td>
+	        <td>84,6</b></td>
+            <td>15,27</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='4' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>04.00.00 - ХИМИЯ</td>
+	        <td>110</td>
+	        <td>65,1</b></td>
+            <td>19,31</b></td> </tr><tr id='tr_vuz' ugs='4' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>110</td>
+	        <td>65,1</b></td>
+            <td>19,31</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='5' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>05.00.00 - НАУКИ О ЗЕМЛЕ</td>
+	        <td>43</td>
+	        <td>47,3</b></td>
+            <td>13,57</b></td> </tr><tr id='tr_vuz' ugs='5' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>43</td>
+	        <td>47,3</b></td>
+            <td>13,57</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='6' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>06.00.00 - БИОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>23</td>
+	        <td>69,7</b></td>
+            <td>11,63</b></td> </tr><tr id='tr_vuz' ugs='6' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>23</td>
+	        <td>69,7</b></td>
+            <td>11,63</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='9' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>09.00.00 - ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА</td>
+	        <td>23</td>
+	        <td>54,8</b></td>
+            <td>15,33</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>23</td>
+	        <td>54,8</b></td>
+            <td>15,33</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='35' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>35.00.00 - СЕЛЬСКОЕ, ЛЕСНОЕ И РЫБНОЕ ХОЗЯЙСТВО</td>
+	        <td>44</td>
+	        <td>55,7</b></td>
+            <td>13,93</b></td> </tr><tr id='tr_vuz' ugs='35' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>44</td>
+	        <td>55,7</b></td>
+            <td>13,93</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='38' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>38.00.00 - ЭКОНОМИКА И УПРАВЛЕНИЕ</td>
+	        <td>143</td>
+	        <td>73,0</b></td>
+            <td>17,66</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>143</td>
+	        <td>73,0</b></td>
+            <td>17,66</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='40' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>40.00.00 - ЮРИСПРУДЕНЦИЯ</td>
+	        <td>18</td>
+	        <td>52,9</b></td>
+            <td>16,58</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>18</td>
+	        <td>52,9</b></td>
+            <td>16,58</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='44' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>44.00.00 - ОБРАЗОВАНИЕ И ПЕДАГОГИЧЕСКИЕ НАУКИ</td>
+	        <td>238</td>
+	        <td>70,2</b></td>
+            <td>17,23</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>238</td>
+	        <td>70,2</b></td>
+            <td>17,23</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='45' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>45.00.00 - ЯЗЫКОЗНАНИЕ И ЛИТЕРАТУРОВЕДЕНИЕ</td>
+	        <td>23</td>
+	        <td>67,6</b></td>
+            <td>17,42</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>23</td>
+	        <td>67,6</b></td>
+            <td>17,42</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='46' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>46.00.00 - ИСТОРИЯ И АРХЕОЛОГИЯ</td>
+	        <td>48</td>
+	        <td>57,8</b></td>
+            <td>15,53</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Горно-Алтайский государственный университет»</td>
+	        <td>48</td>
+	        <td>57,8</b></td>
+            <td>15,53</b></td> </tr></table><p style='font: normal 13px/14px Calibri;'><br /><sup>*</sup>Сведения о трудоустройстве выпускников образовательных организаций получены в рамках соглашения Минобрнауки России, Рособрнадзора и Пенсионного фонда России по данным, предоставленным образовательными организациями в ФРДО.</p><p style='font: normal 13px/14px Calibri;'><sup>**</sup>Приведены статистически значимые данные (численность выпускников по УГН(С) более 10 человек).</p>  </div>
+</div>
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+

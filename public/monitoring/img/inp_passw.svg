@@ -1,0 +1,15 @@
+<svg width="16px" height="16px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+
+  <path d="M3.5 7.5h9a1 1 0 0 1 1 1 v5 a1 1 0 0 1 -1 1 h-9 a1 1 0 0 1 -1 -1 v-5 a1 1 0 0 1 1 -1 z" stroke-width="1.1" stroke="none" fill="#455" />
+
+
+
+  
+  <path d="M5 8.2  a3.2 4 0 1 1 6 0" stroke="#455" stroke-width="1.5" fill="none" /> 
+  
+  <circle cx='8' cy='10.5' r='1.4'  stroke="none" fill="#FFF"  />
+  <polyline  points="8,10 8,13.3" stroke-width="1.1" stroke="#FFF" fill="none" />
+  
+  
+</svg>

@@ -1,0 +1,270 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name = "viewport" content = "width=device-width, initial-scale=1">
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (СПО)</title>
+<link rel="shortcut icon" href="/img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/materials.css" />
+<link rel="stylesheet" type="text/css" href="css/kendo.css" />
+</head>
+<script src="js/jquery.min.js"></script>
+<script src="js/kendo.js"></script>
+
+<style>
+#newsblock p:hover { color:#233; } 
+#navmw a {
+  text-decoration:none;	color:#888;
+}
+#navmw a:hover {
+  text-decoration:underline;
+}
+.ent_b {
+  
+  user-select: none;
+  outline: none;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  background: #DCE6EA linear-gradient(#f4f4f4, #f1f1f1);
+  transition: all .218s ease 0s;
+  cursor:pointer;
+
+}
+.ent_b:hover {
+  background: #EFF3F4 linear-gradient(#f4f4f4, #f1f1f1);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+.ent_b:active {
+  background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
+  box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+.wlink {
+	min-height:20px;margin:15px 0px;padding:5px 20px 5px 35px;font:normal 400 15px/16px Calibri;color:#333;
+	background-position: left 10px top 5px;
+		background-repeat:no-repeat;text-shadow:none;
+transition-delay: 0s;
+transition-duration: 0.2s;
+transition-property: all;
+transition-timing-function: ease;
+}
+.wlink:hover {background-color:rgba(0,0,0,0.05);}
+.send-asc {
+	background-attachment: scroll;
+background-clip: border-box;
+background-color: #22917B;
+border-radius: 5px;
+box-sizing: border-box;
+color: rgb(255, 255, 255);
+display: inline-block;
+font-family: "Fira Sans",  sans-serif;
+font-size: 14px;
+font-weight: 600;
+width:180px;
+text-align:center;
+line-height: 24px;
+margin:10px;
+margin-top: 24px;
+padding-bottom: 7px;
+padding-left: 16px;
+padding-right: 16px;
+padding-top: 5px;
+text-shadow:none;
+text-decoration: rgb(255, 255, 255);
+text-decoration-color: rgb(255, 255, 255);
+text-decoration-line: none;
+text-decoration-style: solid;
+text-decoration-thickness: auto;
+transition-delay: 0s;
+transition-duration: 0.5s;
+transition-property: all;
+transition-timing-function: ease;
+
+}
+.send-asc:hover {
+	
+background-color: #27827B;
+}
+
+ .navi_header p {font-family: Calibri;
+  padding:0px 15px;color:#333;
+
+
+</style>
+<script>
+$(document).mouseup(function (e) {
+    var container = $("#auth");
+    if (container.has(e.target).length === 0){
+        container.hide();
+    }
+});
+</script>
+
+<body id="body" style="display:block; min-width:1200px;padding:0px;font:normal 400 16px Calibri;background: #ddd;">
+
+<table id="pheader" style="min-width:1200px;width: 100%;background: url(img/monitoring_logo/lh_rr.png);">
+  <tr style="height:155px; background: url(img/monitoring_logo/lh_mm.png);">
+    <td style="padding:0px;background: url(img/monitoring_logo/bb_l.png) repeat-y right, url(img/monitoring_logo/lh_rr.png);"></td>
+    <td style="padding:0px;min-width:1200px;width:1200px !important;position:relative;
+			background: url(img/monitoring_logo/logo_setka.png) left top no-repeat, url(img/monitoring_logo/lh_m.png) no-repeat;text-align:right;vertical-align:top;">
+     <div style='position:absolute;background:url(img/monitoring_logo/logo_givc.svg) left 15px top 38px no-repeat;background-size:112px;height:100%;width:100%;text-align:left;'>
+	   <span style='color:#141E54;font: normal 700 11px/11px Calibri;text-shadow:0.5px 0.5px 1px rgba(255,255,255,0.2);font-stretch:condensed;position:absolute;left:15px; top:22px;'>МИРЭА &ndash; Российский технологический университет</span>
+	   <span style='color:#141E54;font: normal 700 11px/11px Calibri;text-shadow:0.5px 0.5px 1px rgba(255,255,255,0.2);position:absolute;left:15px; top:97px;'>ГЛАВНЫЙ ИНФОРМАЦИОННО-<br />ВЫЧИСЛИТЕЛЬНЫЙ ЦЕНТР </span>
+	 </div>  	<div style="text-align:right;position:relative;top:25px; left:-30px;">
+	         <div style="font:normal normal 400 11px Tahoma; color:#EFF0F4;padding-bottom:15px;">
+
+	            <a href='/'                  style='font-size:12px;background:url(img/ti_home.svg) left top 1px no-repeat;padding-left:15px;'></a> |
+	            <a href='mailto:stat_vpo@miccedu.ru' style='font-size:12px;'>&#9993;</a> |
+	            <a href='http://forum.miccedu.ru/'   style='font-size:11px;background:url(img/ti_forum.svg) left top 1px no-repeat;padding-left:15px;'>Форум</a> | 
+				<span style='font-size:11px;background:url(img/ti_login.svg) left top 1px no-repeat;padding-left:15px;cursor:pointer;' onclick='$("#auth").slideDown(300);'>Войти</span>
+				
+				<div id='auth' style='color:#265568;padding:10px;position:absolute;right:0px;top:27px;z-index:1000;width:210px;text-align:left;background:url(img/login.png) top left no-repeat, #BFC5CC;border-radius:5px;box-shadow:3px 3px 6px rgba(0,0,0,0.5);display:none;'>
+				  			  	    <form action='auth.php/?'  method='post'>
+   				      <input name='login'    type='text'     id='log'   class='input_logpass_text in_login' style='width:180px;padding-left:21px;background:url(img/inp_login.svg) top 4px left 3px no-repeat,#fff;' value="Имя пользователя" onblur="if (this.value=='') {this.value = 'Имя пользователя';}" onfocus="if (this.value=='Имя пользователя') {this.value = '';}" /> <br />
+		              <div style='vertical-align:middle;'>
+					    <input name='password' type='password' id='passw' class='input_logpass_text in_pass'  style='vertical-align:middle;width:150px;padding-left:21px;background:url(img/inp_passw.svg) top 4px left 3px no-repeat,#fff;' value="Пароль"           onblur="if (this.value=='') {this.value = 'Пароль';}" onfocus="if (this.value=='Пароль') {this.value = '';}" /> 
+				        <input type='submit' value='' class='input_logpass_text ent_b' style='vertical-align:middle;width:25px;height:26px;margin-left:2px;background-image:url(img/ti_enter.svg);background-position:center center; background-repeat:no-repeat;' />
+					  </div>
+				      					
+					</form>
+				    <p style='margin:5px 0px;padding:4px 6px;color:#fff;background:url(img/login.png) top left -20px no-repeat, #722D2D;border-radius:4px;border:1px solid #500;display:none;'></p>
+				    <p style='color:#500;border-left:3px solid #824444;padding-left:5px;margin:5px 0px;font:italic 400 12px/11px Calibri;'>Авторизация предусмотрена только для зарегистрированных в информационной системе сотрудников Министерства науки и высшего образования РФ, Министерства просвещения РФ, Главного информационно-вычислительного центра</p>
+                    <!--<a href="#" style="text-decoration:underline;" onclick = "log_password();">Восстановить пароль</a> <br />-->
+				  				</div>
+
+
+	         </div>
+
+
+            <div style="font:normal normal 400 20px/27px Tahoma; color:#EFF0F4; text-shadow: -1px -0px 1px rgba(0,0,0,0.6);">
+      	         </div>
+      </div>
+    </td>
+    <td style="padding:0px;background: url(img/monitoring_logo/bb_r.png) repeat-y left, url(img/monitoring_logo/lh_rr.png);"></td>
+  </tr>
+</table>
+
+
+<div style="width:1200px !important;min-width:1200px;max-width:1200px; background: #fff;border:none;padding-top:10px;position:relative;margin:0 auto;box-shadow:0px 2px 4px 4px rgba(0,0,0,0.25) ">
+      <table style="margin-top:10px">
+        <tr style="vertical-align:top;">
+          <td style="width:900px;padding:0px 30px;">
+	                             <div class="casemonitoring" style="background-image: url(img/monitoring_logo/case_vpo.png);" onclick="window.location.search = '?m=vpo';">
+                      <div style="font:normal 400 25px Arial;color:#455;">МОНИТОРИНГ ДЕЯТЕЛЬНОСТИ ОРГАНИЗАЦИЙ ВЫСШЕГО ОБРАЗОВАНИЯ</div>
+                      <div style="font:normal 400 14px Tahoma;color:#778;">Департамент координации деятельности организаций высшего образования<br /> Министерства науки и высшего образования Российской Федерации</div>
+                    </div>
+                    <div class="casemonitoring" style="background-image: url(img/monitoring_logo/case_spo.png);" onclick="window.location.search = '?m=spo';">
+                      <div style="font:normal 400 25px Arial;color:#455;">МОНИТОРИНГ КАЧЕСТВА ПОДГОТОВКИ КАДРОВ</div>
+                      <div style="font:normal 400 14px Tahoma;color:#778;">Департамент государственной политики в сфере среднего профессионального образования и профессионального обучения Министерства просвещения Российской Федерации </div>
+					<!--<div style='font:normal 400 16px Arial;text-decoration:none;padding:20px;'><a href='https://monitoring.miccedu.ru/iam/2022/accreditation_monitoring.php'>Данные аккредитационного мониторинга</a></div>-->
+                    </div>
+                           </td>
+          
+              <td  style='padding:0px;border:none;width:215px;'>
+						 
+						 
+						 <div class='navi_header' style='min-height:400px;padding:10px 0px;border-radius:6px;border:none;box-shadow:none;border-left:3px solid #C3D8C8; background:#F2F9F4;'>
+						   <p style='font-size:16px;'><b>Полезные ссылки</b></p>
+						 <!--<span style='margin:15px;font-size:18px;letter-spacing: 0.059em;'>Ссылки</span>-->
+						 
+						   <div class='wlink' style='background-image:url(img/ti_web.svg);'><a href='https://miccedu.ru'>Сайт ГИВЦ</a></div>
+						   <div class='wlink' style='background-image:url(img/ti_lc.svg);'><a href='http://stat.miccedu.ru/cabinet/'>Вход</a> в личный кабинет образовательной организации <span style='font-size:11px;line-height:10px;color:#777;'>для участия в мониторинге</span></div>
+						   <div class='wlink' style='background-image:url(img/ti_lc.svg);'><span><a href='http://stat.miccedu.ru/cabinet/'>Вход</a> в личный кабинет органа исполнительной власти субъекта Российской Федерации </span><span style='font-size:11px;line-height:10px;color:#777;'>для  контроля предоставления сведений подведомственными организациями</span></div>
+						   <hr style='margin:10px 10px;'/>
+						   <p style='font-size:16px;'>Техническая поддержка</p>
+						   <p style='font-size:19px;'><b>+7 (499) 785-22-87 </b></p>
+						   
+						   <!--<p style='font-size:16px;'>Эл. почта: general@miccedu.ru</p>-->
+						   <a href='https://miccedu.ru/contact/' class='send-asc'>Задать вопрос</a>
+						 
+						 </div>
+						 </td>
+						           
+        </tr>
+      </table>
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

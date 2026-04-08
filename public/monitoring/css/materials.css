@@ -1,0 +1,502 @@
+td {border: 1px solid #777;}
+
+.section {
+  position:relative;
+  font: normal normal 700 19px Calibri;
+  position: relative;
+  cursor: pointer;
+  padding: 7px 30px 7px 10px; 
+  margin: 8px 35px;
+  background:#e3eff0 url(../img/block_bg.png) bottom repeat-x;
+  text-shadow:rgba(255, 255, 255, 0.75) 1px 1px 0px;
+}
+
+.section:hover {
+  background-color: #E0E3E5;
+}
+
+.section .nav {
+  position:absolute;
+  bottom:7px;
+  right:6px;
+  float:right;
+  height:24px;
+  width:24px;
+  vertical-align:middle;
+  background:url(../img/down_7848.png) center center no-repeat;
+  opacity:0.55;
+}
+
+
+.blockcontent {
+  padding: 4px 35px 15px 56px;
+  font:normal 400 15px Tahoma;
+  color:#444;
+}
+
+
+thead td {
+  text-align: center;
+  vertical-align:middle;
+}
+
+.an tbody td{
+  border:none;
+  border-right:1px solid #bbb;
+  border-bottom:1px solid #bbb;
+  text-align:right;
+  vertical-align:top;
+}
+
+.an tbody td span{
+  white-space: nowrap;
+  padding-right:14px;
+  font:normal normal 700 15px/normal Calibri;
+}
+
+.hres {
+  background: #efefef;
+  vertical-align:top;
+  width:75px;
+  font: normal normal 400 10px/10px Calibri;
+  padding-bottom:3px;
+}
+
+.inst {
+  padding:3px 10px;font: normal 400 11px/12px Tahoma;
+  position:relative;
+}
+
+.inst:hover a {
+   text-decoration:underline;
+}
+
+#in_city:hover .inst_add {
+  display: block;
+}
+
+.inst a {
+  color: #000;
+  text-decoration: none;
+}
+
+.dkont {
+  padding:1px 3px;
+  white-space: nowrap;
+  font: normal 400 11px Tahoma;
+  min-width:30px;
+  background: url(../img/gradd.png) right 0px top 1px no-repeat;
+}
+
+.ifail td {
+  border:none;
+  border-bottom:1px solid #ccc;
+  font: normal 400 11px Tahoma;
+  padding:1px 10px;
+}
+
+#trud {
+  font: normal 400 13px Calibri;
+}
+
+#trud td{
+  border:none;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding:2px 4px;
+  text-align:right;
+}
+
+#metodika td{
+  border:none;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding:2px 4px;
+  font: normal 400 13px Calibri;
+}
+
+#metodika p {
+  white-space: nowrap; 
+  vetical-align:middle;
+  min-height:17px;
+}
+
+#metodika .vfirew {
+  text-align:center;
+  font:normal 400 16px Calibri;
+}
+
+thead#otr td{
+  text-align:center;
+  vertical-align:middle;
+  font: normal 400 9px/10px Arial;
+  background: #eee;
+  //white-space:pre;
+  padding:3px;
+}
+
+thead#otr .otrasl{
+            -webkit-transform: rotate(-90deg); transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+  text-align:left;
+  
+  vertical-align:middle;
+  font: normal 400 9px/9px Arial;
+  background: #eee;
+  
+  white-space:pre;
+  padding-bottom:3px;
+  background:transparent;
+  
+}
+
+
+.inst_add {
+  position:absolute;
+  right:-408px;
+  top:-5px;
+  width:400px;
+  border:1px solid #aaa;
+  border-radius:4px;
+  box-shadow: 3px 3px 4px 1px rgba(0,0,0,0.35);
+  background: #f7faff; 
+  padding:7px;
+  display:none;
+  font: normal 400 15px/14px Arial;
+  z-index: 100;
+  color: #335;
+}
+
+.inst_add:before {
+  content: '';
+  position: absolute;
+  width: 17px;
+  height: 15px;
+  left: -17px;
+  top: 7px;
+  background: transparent url(../img/nos.png) no-repeat left center;
+}
+
+.inst_add a {
+  color:#00F;
+  text-decoration: underline;
+}
+
+.inst_add .adr {
+  padding: 0px 0px 8px 25px;
+  background: transparent url(../img/struct_icon_4_.png) 0px 0px no-repeat;
+  font: normal 400 13px/14px Tahoma;
+}
+
+.inst_add .anothervuz {
+  padding-left:17px;
+  padding-top:3px;
+  min-height:14px;
+  font:normal 400 11px/12px Tahoma;
+}
+
+.inst_add .uch {
+  padding: 0px 0px 8px 25px;
+  background: transparent url(../img/struct_icon_13_.png) 0px 0px no-repeat;
+  font: normal 400 13px/14px Tahoma;
+}
+
+#analis_dop thead td, #analis_reg thead td, .napde .napr_head td, #result thead td {   
+  background:#eee;
+  text-align:center;
+  vertical-align:middle;
+  font:normal normal 700 11px Arial;
+  padding:2px 4px 3px;
+  color:#000;
+}
+
+#analis_dop td, #analis_reg td, .napde td,  #result td {
+  font:normal 400 11px Tahoma;
+  vertical-align:top;
+  text-align:center;
+  border: 1px solid #999;
+  padding:2px 4px 3px;
+  color:#000;
+}
+
+#result td {
+  font:normal 400 13px Tahoma;
+  padding:4px 6px;
+  white-space: nowrap;
+  vertical-align:middle;
+  height:26px;
+}
+
+#analis_dop td.n, .napde td.n, #result td.n {
+  text-align:left;
+  
+}
+#result td.n {
+  font:normal 400 13px Tahoma;
+}
+#analis_dop td.sec, #analis_reg td.sec {
+  font:normal 700 11px Arial;
+  background:#e5e5e5;
+}
+
+.subsection {
+  font:normal 400 27px Arial;
+  position:relative;
+  margin-left:-20px;
+  }
+
+.napde {
+  margin-bottom:10px;
+}
+
+.napde .med {
+  color:#777;
+  white-space:nowrap;
+}
+
+table#info {
+  border-spacing:7px;
+  border-collapse:separate;
+}
+
+table#info td {
+  border: none;
+  font: normal 400 15px Calibri;
+}
+
+
+
+.dopchart {
+  margin-bottom:10px;
+  margin-top:3px;
+  position:relative;
+}
+
+.dopchart div { 
+  display:inline-block;
+  width:160px;
+  vertical-align:top;
+  font: normal 400 11px Tahoma;
+  color:#555;text-align:left;
+}
+
+.dopchart div[id^=chart] {
+  width:275px;
+  height:275px;
+}
+
+#newsblock{
+  vertical-align:top;
+  border-left:1px solid #888;
+  width:200px;
+  padding-left:8px;
+}
+
+#newsblock h4 {
+  font: normal oblique 700 12px Arial;
+}
+
+#newsblock p {
+  font:normal normal 400 11px Tahoma;
+  margin-bottom:15px;
+}
+
+.news_block_header {
+  background:#DEF9E5;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+  border:1px solid #DAF2E0;
+}
+  
+#btn_vote {
+  position:fixed;
+  top:-10px;
+  z-index:1000;
+  border-radius:5px;
+  border:1px solid #546590;
+  box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.5) inset, 3px 3px 6px 1px rgba(0,0,0,0.5);
+  padding:16px 15px 10px 35px;
+  background:#425070 url(../img/Thumbs_Up.png) 8px 14px no-repeat;
+  color:#EFDACB;
+  cursor:pointer;
+  font: normal 400 13px Calibri;
+  opacity:0.9;
+}
+
+#btn_vote:hover {
+  color:#FCEADE;
+  opacity:1;
+}
+  
+  
+#btn_navi {
+  position:fixed;
+  left:-100px;
+  z-index:1000;
+  border-radius:10px;
+  border:1px solid #648271;
+  box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.5) inset, 3px 3px 6px 0px rgba(0,0,0,0.4);
+  padding:0px 0px 0px 32px;
+  background:#566270 url(../img/oglavlenie.png) 8px center no-repeat;
+  color:#313C56;
+  cursor:pointer;
+  opacity:0.9;
+  min-height:110px;
+  font: normal 400 15px Tahoma;
+}
+
+#btn_navi:hover {
+  color:#FCEADE;
+  opacity:1;
+}
+
+#ToC a {
+  color:#f3f4f3;
+  font: normal 400 14px/25px Tahoma;
+  //text-shadow:1px 1px 1px rgba(0,0,0,0.5);
+  text-decoration:none;
+}
+
+#ToC a:hover {
+  color:#fff;
+  text-decoration:underline;
+}
+ 
+a[name] {
+  position:absolute;
+}
+
+.E_growth {
+  width:75px;
+  text-align:left;
+  padding-left:18px;
+}
+
+.E_growth sup {
+  font:normal 400 11px Tahoma;
+  white-space:nowrap;
+  color:#001;
+}
+
+.E_growth sub {
+  font:normal 400 11px Tahoma;
+  white-space:nowrap;
+  color:#897;
+  //margin-left:-6px;
+
+}
+
+.td_ugs_n {
+  background:url(../img/cp_r.png) left center no-repeat;
+}
+
+.td_ugs_v {
+  background:url(../img/cp_d.png) left center no-repeat;
+}
+
+
+.status_hint_btn {
+  position:absolute;
+  display:inline-block;
+  height:16px;
+  width:16px;
+  background:url(../img/question-white.png) no-repeat;
+}
+
+.status_hint {
+  top:18px;
+  left:-200px;
+  width:250px;
+  position:absolute;
+  display:block;
+  border:1px solid #aaa;
+  border-radius:4px;
+  box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.15);
+  background: #FEFFEC; 
+  padding:7px;
+  font: normal 400 11px/12px Arial;
+  z-index: 100;
+
+}
+
+
+#statistic .statistic_info {
+  border:1px solid #9ab;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  border-radius:5px;
+  //opacity:0.8;
+  background:rgba(237,249,244,0.6);
+
+}
+.statistic_info td {
+  vertical-align:baseline;
+  border:none;
+  font: normal 400 13px Tahoma;
+  color:#455;
+  padding:0px 2px;
+  //white-space:no-wrap;
+  
+  }
+  
+span.val {
+font: normal 700 21px Arial;
+color:#456;
+
+}
+#map_of_russia g#map path {
+  stroke-width: 0.6;
+  fill: #EBEBEB; 
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: 0.25;
+  display:inline;  
+
+}
+
+#statistic_role #statistic_info_reg td {
+  color:#788;
+}
+
+#statistic_role #statistic_info_reg td span.val {
+  color:#728282;
+}
+
+
+#kont_by_otr g text {
+  font:normal 700 11px Arial;
+  stroke-width:0;
+  stroke:#000000;
+  fill:#000000;
+  text-shadow:1px 1px 1px rgba(255,255,255,0.8);
+
+}
+
+#kont_by_otr thead td {
+  background:#e5e5e5;
+  vertical-align:middle;
+  font:normal 400 10px/9px Tahoma;
+  padding:2px 6px 4px;
+  text-align:left;
+  border:4px solid rgb(237,249,244);
+
+}
+
+.kk_cb {
+  border: 1px solid #bbb;
+  border-radius:4px;
+  padding:0px 10px;
+  font:normal 400 10px Tahoma;
+  cursor: pointer;
+  background:rgba(0,0,0,0.02);
+  color:#677;
+}
+
+.kk_cb.sel {
+  border: 1px solid #260D22;
+  font:normal 400 10px Tahoma;
+  cursor: pointer;
+  background:#A0398F;
+  color:#E0F9E4;
+}

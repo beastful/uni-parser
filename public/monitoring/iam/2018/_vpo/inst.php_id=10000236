@@ -1,0 +1,1046 @@
+<!-- Cached copy, generated 22:59 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+var rMap;
+
+$(function() {
+  $('#wrongaddrq').hover(function(e) {$(this).children('.wrongaddra').css('display','block');},
+                         function(e) {$(this).children('.wrongaddra').css('display','none');});
+
+
+  $("#btn_navi").hover(function(e) {$('#ToC').stop().show(200);}
+                      ,function(e) {$('#ToC').stop().hide(0);});
+  $('#ToC').click(function(){ $('#ToC').stop().hide(0); });
+
+  $(window).scroll(function(){
+    $('#instheader').css('top',-1*Math.min(30,$(window).scrollTop()));
+  });
+
+
+  $(document).ready(function(){
+     ss = 21;
+	      while($('#inst_name').height()>26) {
+	        ss=ss-1;
+	        $('#inst_name').css('font-size',ss+'px');
+	        $('#inst_name').css('line-height',ss+'px');
+	        if(ss<17) $('#inst_name').css('font-weight','bold');
+     }
+
+
+     $('body').css('padding-top',$('#instheader').height()+parseInt($('#instheader').css('padding-bottom'))).children('#instheader').css('position','fixed');
+
+
+     set_Copyright();
+
+     $('.section').each(function(indx, el){
+       $('#ToC').html($('#ToC').html()+'<a href=#'+$(el).children('a').attr('name')+' onclick="$(\'a[name='+$(el).children('a').attr('name')+']\').parent(\'div\').parent(\'div\').children(\'.blockcontent\').slideDown(300,function(){if ($(\'.statistic_info\').length>0) rMap.setBounds(rMap.geoObjects.getBounds(),{checkZoomRange:true, zoomMargin: [170,550,10,10]});});">'+$(el).text()+'</a><br />');
+       $(el).parent('div').find('.subsection').each(function(i, sel){
+         $('#ToC').html($('#ToC').html()+'<a href=#'+$(sel).children('a').attr('name')+' style="margin-left:25px;font-size:13px;" onclick="$(\'a[name='+$(sel).children('a').attr('name')+']\').parent(\'span\').parent(\'.blockcontent\').slideDown(0);">'+$(sel).text()+'</a><br />');
+       });
+
+
+     });
+     $('#btn_navi').height($('#ToC').height()+20).css('top',($(window).height()-$('#ToC').height())/2+'px').children('div').hide(0);
+     $('#btn_navi').animate({left:-10},1000);
+
+     $('a[name]').css('top','-'+parseInt($('#instheader').height()-30+12)+'px');
+
+     ymaps.ready(function() {
+          var Map;
+          $('#maps').parent('div').append('<span style="font:normal 400 11px Tahoma;position:relative;" onmouseover="$(\'.wrongaddra\').fadeIn(50);" onmouseout="$(\'.wrongaddra\').fadeOut(50);"><span style="color:#888;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;">Неверно отображается местоположение образовательной организации?</span> <span style="text-decorationnone;color:#222;display:none;position:absolute;left:375px;top:1px;border:1px solid #ccc;background:#eee;border-radius:3px;padding:0px 4px;white-space:nowrap;" class="wrongaddra">Обратитесь в ГИВЦ для уточнения адреса организации</span></span>');
+          Map = new ymaps.Map('maps', {
+                                     center: $('#post').attr('coordinates').split(/\s*,\s*/),
+                                     zoom: 15,
+                                     behaviors: ['default', 'scrollZoom'], controls: []
+                                 });
+
+	          Map.geoObjects.add(
+	          new ymaps.GeoObject({
+                                     geometry: {
+                                           type: "Point",
+                                           coordinates: $('#post').attr('coordinates').split(/\s*,\s*/), //res.geoObjects.get(0).geometry.getCoordinates()
+                                     },
+                                     properties: {
+                                           iconContent: '',
+                                           hintContent: '',
+                                           balloonContent: ''
+                                     }
+                                   })
+          );
+
+
+         rMap = new ymaps.Map('region_map', {
+                                     center: $('#post').attr('coordinates').split(/\s*,\s*/),
+                                     zoom: 5,
+                                     behaviors: [],
+                                     controls: []
+                                 });
+
+          $('.anothervuz[coordinates]').each(function(idx,el){
+            if($(el).attr('coordinates')!='') {
+  	            rMap.geoObjects.add(
+		    	              new ymaps.GeoObject({
+		                                         geometry: {
+		                                               type: "Point",
+		                                               coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+		                                         },
+		                                         properties: {
+		                                               iconContent: '',
+		                                               hintContent: $(el).children('a').text(),
+		                                               balloonContent: ''
+		                                         }
+		                                      }, {
+		                                               iconLayout: 'default#image',
+		                                               iconImageHref: '../../../img/temp/st_map_'+$(el).attr('icon')+'.png',
+		                                               iconImageSize: [19, 15],
+		  											         iconImageOffset: [-6, -6]
+		                                      })
+             );
+            }
+          });
+	      rMap.geoObjects.add(
+	         new ymaps.GeoObject({
+                                     geometry: {
+                                           type: "Point",
+                                           coordinates: $('#post').attr('coordinates').split(/\s*,\s*/), //res.geoObjects.get(0).geometry.getCoordinates()
+                                     },
+                                     properties: {
+                                           iconContent: '',
+                                           hintContent: 'Институт технологий (филиал) ДГТУ в г.Волгодонске',
+                                           balloonContent: ''
+                                     }
+                                  }, {
+                                     preset: 'twirl#nightDotIcon'
+                                  })
+          );
+          rMap.setBounds(rMap.geoObjects.getBounds(),{checkZoomRange:true, zoomMargin: [170,550,10,10]});
+
+     }); //ymaps.ready
+
+  }); //$(document).ready(function()
+
+
+
+})
+
+        function createChart(values, pzk) {
+                    $("#chart").kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: [1,1,1,1,1,1],
+                            width: "2px",
+                            color: "#FF0000",
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {
+                                visible: true
+                            }
+                        }],
+                        categoryAxis: {
+                            categories: ["Образовательная \n деятельность", "Научно-\nисследовательская \n деятельность", (pzk==1 ? "Международная \n деятельность" : "Финансово - \n экономическая \n деятельность"), (pzk==1 ? "Финансово-экономическая \n деятельность" : "Трудоустройство"), (pzk==1 ? "Трудоустройство" : "Приведенный \n контингент"), "Дополнительный \n показатель"], labels: {font:"11px/12px Tahoma"}
+                        },
+                        valueAxis: {
+                            max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4),min: 0,
+                            visible: false,
+                            labels: { format: "" }
+                        },
+                        tooltip: { visible: true, template: "#= categoryAxis.categories #"},
+                        points:  { visible: true }
+                    });
+                }
+          function createChart_DOP(obj, N, count, median, values, pzk, type) {
+                    var categs = [];
+                    //if(N==7) alert(Math.max(Math.ceil(Math.max.apply(Math, values)),1.4));
+                    for(i=0;i<count;i++) {
+                      categs[i] = '' + N + '.' + (i+1);
+                      //values[i] = (values[i]!=1 ? 1.2: values[i]);
+                    }
+                    if(count==1) {
+                      categs[1] = '';
+                      categs[2] = '';
+                    }
+
+                    $('#'+obj+'').kendoChart({
+                        legend: { visible: false },
+                        seriesDefaults: { type: "radarLine" },
+                        series: [{
+                            name: "Пороговые значения",
+                            data: median,
+                            width: "2px",
+                            color: (type=='a' ? "#20b2aa" : "#64400f"),
+                            markers: {visible: true, width:"3px" }
+                        },{
+                            name: "Показатели вуза",
+                            data: values,
+                            color: "#045B5B",
+                            width: "4px",
+                            markers: {visible: true }
+                        }],
+                        categoryAxis: { categories: categs, labels: {font:"12px Tahoma"} },
+                        valueAxis: {max: Math.max(Math.ceil(Math.max.apply(Math, values)),1.4), min: 0, visible: false,labels: { format: "" }},
+                        tooltip: { visible: false, format: "${0} bln" },
+                        points:  { visible: true }
+                    });
+                }
+
+            </script>
+
+<style>
+  a {
+    color:#003;
+    text-decoration-style: dotted;
+    text-decoration-color:#99c;
+  }
+  .inst_add:before {
+    content: '';
+    display:none;
+}
+</style>
+
+<body id="body" style="display:block; min-width:1200px;padding:0px;font:normal 400 16px Calibri;">
+  <div id='btn_navi' style=''>
+    <div id='ToC' style='white-space:nowrap;padding:10px 15px 10px 15px;border-left:2px solid #9FCEB3;background:#485E76;box-shadow:-1px 0px 10px rgba(255,255,255,0.4);'></div>
+  </div>
+
+
+<table id="instheader" style="box-shadow:0px 2px 5px rgba(0,0,0,0.7);width: 100%;background: url(../../../img/monitoring_logo/lh_rr.png);position:fixed;top:0px;z-index:999;">
+  <tr style="height:74px; background: url(../../../img/monitoring_logo/lh_mm.png) 0px -66px;">
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, url(../../../img/monitoring_logo/lh_rr.png) 0px -66px;"></td>
+    <td style="border:none;min-width:1200px;width:1200px !important; background: url(../../../img/monitoring_logo/lh_m_material.png)  0px -66px no-repeat;text-align:right;vertical-align:top;">
+      <div id='doc_name' style="text-align:right;position:relative;padding:1px 30px 3px 0px;background:rgba(0,0,0,0.2);font:normal 400 13px Tahoma; color:#E3E4E8;">
+	               <a href='/' style='font-size:12px;background:url(../../../img/ti_home.svg) left top 1px no-repeat;padding-left:15px;'></a> | 
+				   <a href='/?m=vpo&year=2018' style='font-size:12px;color:#E3E4E8;text-decoration:none;'>Информационно-аналитические материалы по результатам проведения мониторинга
+	                эффективности деятельности образовательных организаций высшего образования 2018 года</a>
+      </div>
+      <div id='inst_name' style='margin:11px 30px 0px;min-height:25px;font:normal normal 400 21px Arial; color:#E8EAF4;text-shadow:1px 1px 1px rgba(0,0,0,0.5);vertical-align:bottom;'>Институт технологий (филиал) ДГТУ в г.Волгодонске</div>
+    </td>
+    <td style="border:none;background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, url(../../../img/monitoring_logo/lh_rr.png) 0px -66px;"></td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table style="width: 100%;">
+  <tr style="height:255px;">
+    <td style="background: url(../../../img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;"></td>
+    <td style="width:1200px !important; background: #fff;border:none;padding-top:10px;">
+
+
+<div>
+  <div class="block section" style=""><a name='I'></a>I. Общие сведения</div>
+  <div class="blockcontent" style="display:block;">
+    <table id='info' cellspacing='2' style='color:#000;width:100%;'>
+                 <tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><b style='font-family:Cambria;'>Институт технологий (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Донской государственный технический университет" в г.Волгодонске Ростовской области</b></td></tr><tr><td class='tt'>Регион,<br />адрес</td>
+                     <td><a href='material.php?type=2&id=10703'>Ростовская область</a><br /><span id='post' coordinates='42.228427, 47.527771'>347387, Ростовская область, г. Волгодонск, пр-кт Мира, 47</span><span style='font:normal 700 11px/11px Arial;cursor:pointer;border:1px solid #bbb;background:#eee url(../../../img/struct_icon_1.png) 3px 1px no-repeat;border-radius:4px;padding:2px 5px 2px 22px;margin-left:10px;' onclick='$("#maps").parent("div").slideToggle(500);' id='onmap'>на карте</span><div style='display:none;'>
+                          <div id='maps' style='margin-top:5px;height:315px;min-width:500px;border:1px solid #aab;'></div>
+
+                       </div></td></tr><tr><td class='tt'>Ведомственная принадлежность</td>
+                     <td>Министерство образования и науки Российской Федерации</td></tr><tr><td class='tt'>web-сайт</td>
+                     <td>http://www.vis2.ru</td></tr><tr><td class='tt'>Учредитель(и)</td>
+                     <td><p>Министерство образования и науки Российской Федерации </p></td></tr><tr><td class='tt'>Профиль организации</td>
+                     <td style='background:url(../../../img/temp/specific_0.png) 1px center no-repeat;padding-left:20px;'>образовательные организации, не имеющие специфики деятельности</td></tr><tr><td colspan='2'><b>Сведения о головной образовательной организации</b></td></tr><tr><td class='tt'>Наименование образовательной организации</td>
+                     <td><a href='inst.php?id=70'>федеральное государственное бюджетное образовательное учреждение высшего образования «Донской государственный технический университет»</a></td></tr><tr><td class='tt'>Регион</td>
+                     <td>Ростовская область</td></tr></table>  </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+      createChart([0.9355,1.6538611544462,1.3366074858576,0.92307692307692,1.3854545454545,0.66187050359712], 0);createChart_DOP('chart1_a',1,15,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1.0034602076125,1.0034602076125,0.99116022099448,0.99592298980747,0,0,0,0,0,0,0,0,0,0,0],0,'a');createChart_DOP('chart1_b',1,15,[1,1,1,1,0,0,1,1,1,1,1,1,1,1,1],[1.0583941605839,1.0583941605839,1.0166225916131,1.0025079799362,0,0,0,0,0,0,0,0,0,0,0],0,'b');createChart_DOP('chart2_a',2,16,[0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0],[0,0,0,0,0,0,1.2052631578947,1.5031446540881,1,1.3257777083008,0,0,0,0,0,0],0,'a');createChart_DOP('chart2_b',2,16,[0,0,0,0,0,0,1,1,1,1,0,0,1,1,0,0],[0,0,0,0,0,0,1,1,1,1.1225678358703,0,0,0,0,0,0],0,'b');createChart_DOP('chart3_a',3,13,[1,1,1,1,1,1,1,1,1,1,1,1,1],[0,1.8032786885246,2,0,2,0,0,0,0,0,0,0,0],0,'a');createChart_DOP('chart3_b',3,13,[1,1,1,1,1,1,0,1,1,0,1,0,1],[0,0.88,2,0,2,0,0,0,0,0,0,0,0],0,'b');createChart_DOP('chart4_a',4,4,[1,1,1,1],[1.0902784144739,1.2885755487903,1.1963525516371,0.74422348484848],0,'a');createChart_DOP('chart4_b',4,4,[1,1,1,1],[1.140650978386,1.3865517241379,1.1315867965798,0.72293257290038],0,'b');createChart_DOP('chart5_a',5,8,[1,1,1,1,1,1,1,1],[0.7443729903537,0,0,2,0,1.5,0.37080405932865,1.1553705440901],0,'a');createChart_DOP('chart5_b',5,8,[1,1,1,1,1,1,1,1],[0.93914807302231,0,0,2,0,1.448275862069,0.33604527767952,1.0264076253972],0,'b');createChart_DOP('chart6_a',6,1,[1],[0.92307692307692],0,'a');createChart_DOP('chart6_b',6,1,[1],[1],0,'b');createChart_DOP('chart7_a',7,5,[1,1,1,1,1],[1.1783420899008,1.4888888888889,1.1804483188045,0.59047619047619,1.1017838405037],0,'a');createChart_DOP('chart7_b',7,5,[1,1,1,1,1],[1.1303373932521,0.98460461861442,1.0809670429924,0.63698630136986,1.0623498166182],0,'b');});
+         </script>
+
+<div>
+  <div class="block section"><a name='II' style='page-break-before:always;'></a>II. Сведения по показателям мониторинга эффективности деятельности</div>
+  <div class="blockcontent" style="display:block;">
+<span class='subsection' style='font-size:25px;'><a name='IIa'></a>Позиции организации по основным показателям в сравнении с пороговыми значениями</span>
+<center style='vertical-align:top;margin:35px 0px 5px;width:100%;'>
+<div style='border:3px solid #ccc;border-radius:15px;padding:8px;width:400px;min-width:400px;margin-right:30px;position:relative;top:-6px;display:inline-block;'>
+   <div id="chart" onclick="return false;" style='height:270px;width:400;max-width:400;position:relative;'></div>
+   <div style='position:absolute;bottom:5px;font: normal 400 11px Tahoma;color:#788;text-align:left;'>
+     <p style='padding-left:35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+     <p style='padding-left:35px;background:url(../../../img/legend_porog.png) left center no-repeat;'>пороговые значения</p>
+   </div>
+</div>
+
+<table id='result' style='display:inline-block;'>
+      <tr><thead><td>№</td><td>Наименование показателя</td>
+
+          <td>Значение<br />показателя</td>
+          <td>Пороговое<br />значение</td>
+          <td style='line-height:10px;'>Изменение<br />относительно<br />прошлого года</td></tr></thead><tr><td>E.1</td><td class='n'>Образовательная деятельность</td>
+          <td style='color:#d00'><span style='padding-right:14px;background:url(../../../img/neok.png) right center no-repeat;'>56,13</span></td>
+          <td>60,00</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_u.png) left center no-repeat;'><sup>+8,5%</sup><sub>(51,74)</sub></span></td></tr><tr><td>E.2</td><td class='n'>Научно-исследовательская деятельность</td>
+          <td style='color:#050'><span style='padding-right:14px;background:url(../../../img/ok.png) right center no-repeat;'>84,81</span></td>
+          <td>51,28</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_u.png) left center no-repeat;'><sup>+16,5%</sup><sub>(72,81)</sub></span></td></tr><tr><td>E.4</td><td class='n'>Финансово-экономическая деятельность</td>
+          <td style='color:#050'><span style='padding-right:14px;background:url(../../../img/ok.png) right center no-repeat;'>1 774,44</span></td>
+          <td>1 327,57</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_u.png) left center no-repeat;'><sup>+17,8%</sup><sub>(1 506,68)</sub></span></td></tr>
+      <tr><td>E.5</td><td class='n'>Заработная плата ППС</td>
+          <td style='color:#000'><span style=''>227,63</span></td>
+          <td style='font-size:11px;line-height:10px;'>показатель<br />не оценивается</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_d.png) left center no-repeat;'><sup>&#8211;0,5%</sup><sub>(228,67)</sub></span></td></tr>
+      <tr><td>E.6</td><td class='n'>Трудоустройство</td>
+          <td style='color:#d00'><span style='padding-right:14px;background:url(../../../img/neok.png) right center no-repeat;'>60,00<sup>*</sup></span></td>
+          <td>65,00</td>
+          <td>&mdash;</td></tr><tr><td>E.7</td><td class='n'>Приведенный контингент</td>
+          <td style='color:#050'><span style='padding-right:14px;background:url(../../../img/ok.png) right center no-repeat;'>304,80</span></td>
+          <td>220,00</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_u.png) left center no-repeat;'><sup>+6,0%</sup><sub>(287,60)</sub></span></td></tr><tr><td>E.8</td><td class='n'>Дополнительный показатель</td>
+          <td style='color:#d00'><span style='padding-right:14px;background:url(../../../img/neok.png) right center no-repeat;'>1,84</span></td>
+          <td>2,78</td>
+          <td><span class='E_growth' style='background:url(../../../img/arr_d.png) left center no-repeat;'><sup>&#8211;17,1%</sup><sub>(2,22)</sub></span></td></tr></table>
+
+
+
+</center>
+<hr style='margin-top:10px;width:30%;border-bottom:none;'/>
+<p style='font:normal 400 11px/11px Tahoma;padding-top:2px;'><sup style='font-size:8px;'>*)</sup> Значение показателя рассчитывается на основе данных ФИС «Федеральный реестр сведений о документах об образовании и (или) о квалификации, документах об обучении» (ФРДО), ФИС ГИА и Приема и Пенсионного фонда Российской Федерации.</p>
+
+<p class='doc' style='margin-top:10px;font-size:13px;'><a href='http://stat.miccedu.ru/info/monitoring17/%D0%B8%D0%BA-139-05%D0%B2%D0%BD%20%D0%BE%D1%82%2030.03.2018.pdf' style='padding-left:20px; background:url(../../../img/save_pdf_act.png) left center no-repeat;'>Методика расчета показателей мониторинга 2018 года (ИК-139/05вн от 30.03.2018 г.) (PDF)</a></p>
+
+  </div>
+</div>
+
+<div>
+  <div class="block section"><a name='III' style='page-break-before:always;'></a>III. Результаты мониторинга образовательной организации по направлениям деятельности</div>
+  <div class="blockcontent" style="display:block;">
+
+
+    <span class='subsection'><a name='III_1'></a>Образовательная деятельность</span>
+    <center class='dopchart' style=''>
+           <div id='chart1_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart1_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde'  style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>1.1</td><td class='n'>Средний балл ЕГЭ студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы РФ</td>
+          <td>балл</td><td>58,00</td>
+                <tr><td>1.2</td><td class='n'>Средний балл ЕГЭ студентов университета, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации, за исключением лиц, поступивших с учетом особых прав и в рамках квоты целевого приема</td>
+          <td>балл</td><td>58,00</td>
+                <tr><td>1.3</td><td class='n'>Средний балл ЕГЭ студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+          <td>балл</td><td>53,82</td>
+                <tr><td>1.4</td><td class='n'>Усредненный по реализуемым направлениям (специальностям) минимальный балл ЕГЭ студентов, принятых по результатам ЕГЭ на обучение по очной форме на программы бакалавриата и специалитета</td>
+          <td>балл</td><td>43,97</td>
+                <tr><td>1.5</td><td class='n'>Численность студентов, победителей и призеров заключительного этапа всероссийской олимпиады школьников, членов сборных команд Российской Федерации, участвовавших в международных олимпиадах по общеобразовательным предметам по специальностям и (или) направлениям подготовки, соответствующим профилю всероссийской олимпиады школьников или международной олимпиады, принятых на очную форму обучения на первый курс по программам бакалавриата и специалитета без вступительных испытаний</td>
+          <td>человек</td><td>0</td>
+                <tr><td>1.6</td><td class='n'>Численность студентов, победителей и призеров олимпиад школьников, принятых на очную форму обучения на первый курс по программам бакалавриата и специалитета по специальностям и (или) направлениям подготовки, соответствующим профилю олимпиады школьников, без вступительных испытаний</td>
+          <td>человек</td><td>0</td>
+                <tr><td>1.7</td><td class='n'>Численность студентов, принятых по результатам целевого приема на первый курс на очную форму обучения по программам бакалавриата и специалитета</td>
+          <td>человек</td><td>0</td>
+                <tr><td>1.8</td><td class='n'>Удельный вес численности студентов, принятых по результатам целевого приема на первый курс на очную форму обучения по программам бакалавриата и специалитета в общей численности студентов, принятых на первый курс по программам бакалавриата и специалитета на очную форму обучения</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.9</td><td class='n'>Удельный вес численности студентов (приведенного контингента), обучающихся по программам магистратуры, в общей численности приведенного контингента обучающихся по образовательным программам бакалавриата, специалитета и магистратуры</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.10</td><td class='n'>Удельный вес численности обучающихся (приведенного контингента), по программам магистратуры, подготовки научно-педагогических кадров в аспирантуре (адъюнктуре), ординатуры,  ассистентуры-стажировки в общей численности приведенного контингента обучающихся по основным образовательным программам высшего образования</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.11</td><td class='n'>Удельный вес численности студентов, имеющих диплом бакалавра, специалиста или магистра других организаций, принятых на первый курс на обучение по программам магистратуры образовательной организации, в общей численности студентов, принятых на первый курс по программам магистратуры на очную форму обучения</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.12</td><td class='n'>Удельный вес численности обучающихся по программам магистратуры, подготовки научно-педагогических кадров в аспирантуре (адъюнктуре), ординатуры, ассистентуры-стажировки, имеющих диплом бакалавра, диплом специалиста или диплом магистра других организаций в общей численности обучающихся по программам магистратуры, подготовки научно-педагогических кадров в аспирантуре (адъюнктуре), ординатуры, ассистентуры-стажировки</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.13</td><td class='n'>Численность аспирантов (адъюнктов), ординаторов, ассистентов-стажеров образовательной организации в расчете на 100 студентов (приведенного контингента)</td>
+          <td>человек</td><td>0,00</td>
+                <tr><td>1.14</td><td class='n'>Удельный вес численности слушателей из сторонних организаций в общей численности слушателей, прошедших обучение в образовательной организации по программам повышения квалификации или профессиональной переподготовки</td>
+          <td>%</td><td>0,00</td>
+                <tr><td>1.15</td><td class='n'>Удельный вес численности студентов, обучающихся по направлениям подготовки бакалавриата, специалитета, и магистратуры по областям знаний «Инженерное дело, технологии и технические науки», «Здравоохранение и медицинские науки», «Образование и педагогические науки», с которыми заключены договоры о целевом обучении, в общей численности студентов, обучающихся по указанным областям знаний</td>
+          <td>%</td><td>0,00</td>
+              </table>
+
+
+
+
+    <span class='subsection'><a name='III_2' style='page-break-before:always;'></a>Научно-исследовательская деятельность</span>
+    <center class='dopchart' style=''>
+           <div id='chart2_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart2_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>2.1</td><td class='n'>Количество цитирований публикаций, изданных за последние 5 лет, индексируемых в информационно-аналитической системе научного цитирования Web of Science в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.2</td><td class='n'>Количество цитирований публикаций, изданных за последние 5 лет, индексируемых в информационно-аналитической системе научного цитирования Scopus в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.3</td><td class='n'>Количество цитирований публикаций, изданных за последние 5 лет, индексируемых в Российском индексе научного цитирования (далее – РИНЦ) в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.4</td><td class='n'>Число публикаций организации, индексируемых в информационно-аналитической системе научного цитирования Web of Science, в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.5</td><td class='n'>Число публикаций организации, индексируемых в информационно-аналитической системе научного цитирования Scopus, в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.6</td><td class='n'>Число публикаций организации, индексируемых в информационно-аналитической системе научного цитирования РИНЦ, в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.7</td><td class='n'>Общий объем научно-исследовательских и опытно-конструкторских работ (далее – НИОКР)</td>
+          <td>тыс.руб.</td>
+          <td>2 290,00</td>
+                <tr><td>2.8</td><td class='n'>Удельный вес доходов от НИОКР в общих доходах образовательной организации</td>
+          <td>%</td>
+          <td>4,78</td>
+                <tr><td>2.9</td><td class='n'>Удельный вес НИОКР, выполненных собственными силами (без привлечения соисполнителей), в общих доходах образовательной организации от НИОКР</td>
+          <td>%</td>
+          <td>100,00</td>
+                <tr><td>2.10</td><td class='n'>Доходы от НИОКР (за исключением средств бюджетов бюджетной системы Российской Федерации, государственных фондов поддержки науки) в расчете на одного НПР</td>
+          <td>тыс.руб.</td>
+          <td>84,81</td>
+                <tr><td>2.11</td><td class='n'>Количество лицензионных соглашений</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.12</td><td class='n'>Удельный вес средств, полученных образовательной организацией от использования результатов интеллектуальной деятельности, в общих доходах образовательной организации</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>2.13</td><td class='n'>Удельный вес численности НПР без ученой степени – до 30 лет, кандидатов наук – до 35 лет, докторов наук – до 40 лет, в общей численности НПР</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>2.14</td><td class='n'>Удельный вес научно-педагогических работников, защитивших кандидатские и докторские диссертации за отчетный период в общей численности НПР</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>2.15</td><td class='n'>Количество научных журналов, в том числе электронных, издаваемых образовательной организацией</td>
+          <td>ед.</td>
+          <td>-</td>
+                <tr><td>2.16</td><td class='n'>Количество полученных грантов за отчетный год в расчете на 100 НПР</td>
+          <td>ед.</td>
+          <td>-</td>
+              </table>
+
+
+
+
+    <span class='subsection'><a name='III_3' style='page-break-before:always;'></a>Международная деятельность</span>
+    <center class='dopchart' style=''>
+           <div id='chart3_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart3_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>3.1</td><td class='n'>Удельный вес численности иностранных студентов (кроме стран Содружества Независимых Государств (далее – СНГ)), обучающихся программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.2</td><td class='n'>Удельный вес численности иностранных студентов из СНГ, обучающихся по программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+          <td>%</td>
+          <td>2,20</td>
+                <tr><td>3.3</td><td class='n'>Удельный вес численности иностранных студентов, завершивших освоение образовательных программ бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+          <td>%</td>
+          <td>2,31</td>
+                <tr><td>3.4</td><td class='n'>Удельный вес численности иностранных студентов (кроме стран СНГ), завершивших освоение образовательных программ бакалавриата, программ специалитета, программ магистратуры, в общей численности студентов (приведенный контингент)</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.5</td><td class='n'>Удельный вес численности иностранных студентов из стран СНГ, завершивших освоение образовательных программ бакалавриата, программ специалитета, программ магистратуры, в общей численности студентов (приведенный контингент)</td>
+          <td>%</td>
+          <td>2,31</td>
+                <tr><td>3.6</td><td class='n'>Удельный вес численности студентов, обучающихся по очной форме обучения по образовательным программам бакалавриата, программам специалитета, программам магистратуры, прошедших обучение за рубежом не менее семестра (триместра), в общей численности студентов, обучающихся по очной форме обучения</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.7</td><td class='n'>Численность студентов иностранных образовательных организаций, прошедших обучение в образовательной организации по образовательным по очной форме обучения по образовательным программам бакалавриата, программам специалитета, программам магистратуры, не менее семестра (триместра) в расчете на 100 студентов, обучающихся по очной форме обучения</td>
+          <td>ед.</td>
+          <td>0,00</td>
+                <tr><td>3.8</td><td class='n'>Удельный вес численности иностранных граждан из числа НПР в общей численности НПР</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.9</td><td class='n'>Численность зарубежных ведущих профессоров, преподавателей и исследователей, работающих (работавших) в образовательной организации не менее 1 семестра</td>
+          <td>человек</td>
+          <td>0</td>
+                <tr><td>3.10</td><td class='n'>Удельный вес численности иностранных граждан (кроме стран СНГ) из числа аспирантов (адъюнктов), ординаторов, ассистентов-стажеров образовательной организации в общей численности аспирантов (адъюнктов), ординаторов, ассистентов-стажеров</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.11</td><td class='n'>Удельный вес численности иностранных граждан из стран СНГ из числа аспирантов (адъюнктов), ординаторов, ассистентов-стажеров образовательной организации в общей численности аспирантов (адъюнктов), ординаторов, ассистентов-стажеров</td>
+          <td>%</td>
+          <td>0,00</td>
+                <tr><td>3.12</td><td class='n'>Объем средств, полученных образовательной организацией от выполнения НИОКР от иностранных граждан и иностранных юридических лиц</td>
+          <td>тыс.руб.</td>
+          <td>0,00</td>
+                <tr><td>3.13</td><td class='n'>Объем средств от образовательной деятельности, полученных образовательной организацией от иностранных граждан и иностранных юридических лиц</td>
+          <td>тыс.руб.</td>
+          <td>0,00</td>
+              </table>
+
+
+
+
+
+    <span class='subsection'><a name='III_4' style='page-break-before:always;'></a>Финансово-экономическая деятельность</span>
+    <center class='dopchart' style=''>
+           <div id='chart4_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart4_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>4.1</td><td class='n'>Доходы образовательной организации из средств от приносящей доход деятельности в расчете на одного НПР</td>
+          <td>тыс.руб.</td>
+          <td>1 427,00</td>
+                <tr><td>4.2</td><td class='n'>Доля доходов из средств от приносящей доход деятельности в доходах по всем видам финансового обеспечения (деятельности) образовательной организации</td>
+          <td>%</td>
+          <td>80,42</td>
+                <tr><td>4.3</td><td class='n'>Отношение средней заработной платы НПР в образовательной организации (из всех источников) к средней заработной плате по экономике региона</td>
+          <td>%</td>
+          <td>227,63</td>
+                <tr><td>4.4</td><td class='n'>Доходы образовательной организации из всех источников в расчете на численность студентов (приведенный контингент)</td>
+          <td>тыс.руб.</td>
+          <td>157,18</td>
+              </table>
+
+
+
+
+
+    <span class='subsection'><a name='III_5' style='page-break-before:always;'></a>Инфраструктура</span>
+    <center class='dopchart' style=''>
+           <div id='chart5_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart5_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>5.1</td><td class='n'>Общая площадь учебно-лабораторных помещений в расчете на одного студента (приведенного контингента),<br />в том числе:</td>
+          <td>м<sup>2</sup></td>
+          <td>18,52</td>
+                <tr><td>5.2</td><td class='n' style='padding-left:15px;'>имеющихся на праве собственности</td>
+          <td>м<sup>2</sup></td>
+          <td>0,00</td>
+                <tr><td>5.3</td><td class='n' style='padding-left:15px;'>закрепленных на праве оперативного управления</td>
+          <td>м<sup>2</sup></td>
+          <td>0,00</td>
+                <tr><td>5.4</td><td class='n' style='padding-left:15px;'>предоставленных в безвозмездное пользование</td>
+          <td>м<sup>2</sup></td>
+          <td>18,52</td>
+                <tr><td>5.5</td><td class='n' style='padding-left:15px;'>предоставленных в аренду</td>
+          <td>м<sup>2</sup></td>
+          <td>0,00</td>
+                <tr><td>5.6</td><td class='n'>Количество персональных компьютеров в расчете на одного студента (приведенного контингента)</td>
+          <td>ед.</td>
+          <td>0,84</td>
+                <tr><td>5.7</td><td class='n'>Удельный вес стоимости машин и оборудования (не старше 5 лет) в общей стоимости машин и оборудования</td>
+          <td>%</td>
+          <td>9,50</td>
+                <tr><td>5.8</td><td class='n'>Количество экземпляров печатных учебных изданий (включая учебники и учебные пособия) из общего количества единиц хранения библиотечного фонда, состоящих на учете, в расчете на одного студента (приведенного контингента)</td>
+          <td>ед.</td>
+          <td>197,06</td>
+              </table>
+
+
+
+
+
+    <span class='subsection'><a name='III_6' style='page-break-before:always;'></a>Трудоустройство </span>
+    <center class='dopchart' style=''>
+           <div id='chart6_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart6_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>
+    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>6.1</td><td class='n'>Удельный вес выпускников, трудоустроившихся в течение календарного года, следующего за годом выпуска, в общей численности выпускников образовательной организации обучавшихся по основным образовательным программам высшего образования</td>
+          <td>%</td>
+          <td>60,00</td>
+              </table>
+
+
+
+
+    <span class='subsection'><a name='III_7' style='page-break-before:always;'></a>Кадровый состав</span>
+    <center class='dopchart' style=''>
+           <div id='chart7_a' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_a.png) left center no-repeat;'>медианные значения показателей государственных и муниципальных филиалов</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+           <div id='chart7_b' onclick='return false;'></div>
+           <div>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_med_b.png) left center no-repeat;'>медианные значения показателей филиалов данного региона</p>
+             <p style='padding:10px 0px 10px 35px;background:url(../../../img/legend_value.png) left center no-repeat;'>показатели филиала</p>
+           </div>
+          </center>    <table class='napde' style='width:100%;'>
+      <tr class='napr_head'><td>№ п/п</td><td>Наименование показателя</td>
+          <td>Единица измерения</td>
+          <td>Значение показателя</td>
+                <tr><td>7.1</td><td class='n'>Удельный вес НПР, имеющих ученую степень кандидата наук, в общей численности НПР</td>
+          <td>%</td>
+          <td>80,74</td>
+                <tr><td>7.2</td><td class='n'>Удельный вес НПР имеющих ученую степень доктора наук, в общей численности НПР</td>
+          <td>%</td>
+          <td>14,07</td>
+                <tr><td>7.3</td><td class='n'>Удельный вес НПР, имеющих ученую степень кандидата и доктора наук, в общей численности НПР образовательной организации (без совместителей и работающих по договорам гражданско-правового характера)</td>
+          <td>%</td>
+          <td>94,79</td>
+                <tr><td>7.4</td><td class='n'>Число НПР, имеющих ученую степень кандидата и доктора наук, в расчете на 100 студентов</td>
+          <td>ед.</td>
+          <td>1,86</td>
+                <tr><td>7.5</td><td class='n'>Доля штатных работников ППС в общей численности ППС</td>
+          <td>%</td>
+          <td>84,00</td>
+              </table>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+<div>
+  <div class="block section"><a name='IV' style='page-break-before:always;'></a>IV. Роль организации в системе подготовки кадров для региона  </div>
+  <div class="blockcontent" style="display:block;">
+
+    <div style='height:550px;position:relative;' id='statistic_role'>
+      <div id='region_map' style='border:1px solid #cdd;width:1000px;height:500px;min-width:1000px;min-height:500px;margin:25px;position:absolute;'></div>
+
+      <div id='statistic_info_reg' class='statistic_info' style='z-index:10;position:absolute; padding-right:30px;box-shadow:7px 7px 10px 10px #fff;
+            background: url(../../../img/temp/gerb/Coat_of_arms_of_Rostov_oblast.png) left top no-repeat, #fff;background-size: auto 55px;'>
+        <div style='margin-left: 60.380952380952px;text-shadow: 1px 1px 1px rgba(0,0,0,0.2);font:normal normal 400 15px Tahoma; color:#868A99;padding-top:4px;height:19px;'> Южный федеральный округ</div>
+        <div style='margin-left: 60.380952380952px;text-shadow: 1px 1px 1px rgba(0,0,0,0.4);padding-bottom:4px;font:700 23px Arial;color:#467;'>Ростовская область</div>
+        <table style='margin:3px 10px;'>
+          <tr><td style='text-align:right;'><span class='val'>37</span></td><td>организаций высшего образования<p style='font-size:10px;'>(из числа принявших участие в мониторинге<sup style='font:8px Calibri;'>*</sup>)</p></td></tr>
+          <!--<tr style='border-bottom:1px solid #aaa;'><td style='text-align:right;'>в т.ч.: <span class='val'>25</span></td><td>филиалов</td></tr>-->
+          <tr><td style='text-align:right;'><span class='val'>137 152</span></td><td>студента <span style='font-size:10px;'>(бакалавриата, специалитета, магистратуры)</span></td></tr>
+          <!--<tr><td style='text-align:right;'>в т.ч. <span class='val'>186</span></td><td>очной формы обучения</td></tr>-->
+        </table>
+        <hr style='border:none;border-bottom:1px solid #888;margin:0px 10px;' />
+        <div style='padding:3px 10px 0px;text-shadow: 1px 1px 1px rgba(0,0,0,0.15);font:700 17px Arial;color:#467;'>г. Волгодонск</div>
+        <table style='margin:3px 10px;'>
+          <tr><td style='text-align:right;'><span class='val'>2</span></td><td>организации высшего образования
+             <span style='font:normal 700 11px/11px Arial;cursor:pointer;border:1px solid #bbb;padding:1px 7px 2px;background:#eee;border-radius:4px;position:relative;bottom:1px;display:inline-block;' id='in_city' >
+               <span style='text-decoration:underline;text-decoration-style:dotted;color:#345;display:inline-block;'>список</span>
+               <div class='inst_add' style='width:450px;white-space:normal;top:19px;border-radius:2px;padding:5px;background:#FEFFEB;overflow-y:auto;max-height:600px;cursor:normal;'>
+
+<div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='42.175112, 47.504025'>Волгодонский инженерно-технический институт – филиал федерального государственного автономного образовательного учреждения высшего образования «Национальный исследовательский ядерный университет «МИФИ»</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' >Институт технологий (филиал) ДГТУ в г.Волгодонске</div><div style='font:normal 700 11px Tahoma;padding:8px 0px 4px;'>кроме того, в субъекте РФ:</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.728407, 47.224697'>Федеральное государственное автономное образовательное учреждение высшего образования "Южный федеральный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.717986, 47.222972'>Федеральное государственное бюджетное образовательное учреждение высшего образования "Ростовский государственный экономический университет (РИНХ)"</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='40.107379, 47.512290'>федеральное государственное бюджетное образовательное учреждение высшего образования «Донской государственный аграрный университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.712632, 47.237412'>федеральное государственное бюджетное образовательное учреждение высшего образования «Донской государственный технический университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.706937, 47.219679'>федеральное государственное бюджетное образовательное учреждение высшего образования «Ростовская государственная консерватория им. С.В.Рахманинова»</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.737731, 47.228265'>федеральное государственное бюджетное образовательное учреждение высшего образования «Ростовский государственный медицинский университет» Министерства здравоохранения Российской Федерации</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.698169, 47.250956'>федеральное государственное бюджетное образовательное учреждение высшего образования «Ростовский государственный университет путей сообщения»</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='40.086592, 47.416614'>федеральное государственное бюджетное образовательное учреждение высшего образования «Южно-Российский государственный политехнический университет (НПИ) имени М.И. Платова»</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.769828, 47.254314'>Частное образовательное учреждение высшего образования "Ростовский институт защиты предпринимателя"</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='38.935149, 47.211257'>Частное образовательное учреждение высшего образования "Таганрогский институт управления и экономики"</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.715938, 47.257776'>Частное образовательное учреждение высшего образования "ЮЖНЫЙ УНИВЕРСИТЕТ (ИУБиП)"</div><div class='anothervuz' style='background:url(../../../img/temp/st__2_0.png) 0px 1px no-repeat;' icon='_2' coordinates='39.703928, 47.225829'>Частное учреждение высшего образования "Южно-Российский гуманитарный институт"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.308629, 46.847937'>Азово-Черноморский инженерный институт - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Донской государственный аграрный университет" в г.Зернограде</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.876925, 48.026153'>Гуковский институт экономики и права (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.711887, 47.223339'>Донской казачий государственный институт пищевых технологий и экономики (филиал) Московского государственного университета технологий и управления имени К.Г. Разумовского</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.729161, 47.219073'>Институт водного транспорта имени Г.Я. Седова - филиал Федерального государственного бюджетного образовательного учреждения высшего образования "Государственный морской университет имени адмирала Ф.Ф. Ушакова"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.209958, 47.708558'>Институт сферы обслуживания и предпринимательства (филиал) ДГТУ в г. Шахты </div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.272804, 48.328842'>Каменский институт (филиал) федерального государственного бюджетного образовательного учреждения высшего  образования «Южно-Российский государственный политехнический университет (НПИ) имени М.И. Платова»</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.281544, 48.354168'>Каменский филиал Автономной некоммерческой организации высщего образования "Российский новый университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.087939, 47.418479'>Новочеркасский инженерно-мелиоративный институт имени А.К. Кортунова - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Донской государственный аграрный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='38.918773, 47.221429'>Политехнический институт (филиал) ДГТУ в г. Таганроге </div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.754682, 47.235173'>Ростовский институт (филиал) федерального государственного бюджетного образовательного учреждения высшего образования «Всероссийский государственный университет юстиции (РПА Минюста России)» в г. Ростове-на-Дону</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.709111, 47.217769'>Ростовский филиал государственного казенного образовательного учреждения высшего образования "Российская таможенная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.798808, 47.255134'>Ростовский филиал федерального государственного бюджетного образовательного учреждения высшего образования "Московский государственный технический университет гражданской авиации" (МГТУ ГА)</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.725837, 47.249660'>Ростовский филиал Федерального государственного бюджетного образовательного учреждения высшего образования "Российский государственный университет правосудия" (г. Ростов-на-Дону)</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.70726, 47.217549'>Ростовский-на-Дону филиал федерального государственного бюджетного образовательного учреждения высшего образования "Всероссийский государственный институт кинематографии имени С.А. Герасимова"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.712623, 47.219214'>Северо-Кавказский филиал ордена Трудового Красного Знамени федерального государственного бюджетного образовательного учреждения высшего образования "Московский технический университет связи и информатики"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='38.915665, 47.2638'>Таганрогский институт имени А. П. Чехова (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='38.927792, 47.211036'>Таганрогский филиал Автономной некоммерческой организации высшего образования "Российский новый университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.409352, 47.095108'>Технологический институт (филиал) ДГТУ в г. Азове</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.922218, 47.779776'>Филиал федерального государственного автономного образовательного учреждения высшего образования «Южный федеральный университет» в г. Новошахтинске Ростовской области</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.374852, 48.932165'>Филиал федерального государственного бюджетного образовательного учреждения высшего образования "Ростовский государственный экономический университет (РИНХ)" в г. Миллерово Ростовской области</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.696912, 47.233876'>Филиал Частного образовательного учреждения высшего образования "Московский университет им.С.Ю.Витте" в г. Ростове-на-Дону</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='40.313138, 47.741113'>Шахтинский институт (филиал) федерального государственного бюджетного образовательного учреждения высшего образования "Южно-Российский государственный политехнический университет (НПИ) имени М.И. Платова"</div><div class='anothervuz' style='background:url(../../../img/temp/st__0_0.png) 0px 1px no-repeat;' icon='_0' coordinates='39.713387, 47.224244'>Южно-Российский институт - филиал федерального государственного бюджетного образовательного учреждения высшего образования "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации" </div>
+               </div>
+             </span>
+          </td></tr>
+        </table>
+      </div>
+
+      <div class='statistic_info' style='z-index:15px;position:absolute;bottom:75px;right:2px;border:1px solid #9ab;box-shadow: 2px 2px 5px rgba(0,0,0,0.3);  border-radius:5px;background:rgba(237,249,244,1);'>
+      <div style='background:#DCE5DF;padding:3px;box-shadow:0px 1px 1px rgba(0,0,0,0.2);text-align:center;font:normal 700 13px Tahoma; color:#555;'>Распределение контингента студентов организации</div>
+        <table style='margin:9px 9px 4px;'>
+          <tr><td style='text-align:right;'>обучается <span class='val'>1 374</span></td><td>студента бакалавриата, специалитета, магистратуры<p style='font-size:11px'>(1,00% от контингента по субъекту РФ)</p></td></tr>
+          <tr><td style='text-align:right;'>в т.ч. <span class='val'>186</span></td><td>очной формы обучения</td></tr>
+        </table>
+        <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+		<table style='margin:4px 9px;'>
+			      			      <tr style=''>
+		            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:right;'>за счет бюджетных<br /> ассигнований<br /></td>
+		            <td style='vertical-align:top;text-align:right;'><span class='val'>7,3<span style='font-size:12px;'>%</span></span></td>
+		            <td style='text-align:center;'>
+		              <svg width='179px' height='23px'><g transform="translate(2,0)">
+		                <linearGradient id="kde" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color:#fff;stop-opacity:0;"></stop><stop offset="0.25" style="stop-color:#fff;stop-opacity:0.35;"></stop><stop offset="1" style="stop-color:#fff;stop-opacity:0;"></stop></linearGradient>
+		                <path d="M13 7.5v11H0  v-11z" stroke-width="0.5" stroke-opacity="0.9" stroke="#000" fill="#83A2D3"></path>
+		                <path d="M13 7.5v11H175v-11z" stroke-width="0.5" stroke-opacity="0.6" stroke="#000" fill="#FFB27F"></path>
+		                <path d="M0 7.5H175v11H0z" stroke="none" fill="url(#kde)"></path>
+		                <path d="M13 5v16" stroke="#456" stroke-width="1" ></path>
+		              </g></svg>
+		            </td>
+		            <td style='vertical-align:top;text-align:right;'><span class='val'>92,7<span style='font-size:12px;'>%</span></span></td>
+		            <td style='padding-top:1px;vertical-align:top;font:normal 400 11px/10px Tahoma;text-align:left;'>по договорам об оказании плат-<br />ных образовательных услуг</td>
+		          </tr>
+
+		</table>
+
+        <hr style='border:none;border-bottom:1px solid #aaa;margin:0px 9px;'>
+
+
+        <table id="kont_by_otr" style='margin:6px 25px 10px;'>
+          <thead>
+           <tr style=''><td></td><td>Доля в субъекте РФ</td><td>Приведенный<br /> контингент<br /> студентов</td></tr>
+          </thead>
+	  <tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Математические и естественные науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,214,146)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3' y='15'>0,0%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>0,0</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Инженерное дело, технологии и технические науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,208,152)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3.348058193919' y='15'>0,2%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>59,2</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Здравоохранение и медицинские науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,202,158)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3' y='15'>0,0%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>0,0</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Сельское хозяйство и сельскохозяйственные науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,196,164)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3' y='15'>0,0%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>0,0</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Науки об обществе</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H2V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,190,170)' ></path>
+                 <path d='M0 3.5H2V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='4.8062969059337' y='15'>0,9%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>219,2</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Образование и педагогические науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H1V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,184,176)' ></path>
+                 <path d='M0 3.5H1V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='4.0650811643176' y='15'>0,5%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>24,9</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Гуманитарные науки</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,178,182)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3.1123216893182' y='15'>0,1%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>1,5</span> чел.</td></tr><tr><td style='vertical-align:bottom;padding-bottom:8px;font:normal 400 11px/10px Tahoma;text-align:right;color:#000;'>Искусство и культура</td>
+               <td><svg width='204px' height='20px'><g transform='translate(2,0)'>
+                 <linearGradient id='kdef' x1='0' y1='0' x2='0' y2='1' gradientUnits='objectBoundingBox'><stop offset='0' style='stop-color:#666;stop-opacity:0.4;'></stop><stop offset='0.3' style='stop-color:#ddd;stop-opacity:0.4;'></stop><stop offset='1' style='stop-color:#555;stop-opacity:0.6;'></stop></linearGradient>
+                 <path d='M0 4.5H200V17.5H0z' stroke-width='0.5' stroke-opacity='0.9' stroke='#000' fill='#f9f9f9' ></path>
+                 <path d='M0 3.5H0V18.5H0z' stroke-width='0.5' stroke-opacity='0.6' stroke='#000' fill='rgb(0,172,188)' ></path>
+                 <path d='M0 3.5H0V17.5H0z' stroke='none' fill='url(#kdef)' ></path>
+                 <path d='M0 2V20' stroke='#456' stroke-width='1' ></path>
+                 <text x='3' y='15'>0,0%</text>
+               </g></svg></td>
+               <td style='vertical-align:bottom;padding-bottom:5px;font:normal 400 11px/10px Tahoma;text-align:left;'><span style='font: normal 700 14px Arial;color:#245;'>0,0</span> чел.</td></tr>
+
+	      </table>
+
+
+
+
+
+      </div>
+    </div>
+
+
+<p style='font-size:9px;color:#888;'><sup style=''>*)</sup> Кроме образовательных организаций федеральных государственных органов, осуществляющих подготовку кадров в интересах обороны и безопасности государства, обеспечения законности и правопорядка, а также организаций, не предоставивших сведения в рамках мониторинга.</p>
+
+
+    <table id='analis_reg' style='margin-top:10px;'>
+      <thead>
+        <tr>
+          <td>Реализуемые <span style='white-space:nowrap;'>УГН(С)</span></td>
+          <td>Приведенный контингент студентов</td>
+          <td>Доля приведенного контингента студентов по <span style='white-space:nowrap;'>УГН(С)</span> от общего приведенного контингента студентов организации</td>
+          <td>Доля приведенного контингента студентов от общего приведенного контингента студентов, обучающихся по данной <span style='white-space:nowrap;'>УГН(С)</span> в регионе</td>
+          <td>Число вузов, реализующих образовательные программы данной <span style='white-space:nowrap;'>УГН(С)</span>, в регионе</td>
+          <td>Число филиалов, реализующих образовательные программы данной <span style='white-space:nowrap;'>УГН(С)</span>, в регионе</td>
+        </tr>
+      </thead>
+   <tr><td colspan=9 style='background:#a4d4c4;text-align:left;font: italic 700 14px Calibri;padding:3px;color:#002;'>по перечням, утвержденным приказами Минобрнауки России от 12.09.2013 №1060, №1061</td></tr><tr><td style='text-align:left;min-width:350px;'>09.00.00 - Информатика и вычислительная техника</td>
+                <td>58,2</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:19.09% 100%'>19,1%</td>
+                <td>1,3%</td><td>6</td>
+                <td>11</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>27.00.00 - Управление в технических системах</td>
+                <td>1,0</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:0.33000000000000002% 100%'>0,3%</td>
+                <td>0,1%</td><td>4</td>
+                <td>4</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>37.00.00 - Психологические науки</td>
+                <td>10,9</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:3.5800000000000001% 100%'>3,6%</td>
+                <td>1,0%</td><td>4</td>
+                <td>3</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>38.00.00 - Экономика и управление</td>
+                <td>133,8</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:43.899999999999999% 100%'>43,9%</td>
+                <td>1,0%</td><td>11</td>
+                <td>22</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>39.00.00 - Социология и социальная работа</td>
+                <td>3,0</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:0.97999999999999998% 100%'>1,0%</td>
+                <td>0,6%</td><td>4</td>
+                <td>6</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>43.00.00 - Сервис и туризм</td>
+                <td>71,5</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:23.460000000000001% 100%'>23,5%</td>
+                <td>5,7%</td><td>6</td>
+                <td>3</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>44.00.00 - Образование и педагогические науки</td>
+                <td>24,9</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:8.1699999999999999% 100%'>8,2%</td>
+                <td>0,5%</td><td>4</td>
+                <td>5</td>
+       </tr><tr><td style='text-align:left;min-width:350px;'>46.00.00 - История и археология</td>
+                <td>1,5</td>
+                <td style='background: url(../../../img/gradd.png) right center no-repeat;background-size:0.48999999999999999% 100%'>0,5%</td>
+                <td>0,4%</td><td>2</td>
+                <td>2</td>
+       </tr>    </table>
+     </div>
+
+
+  </div>
+</div>
+
+<div>
+  <div class="block section"><a name='V' style='page-break-before:always;'></a> V. Дополнительные характеристики образовательной организации</div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <table id='analis_dop'><thead>
+      <tr>
+	          <td>№ <span style='white-space:nowrap;'>п/п</span></td>
+	          <td>Наименование показателя</td>
+	          <td>Единица измерения</td>
+        <td>Значение показателя образовательной организации</td></tr>
+      <tr>
+        <td>1</td>         <td>2</td>         <td>3</td>         <td>4</td></tr>
+     </thead>
+   <tr><td colspan='4' class='sec'>Образовательная деятельность</td></tr>
+      <tr><td rowspan='4'>1</td><td class='n'>Общая численность студентов, обучающихся по программам бакалавриата, специалитета, магистратуры</td>                                                                                              <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>1 374</td></tr>
+      <tr>                      <td class='n' style='padding-left:20px;'>в том числе:<br />по очной форме обучения</td>                                                                                                                         <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>186</td></tr>
+      <tr>                      <td class='n' style='padding-left:20px;'>по очно-заочной (вечерней) форме обучения</td>                                                                                                                         <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr>                      <td class='n' style='padding-left:20px;'>по заочной форме обучения</td>                                                                                                                                         <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>1 188</td></tr>
+      <tr><td>2</td>            <td class='n'>Средний балл ЕГЭ студентов, принятых на обучение по программам бакалавриата и специалитета, по всем формам обучения</td>                                                                          <td style='vertical-align:bottom;'>балл</td>          <td style='vertical-align:bottom;'>55,32</td></tr>
+      <tr><td>3</td>            <td class='n'>Доля обучающихся по программам бакалавриата, специалитета, магистратуры в очной форме</td>                                                                                                        <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>13,54</td></tr>
+      <tr><td>4</td>            <td class='n'>Доля обучающихся по программам бакалавриата в общей численности обучающихся по программам бакалавриата, специалитета, магистратуры</td>                                                           <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>100,00</td></tr>
+      <tr><td>5</td>            <td class='n'>Доля обучающихся по программам магистратуры в общей численности обучающихся по программам бакалавриата, специалитета, магистратуры</td>                                                           <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>6</td>            <td class='n'>Общая численность слушателей программ дополнительного профессионального образования</td>                                                                                                          <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>7</td>            <td class='n'>Общая численность обучающихся по программам среднего профессионального образования</td>                                                                                                           <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>8</td>            <td class='n'>Число предприятий, с которыми заключены договоры на подготовку специалистов</td>                                                                                                                  <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>4</td></tr>
+      <tr><td>9</td>            <td class='n'>Число предприятий, являющихся базами практики, с которыми оформлены договорные отношения</td>                                                                                                     <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>162</td></tr>
+   <tr><td colspan='4' class='sec'>Научная деятельность</td></tr>
+      <tr><td>10</td>           <td class='n'>Общий объем средств, поступивших (за отчетный год) от выполнения НИОКР, выполненных собственными силами</td>                                                                                                                                           <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>2 290,0</td></tr>
+      <tr><td>11</td>           <td class='n'>Общий объем средств, поступивших (за отчетный год) от выполнения работ, услуг, связанных с научными, научно-техническими, творческими услугами и разработками, выполненных собственными силами</td>                                                    <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>2 290,0</td></tr>
+      <tr><td>12</td>           <td class='n'>Общее количество публикаций организации в расчете на 100 НПР</td>                                                                                                                                 <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>13</td>           <td class='n'>Количество бизнес-инкубаторов</td>                                                                                                                                                                <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>14</td>           <td class='n'>Количество технопарков</td>                                                                                                                                                                       <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>15</td>           <td class='n'>Количество центров коллективного пользования научным оборудованием</td>                                                                                                                           <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>16</td>           <td class='n'>Количество малых предприятий</td>                                                                                                                                                                 <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>17</td>           <td class='n'>Общая численность аспирантов (адъюнктов), интернов, ординаторов, ассистентов-стажеров</td>                                                                                                                                                                 <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>18</td>           <td class='n'>Доля аспирантов (адъюнктов), интернов, ординаторов, ассистентов-стажеров, обучающихся в очной форме</td>                                                                                                                                                   <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>19</td>           <td class='n'>Общая численность докторантов</td>                                                                                                                                                                <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>20</td>           <td class='n'>Число диссертационных советов</td>                                                                                                                                                                <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+   <tr><td colspan='4' class='sec'>Кадровый потенциал</td></tr>
+      <tr><td>21</td>           <td class='n'>Общая численность работников образовательной организации (без внешних совместителей и работающих по договорам ГПХ)</td>                                                                           <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>39</td></tr>
+      <tr><td>22</td>           <td class='n'>Общая численность ППС (без внешних совместителей и работающих по договорам ГПХ)</td>                                                                                                              <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>21</td></tr>
+      <tr><td>23</td>           <td class='n'>Общая численность научных работников (без внешних совместителей и работающих по договорам ГПХ)</td>                                                                                               <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>24</td>           <td class='n'>Доля ППС, имеющих ученые степени</td>                                                                                                                                                             <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>95,24</td></tr>
+      <tr><td>25</td>           <td class='n'>Доля научных работников, имеющих ученые степени</td>                                                                                                                                              <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>26</td>           <td class='n'>Доля ППС возрастной категории моложе 65 лет</td>                                                                                                                                                  <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>80,95</td></tr>
+      <tr><td>27</td>           <td class='n'>Доля ППС возрастной категории моложе 40 лет</td>                                                                                                                                                  <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>23,81</td></tr>
+      <tr><td>28</td>           <td class='n'>Средняя заработная плата ППС (без внешних совместителей и работающих по договорам ГПХ)</td>                                                                                                       <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>56,00</td></tr>
+      <tr><td>29</td>           <td class='n'>Средняя заработная плата научных работников (без внешних совместителей и работающих по договорам ГПХ)</td>                                                                                        <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>0,00</td></tr>
+   <tr><td colspan='4' class='sec'>Международная деятельность</td></tr>
+      <tr><td>30</td>           <td class='n'>Общая численность иностранных студентов, обучающихся по программам бакалавриата, специалитета, магистратуры</td>                                                                                  <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>13</td></tr>
+      <tr><td>31</td>           <td class='n'>Доля иностранных студентов в общей численности студентов, обучающихся по программам бакалавриата, специалитета, магистратуры</td>                                                                 <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,95</td></tr>
+      <tr><td>32</td>           <td class='n'>Общее число образовательных программ высшего образования, реализуемых совместно с зарубежными вузами и ведущих к получению двух дипломов</td>                                                     <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>33</td>           <td class='n'>Общая численность обучающихся по очной форме обучения по программам бакалавриата, специалитета, магистратуры, реализуемым совместно с зарубежными вузами и ведущим к получению двух дипломов</td> <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>34</td>           <td class='n'>Общая численность иностранных аспирантов (адъюнктов), интернов, ординаторов, ассистентов-стажеров</td>                                                                                                                                                     <td style='vertical-align:bottom;'>чел.</td>          <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>35</td>           <td class='n'>Число статей, подготовленных совместно с зарубежными организациями</td>                                                                                                                           <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>36</td>           <td class='n'>Доходы филиала из иностранных источников на выполнение НИОКР</td>                                                                                           <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>37</td>           <td class='n'>Доходы филиала  от образовательной деятельности из иностранных источников</td>                                                                              <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>38</td>           <td class='n'>Количество созданных результатов интеллектуальной деятельности, имеющих правовую охрану за пределами России</td>                                                                                  <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>0</td></tr>
+   <tr><td colspan='4' class='sec'>Инфраструктура</td></tr>
+      <tr><td>39</td>           <td class='n'>Общая площадь зданий (помещений)</td>                                                                                                                                                             <td style='vertical-align:bottom;'>м<sup>2</sup></td> <td style='vertical-align:bottom;'>6 087</td></tr>
+      <tr><td>40</td>           <td class='n'>Площадь учебно-лабораторных зданий</td>                                                                                                                                                           <td style='vertical-align:bottom;'>м<sup>2</sup></td> <td style='vertical-align:bottom;'>5 644</td></tr>
+      <tr><td>41</td>           <td class='n'>Площадь, предназначенная для научно-исследовательских подразделений</td>                                                                                                                          <td style='vertical-align:bottom;'>м<sup>2</sup></td> <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>42</td>           <td class='n'>Площадь общежитий</td>                                                                                                                                                                            <td style='vertical-align:bottom;'>м<sup>2</sup></td> <td style='vertical-align:bottom;'>0</td></tr>
+      <tr><td>43</td>           <td class='n'>Площадь крытых спортивных сооружений</td>                                                                                                                                                         <td style='vertical-align:bottom;'>м<sup>2</sup></td> <td style='vertical-align:bottom;'>240</td></tr>
+      <tr><td>44</td>           <td class='n'>Доля студентов, не обеспеченных собственным общежитием, в числе студентов, нуждающихся в общежитии</td>                                                                                           <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>45</td>           <td class='n'>Количество персональных компьютеров</td>                                                                                                                                                          <td style='vertical-align:bottom;'>ед.</td>           <td style='vertical-align:bottom;'>255</td></tr>
+      <tr><td>46</td>           <td class='n'>Доля персональных компьютеров, имеющих доступ к Интернету</td>                                                                                                                                    <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>72,16</td></tr>
+      <tr><td>47</td>           <td class='n'>Наличие электронной библиотечной системы</td>                                                                                                                                                     <td style='vertical-align:bottom;'>да/нет</td>        <td style='vertical-align:bottom;'>да</td></tr>
+   <tr><td colspan='4' class='sec'>Финансово-экономическая деятельность</td></tr>
+      <tr><td>48</td>           <td class='n'>Доходы филиала  из всех источников</td>                                                                                                                     <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>47 909,80</td></tr>
+      <tr><td>49</td>           <td class='n'>Доходы филиала  из внебюджетных источников</td>                                                                                                             <td style='vertical-align:bottom;'>тыс. руб.</td>     <td style='vertical-align:bottom;'>38 529,00</td></tr>
+      <tr><td>50</td>           <td class='n'>Доля доходов филиала  из внебюджетных источников</td>                                                                                                       <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>80,42</td></tr>
+      <tr><td>51</td>           <td class='n'>Доля доходов филиала  из федерального бюджета</td>                                                                                                          <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>19,58</td></tr>
+      <tr><td>52</td>           <td class='n'>Доля доходов филиала  из бюджета субъекта РФ и местного бюджета</td>                                                                                        <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>0,00</td></tr>
+      <tr><td>53</td>           <td class='n'>Доля доходов филиала  от образовательной деятельности в общих доходах филиала </td>                                   <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>95,22</td></tr>
+      <tr><td>54</td>           <td class='n'>Доля доходов филиала  от научных исследований и разработок в общих доходах филиала </td>                              <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>4,78</td></tr>
+      <tr><td>55</td>           <td class='n'>Доля внебюджетных средств в доходах от образовательной деятельности</td>                                                                                                                          <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>79,44</td></tr>
+      <tr><td>56</td>           <td class='n'>Доля внебюджетных средств в доходах от научных исследований и разработок</td>                                                                                                                     <td style='vertical-align:bottom;'>%</td>             <td style='vertical-align:bottom;'>100,00</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2018.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2018.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2018.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+    </td>
+    <td style="background: url(../../../img/monitoring_logo/bb_r.png) repeat-y left, #ddd;border:none;"></td>
+  </tr>
+</table>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+
+</html>
+

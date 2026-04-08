@@ -1,0 +1,18 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name = "viewport" content = "width=device-width, initial-scale=1">
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=c7ebcb8f-8d1e-464e-bd09-f9a0f2601a46&lang=ru_RU&coordorder=longlat" type="text/javascript"></script>
+
+<center><div style='margin:50px;font-size:30px;'>образовательная организация не найдена</div></center>

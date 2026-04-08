@@ -1,0 +1,770 @@
+<!-- Cached copy, generated 20:10 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+
+  $(".block").click(function() {
+    	$(this).parent().children(".blockcontent").slideToggle(300,function() {
+		if ($(this).css('display')=='none') {
+ 		  $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+ 		 } else {
+		  $('body, html').animate({scrollTop: $(this).parent().offset().top-3}, 250);
+    	 }
+         set_Copyright();
+        });
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+      });
+  $(document).ready(function(){
+     $(".blockcontent").each(function(indx, element){
+       if ($(this).css('display')=='none')
+ 		 $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+       else
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+
+        set_Copyright();
+     })
+  });
+
+  $('.inst').hover(function(e) {
+
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                      //$('.inst_add').css('text-decoration','none');
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){ //alert('f');
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    //alert($(this).attr('ugs'));
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+  $(document).ready(function(){
+
+     $('#cv_e').text(set_ending($('#cv').text()));
+     $('#cf_e').text(set_ending($('#cf').text()));
+     createChart();
+
+
+  });
+
+  $('#show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom']
+                                   });
+  	          myMap.controls.add('mapTools');
+  	          myMap.controls.add('zoomControl');
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: 'img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds());
+
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+})
+
+function set_ending(R) {
+  if((R%10==0) | ((R%10>=5) & (R%10<=9)) | ((R>10) & (R%100<15))) return "ов";
+  else if(((R > 10) & (R%100>=15) & (R%10=='1')) | ((R <= 10) & (R%10=='1'))) return "";
+  else  return "а";
+}
+
+ </script>
+
+
+
+<body id="body" style="display:block; min-width:800px;padding:0px 0px;font:normal 400 16px Calibri;">
+<div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+  <div id='maps'></div>
+  <div style='float:right;position:absolute;top:0px;right:0px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+</div>
+
+
+<center>
+<p style='text-align:center'>Информационно-аналитические материалы по результатам проведения<br>
+мониторинга деятельности образовательных организаций высшего образования 2015 года</p>
+
+<table style='margin:40px 40px;'>
+          <td style='border:none;height:150px;padding-left:234.28571428571px;vertical-align:middle;font-size:40px;background: url(../../../img/temp/gerb/Ivanovo_oblast.png) 0px center no-repeat; background-size: contain; '>Ивановская область</td>
+        </table><script>
+   function createChart() {
+       $('#chart1').kendoChart({
+	                           legend: {visible: false},
+	                           seriesDefaults: {type: "bar", stack: true,
+	                                                labels: {visible: false,  background: "rgba(255,255,255,0.6)", color:"#000",
+	   						                        format: "N0"    },
+	                   },
+	                           series: [{
+	                               name: "st_1",
+	                               data: [6, 4],
+	                               color: "#34BD45"
+	                           }, {
+	                               name: "st_0",
+	                               data: [, ],
+	                               color: "#606060"
+	                           }, {
+	                               name: "st_3",
+	                               data: [, 2],
+	                               color: "#C4CFEE"
+	                           }, {
+	                               name: "st_4",
+	                               data: [, 1],
+	                               color: "#D74F4F"
+	                           }, {
+	                               name: "st_5",
+	                               data: [, ],
+	                               color: "#D3D3D3"
+	                           }],
+	                           valueAxis: {max: 8, line: {visible: false }, minorGridLines: { visible: true }},
+	                           categoryAxis: [{
+	                               categories: ["вузы", "филиалы"], labels: {font:"13px Calibri"},
+	                               majorGridLines: {visible: false}
+	                           }],
+	                           tooltip: {visible: true,template: "#= value #"}
+                    });
+
+          $('#chart2').kendoChart({
+	                          legend: {visible: false},
+	                          seriesDefaults: {type: "bar", stack: true,
+	                                               labels: {visible: false,  background: "rgba(255,255,255,0.6)",   color:"#000",
+	  						                        format: "N0"    },
+	                  },
+	                          series: [{
+	                              name: "st_1",
+	                              data: [,1,1,,,],
+	                              color: "#34BD45"
+	                          }, {
+	                              name: "st_0",
+	                              data: [,,,,,],
+	                              color: "#606060"
+	                          }, {
+	                              name: "st_3",
+	                              data: [,,,,,],
+	                              color: "#C4CFEE"
+	                          }, {
+	                              name: "st_4",
+	                              data: [,,,,,],
+	                              color: "#D74F4F"
+	                          }, {
+	                              name: "st_5",
+	                              data: [,,,,,],
+	                              color: "#D3D3D3"
+	                          }],
+	                          valueAxis: {max: 2, line: {visible: false }, minorGridLines: { visible: true }},
+	                          categoryAxis: [{
+
+
+	                              categories: ["военной и силовой","медицинской","сельскохозяйственной","творческой","спортивной","транспортной"], labels: {font:"12px Calibri"},
+	                              majorGridLines: {visible: false}
+	                          }],
+	                          tooltip: {visible: true,template: "#= value #"}
+                    });
+
+   }
+
+
+
+
+
+            </script>
+
+
+<p style='text-align:center'>Министерство образования и науки Российской Федерации<br>
+Департамент государственной политики в сфере высшего
+образования</p>
+</center><br />
+
+<div>
+  <div class="block section" style="">
+	 1. Перечень показателей для анализа эффективности деятельности образовательной организации<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+        <table id='metodika' width="100%" >
+          <tr><td></td><td style='text-align:center;'><b>Единица измерения</b></td><td style='text-align:center;'><b>Специфика<br />деятельности</b></td><td style='text-align:center;'><b>Пороговое значение</b></td></tr>
+          <tr style='background:#eee;'><td colspan='4'><b>E.1. Образовательная деятельность</b></td></td></tr>
+          <tr><td style='padding-left:15px;'>Е.1.1. Средний балл единого государственного экзамена (далее ЕГЭ) студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td rowspan='2' class='vfirew'>60,00</td></tr>          <tr><td style='padding-left:15px;'>Е.1.2. Средний балл студентов, принятых по результатам ЕГЭ и результатам испытаний профессиональной направленности/творческих испытаний (проводимых по 100-бальной шкале) на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.2. Научно-исследовательская деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.2.1. Объем научно-исследовательских и опытно-конструкторских работ (далее НИОКР в расчете на одного научно-педагогического работника (далее НПР)</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td rowspan='2' class='vfirew'>51,28</td></tr>          <tr><td style='padding-left:15px;'>Е.2.2. Объем НИОКР и средств, направленных на творческие проекты, в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.3. Международная деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес численности иностранных студентов, обучающихся по программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>1,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.4. Финансово-экономическая деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Доходы образовательной организации из всех источников в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td>Все</td>
+              <td class='vfirew'>1 327,57</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.5. Заработная плата ППС</b></td></tr>
+          <tr><td style='padding-left:15px;'>Отношение заработной платы профессорско-преподавательского состава к средней заработной плате по экономике региона</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>125,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.6. Трудоустройство (показатель для вузов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес выпускников, трудоустроившихся в течение календарного года, следующего за годом выпуска, в общей численности выпускников образовательной организации обучавшихся по основным образовательным программам высшего образования</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>75,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.7. Контингент студентов (показатель для филиалов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Приведенный контингент студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td>Все</td>
+              <td class='vfirew'>220,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.8. Дополнительные показатели образовательных организаций</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.8.1. Доля преподавателей военно-профессиональных, специальных учебных дисциплин, имеющих профильное высшее образование, опыт работы в войсках (на флотах), штабах, управлениях, частях, воинских формированиях, организациях, не менее 5 лет, воинское (специальное) звание не ниже «майор», а также боевой опыт, в том числе ликвидации чрезвычайных ситуаций природного и техногенного характера или государственные награды, государственные или отраслевые почетные звания, государственные премии</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p></td>
+              <td class='vfirew'>50,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.2. Доля работников (приведенных к числу ставок) из числа профессорско-преподавательского состава, имеющих государственные почетные звания, лауреатов международных и всероссийских конкурсов, лауреатов государственных премий, в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+              <td class='vfirew'>51,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.3. Доля студентов, включенных в списки кандидатов в спортивные сборные команды Российской Федерации по видам спорта, в общей численности студентов</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td class='vfirew'>5,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.4. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям раздела 14.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p></td>
+              <td class='vfirew'>69,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.5. Среднегодовой контингент обучающихся по программам повышения квалификации и профессиональной переподготовки, реализуемых на базе образовательных программ и направлений подготовки, отражающих специфику образовательной организации</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p></td>
+              <td class='vfirew'>7,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.6. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям разделов 03.00.00, 05.20.00, 06.00.00, 25.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td class='vfirew'>59,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.7. Численность сотрудников, из числа ППС (приведенных к доле ставки), имеющих ученые степени кандидата или доктора наук, в расчете на 100 студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p></td>
+              <td class='vfirew'>2,78</td></tr>
+        </table>
+        <p style='margin-top:10px;font-size:13px;'><a href='attach/АК-30_05вн_30.03.2015.pdf' style='padding-left:19px; background:url(../../../img/save_pdf_act.png) left center no-repeat;'>Методика расчета показателей мониторинга эффективности образовательных организаций высшего образования 2015 года (pdf)</a></p>
+
+  </div>
+</div>
+
+<div>
+  <div class="block section">
+	 2. Общая статистика<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <p>В мониторинге принимали участие: <b id='cv'>6</b> вуз<span id='cv_e'>(-ов)</span>, <b id='cf'>7</b> филиал<span id='cf_e'>(-ов)</span>.</span></p><div id='chart1' style='height:120px;'></div><p>В том числе образовательные организации, обладающие спецификой деятельности:</p><div id='chart2' style='height:260px;width:70%;'></div>
+
+
+    <div style='font-size:13px;'>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#34BD45;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили 4 и более показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#606060;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили менее 4 показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#C4CFEE;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - в стадии реорганизации/реорганизованы;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D74F4F;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - по результатам мониторинга 2014 года (по данным за 2013 год) не выполнили 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D3D3D3;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - проводится анализ достоверности предоставленных данных;</span>
+
+    </div>
+  </div>
+</div>
+<div>
+  <div class="block section">
+	 3. Результаты мониторинга деятельности образовательных организаций высшего образования по вузам и филиалам<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Математи-<br />еские и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=1609 icon='1' coordinates='40.983982, 56.997872' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=1609'>Ивановская государственная медицинская академия</a><div id='add1609' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153012, г. Иваново, Шереметевский проспект , д.8</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство здравоохранения и социального развития Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>2451</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=1677 icon='1' coordinates='40.989084, 56.995798' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_3.png) right top no-repeat;'>
+                       <a href='inst.php?id=1677'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</a><div id='add1677' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153012, г. Иваново, ул. Советская, д.45</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство сельского хозяйства Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:6.5365184307366% 100%'>104,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:81.955965820495% 100%'>1314</td><td class='dkont' style='background-size:11.507515748768% 100%'>184,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=2198 icon='1' coordinates='40.981062, 57.005466' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=2198'>Ивановский государственный политехнический университет</a><div id='add2198' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153037, г. Иваново, ул. 8 Марта, д.20</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:72.554037506363% 100%'>2636,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:23.241287269025% 100%'>844,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.2046752246117% 100%'>152,8</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[7]</td>  <td id=76 icon='1' coordinates='40.956458, 57.019104' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=76'>Ивановский государственный университет</a><div id='add76' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153025, г. Иваново, ул.Ермака,39</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:19.653523445848% 100%'>561</td><td class='dkont' style='background-size:4.3616108181961% 100%'>124,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:61.164147208744% 100%'>1745,9</td><td class='dkont' style='background-size:0.77072640964109% 100%'>22</td><td class='dkont' style='background-size:14.049992117571% 100%'>401,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=77 icon='1' coordinates='40.981835, 56.998632' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=77'>Ивановский государственный химико-технологический университет</a><div id='add77' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153000, г. Иваново, просп. Шереметевский, 7</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:3.2314967166215% 100%'>109</td><td class='dkont' style='background-size:79.093105646225% 100%'>2667,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:15.466714101481% 100%'>521,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.2086835356725% 100%'>74,5</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[7]</td>  <td id=78 icon='1' coordinates='40.942965, 57.001309' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=78'>Ивановский государственный энергетический университет имени В.И. Ленина</a><div id='add78' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153003, г. Иваново, ул. Рабфаковская, д. 34</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:2.7782434795105% 100%'>116</td><td class='dkont' style='background-size:85.251359183771% 100%'>3559,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:11.970397336718% 100%'>499,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=12012908 icon='3' coordinates='40.963249, 56.971290' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012908'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</a><div id='add12012908' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153032, г. Иваново, ул. Ташкентская, д. 90, литер А5</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Международная ассоциация развитиянауки, образования и культуры России (Италия)</p><p style='padding-bottom:4px;'>- Международная общественная организация "Лига развития науки и образования" (Россия)</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:2.7184466019417% 100%'>1,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:97.281553398058% 100%'>50,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=12012705 icon='4' coordinates='41.000736, 56.955543' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012705'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</a><div id='add12012705' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153038, г. Иваново, ул. Новосельская, д. 4а</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>-  Центральный союз потребительских обществ Российской Федерации (Центросоюз РФ)</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>47,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=12012829 icon='1' coordinates='41.001158, 56.969102' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012829'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </a><div id='add12012829' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153048, г. Иваново, микрорайон 30, д. 17А</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью "Образовательные технологии и коммуникации" (ОГРН 1067746590878)</p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью "Универконсулт" ООД (Республика Болгария, внесено в Торговый реестр при Окружном суде г. бургас на основании решения Окружного суда г. Бургас № 1 от 20 июня 2007 г.)</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>234,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=10006733 icon='1' coordinates='40.973921, 57.000348' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006733'>Ивановский филиал РАНХиГС</a><div id='add10006733' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153002, г. Иваново, Посадский переулок, д. 8, литер А1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Правительство Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>113,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=10003291 icon='1' coordinates='40.952658, 57.018036' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003291'>Ивановский филиал ФГБОУ ВПО "РЭУ им. Г.В. Плеханова"</a><div id='add10003291' class='inst_add'><div class='adr'><p><b>г. Иваново</b></p><p style='padding:7px 0px;'>153025, г. Иваново, ул. Дзержинского, 53</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановская государственная сельскохозяйственная академия имени академика Д.К.Беляева</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный политехнический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный химико-технологический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский государственный энергетический университет имени В.И. Ленина</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ивановский филиал  Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ивановский филиал автономной некоммерческой образовательной организации высшего образования Центросоюза Российской Федерации "Российский университет кооперации"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал Образовательного частного учреждения высшего образования" Международный юридический институт" </div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ивановский филиал РАНХиГС</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:14.927017350592% 100%'>108,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:85.072982649408% 100%'>617,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10000426 icon='3' coordinates='42.160649, 57.444385' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000426'>Филиал ФГБОУ ВПО "Московский государственный индустриальный университет" в г.Кинешме</a><div id='add10000426' class='inst_add'><div class='adr'><p><b>г. Кинешма</b></p><p style='padding:7px 0px;'>155800, Ивановской область, г.Кинешма, ул. Им. Ленина, д.28</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'>-</div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:63.461538461538% 100%'>82,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:36.538461538462% 100%'>47,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=10006887 icon='1' coordinates='41.398339, 56.833343' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006887'>Шуйский филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Ивановский государственный университет"</a><div id='add10006887' class='inst_add'><div class='adr'><p><b>г. Шуя</b></p><p style='padding:7px 0px;'>155908, Ивановская область, г.Шуя, ул.Кооперативная, д.24</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'>-</div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:6.4999015166437% 100%'>66</td><td class='dkont' style='background-size:4.0378176088241% 100%'>41</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:13.364191451645% 100%'>135,7</td><td class='dkont' style='background-size:69.342131179831% 100%'>704,1</td><td class='dkont' style='background-size:6.3029348040181% 100%'>64</td><td class='dkont' style='background-size:0.4530234390388% 100%'>4,6</td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 11px/17px Calibri;color:#000;padding-top:5px;'>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_1_0.png) 0px 2px no-repeat;'> - выполнили 4 и более показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_0_0.png) 0px 2px no-repeat;'> - выполнили менее 4 показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_3_0.png) 0px 2px no-repeat;'> - вузы (филиалы), находящиеся в стадии реорганизации/реорганизованные</p>
+       <!--<p style='padding-left:17px;background:url(../../../img/temp/st_4_0.png) 0px 2px no-repeat;'> - вузы (филиалы), по результатам мониторинга прошлого года выполнившие менее 4-х показателей и не предоставившие информацию о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК</p>-->
+       <p style='padding-left:17px;background:url(../../../img/temp/st_5_0.png) 0px 2px no-repeat;'> - проводится анализ достоверности предоставленных данных; вузы (филиалы), по результатам мониторинга 2014 года (по данным за 2013 год) не выполнившие 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</p>
+       <p><i>[X]</i> - количество выполненных показателей</p><hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_1.png) no-repeat;'> - образовательные организации военной и силовой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> - образовательные организации медицинской направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> - образовательные организации сельскохозяйственной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> - образовательные организации творческой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> - образовательные организации спортивной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> - образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+<div>
+  <div class="block section">
+	 4. Эффективность региональной образовательной системы<sup>*</sup><div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+<table id='trud'>
+        <tr style='text-align:center;font: normal 400 13px/12px Calibri;'><td></td>
+            <!--<td style='width:9%;text-align:center;'><b>Количество ОО</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество УГС в регионе</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество допущенных к обработке, чел.</b></td>-->
+            <td style='width:15%;text-align:center;'><b>Численность выпускников 2013 года<sup>**</sup>, трудоустроенных в 2014 году, чел.</b></td>
+            <td style='width:15%;text-align:center;'><b>Доля трудоустроенных выпускников, %</b></td>
+            <td style='width:15%;text-align:center;'><b>Средняя заработная плата выпускников, тыс. руб.</b></td></tr><tr style='background:#eee;'><td style='text-align:left;'><!--Количество УГС в регионе - --></td>
+	        <td>6314</td>
+	        <td>77,5</b></td>
+            <td>21,79</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='1' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>01.00.00 - МАТЕМАТИКА И МЕХАНИКА</td>
+	        <td>44</td>
+	        <td>88,0</b></td>
+            <td>21,16</b></td> </tr><tr id='tr_vuz' ugs='1' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>33</td>
+	        <td>86,8</b></td>
+            <td>21,90</b></td> </tr><tr id='tr_vuz' ugs='1' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>11</td>
+	        <td>91,7</b></td>
+            <td>18,95</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='3' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>03.00.00 - ФИЗИКА И АСТРОНОМИЯ</td>
+	        <td>9</td>
+	        <td>60,0</b></td>
+            <td>14,42</b></td> </tr><tr id='tr_vuz' ugs='3' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>9</td>
+	        <td>60,0</b></td>
+            <td>14,42</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='4' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>04.00.00 - ХИМИЯ</td>
+	        <td>30</td>
+	        <td>68,2</b></td>
+            <td>19,10</b></td> </tr><tr id='tr_vuz' ugs='4' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>16</td>
+	        <td>80,0</b></td>
+            <td>22,14</b></td> </tr><tr id='tr_vuz' ugs='4' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>14</td>
+	        <td>58,3</b></td>
+            <td>15,63</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='5' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>05.00.00 - НАУКИ О ЗЕМЛЕ</td>
+	        <td>6</td>
+	        <td>46,2</b></td>
+            <td>14,08</b></td> </tr><tr id='tr_vuz' ugs='5' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>6</td>
+	        <td>46,2</b></td>
+            <td>14,08</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='6' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>06.00.00 - БИОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>41</td>
+	        <td>53,9</b></td>
+            <td>17,34</b></td> </tr><tr id='tr_vuz' ugs='6' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>41</td>
+	        <td>53,9</b></td>
+            <td>17,34</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='7' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>07.00.00 - АРХИТЕКТУРА</td>
+	        <td>15</td>
+	        <td>88,2</b></td>
+            <td>9,93</b></td> </tr><tr id='tr_vuz' ugs='7' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>15</td>
+	        <td>88,2</b></td>
+            <td>9,93</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='8' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>08.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ СТРОИТЕЛЬСТВА</td>
+	        <td>299</td>
+	        <td>81,5</b></td>
+            <td>22,94</b></td> </tr><tr id='tr_vuz' ugs='8' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>293</td>
+	        <td>81,2</b></td>
+            <td>22,24</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='9' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>09.00.00 - ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА</td>
+	        <td>134</td>
+	        <td>74,0</b></td>
+            <td>21,86</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>27</td>
+	        <td>75,0</b></td>
+            <td>18,46</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>27</td>
+	        <td>67,5</b></td>
+            <td>19,43</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>26</td>
+	        <td>74,3</b></td>
+            <td>15,78</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>54</td>
+	        <td>77,1</b></td>
+            <td>27,70</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='11' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>11.00.00 - ЭЛЕКТРОНИКА, РАДИОТЕХНИКА И СИСТЕМЫ СВЯЗИ</td>
+	        <td>55</td>
+	        <td>77,5</b></td>
+            <td>27,59</b></td> </tr><tr id='tr_vuz' ugs='11' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>17</td>
+	        <td>60,7</b></td>
+            <td>22,92</b></td> </tr><tr id='tr_vuz' ugs='11' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>32</td>
+	        <td>91,4</b></td>
+            <td>32,91</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='13' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>13.00.00 - ЭЛЕКТРО- И ТЕПЛОЭНЕРГЕТИКА</td>
+	        <td>617</td>
+	        <td>88,3</b></td>
+            <td>41,17</b></td> </tr><tr id='tr_vuz' ugs='13' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>617</td>
+	        <td>88,3</b></td>
+            <td>41,17</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='14' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>14.00.00 - ЯДЕРНАЯ ЭНЕРГЕТИКА И ТЕХНОЛОГИИ</td>
+	        <td>33</td>
+	        <td>97,1</b></td>
+            <td>55,25</b></td> </tr><tr id='tr_vuz' ugs='14' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>33</td>
+	        <td>97,1</b></td>
+            <td>55,25</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='15' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>15.00.00 - МАШИНОСТРОЕНИЕ</td>
+	        <td>184</td>
+	        <td>74,5</b></td>
+            <td>21,64</b></td> </tr><tr id='tr_vuz' ugs='15' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>58</td>
+	        <td>65,9</b></td>
+            <td>18,24</b></td> </tr><tr id='tr_vuz' ugs='15' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>108</td>
+	        <td>77,7</b></td>
+            <td>24,27</b></td> </tr><tr id='tr_vuz' ugs='15' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>18</td>
+	        <td>90,0</b></td>
+            <td>16,84</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='18' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>18.00.00 - ХИМИЧЕСКИЕ ТЕХНОЛОГИИ</td>
+	        <td>348</td>
+	        <td>79,8</b></td>
+            <td>19,18</b></td> </tr><tr id='tr_vuz' ugs='18' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>348</td>
+	        <td>79,8</b></td>
+            <td>19,18</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='19' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>19.00.00 - ПРОМЫШЛЕННАЯ ЭКОЛОГИЯ И БИОТЕХНОЛОГИИ</td>
+	        <td>72</td>
+	        <td>88,9</b></td>
+            <td>16,79</b></td> </tr><tr id='tr_vuz' ugs='19' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>10</td>
+	        <td>76,9</b></td>
+            <td>16,18</b></td> </tr><tr id='tr_vuz' ugs='19' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>62</td>
+	        <td>91,2</b></td>
+            <td>16,89</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='20' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>20.00.00 - ТЕХНОСФЕРНАЯ БЕЗОПАСНОСТЬ И ПРИРОДООБУСТРОЙСТВО</td>
+	        <td>74</td>
+	        <td>69,8</b></td>
+            <td>21,81</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>14</td>
+	        <td>70,0</b></td>
+            <td>13,99</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>46</td>
+	        <td>64,8</b></td>
+            <td>16,65</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>14</td>
+	        <td>93,3</b></td>
+            <td>46,57</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='21' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>21.00.00 - ПРИКЛАДНАЯ ГЕОЛОГИЯ, ГОРНОЕ ДЕЛО, НЕФТЕГАЗОВОЕ ДЕЛО И ГЕОДЕЗИЯ</td>
+	        <td>56</td>
+	        <td>82,4</b></td>
+            <td>18,53</b></td> </tr><tr id='tr_vuz' ugs='21' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная сельскохозяйственная академия имени академика Д.К. Беляева»</td>
+	        <td>56</td>
+	        <td>82,4</b></td>
+            <td>18,53</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='23' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>23.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ НАЗЕМНОГО ТРАНСПОРТА</td>
+	        <td>42</td>
+	        <td>70,0</b></td>
+            <td>15,11</b></td> </tr><tr id='tr_vuz' ugs='23' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>42</td>
+	        <td>70,0</b></td>
+            <td>15,11</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='27' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>27.00.00 - УПРАВЛЕНИЕ В ТЕХНИЧЕСКИХ СИСТЕМАХ</td>
+	        <td>165</td>
+	        <td>77,8</b></td>
+            <td>19,14</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>77</td>
+	        <td>77,8</b></td>
+            <td>13,78</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>58</td>
+	        <td>75,3</b></td>
+            <td>21,63</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>30</td>
+	        <td>83,3</b></td>
+            <td>28,09</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='29' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>29.00.00 - ТЕХНОЛОГИИ ЛЕГКОЙ ПРОМЫШЛЕННОСТИ</td>
+	        <td>234</td>
+	        <td>74,3</b></td>
+            <td>12,08</b></td> </tr><tr id='tr_vuz' ugs='29' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>211</td>
+	        <td>73,0</b></td>
+            <td>11,75</b></td> </tr><tr id='tr_vuz' ugs='29' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>12</td>
+	        <td>92,3</b></td>
+            <td>11,98</b></td> </tr><tr id='tr_vuz' ugs='29' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>11</td>
+	        <td>84,6</b></td>
+            <td>18,39</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='31' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>31.00.00 - КЛИНИЧЕСКАЯ МЕДИЦИНА</td>
+	        <td>264</td>
+	        <td>77,6</b></td>
+            <td>16,83</b></td> </tr><tr id='tr_vuz' ugs='31' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная медицинская академия» Министерства здравоохранения Российской Федерации</td>
+	        <td>264</td>
+	        <td>77,6</b></td>
+            <td>16,83</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='34' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>34.00.00 - СЕСТРИНСКОЕ ДЕЛО</td>
+	        <td>39</td>
+	        <td>97,5</b></td>
+            <td>32,42</b></td> </tr><tr id='tr_vuz' ugs='34' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная медицинская академия» Министерства здравоохранения Российской Федерации</td>
+	        <td>39</td>
+	        <td>97,5</b></td>
+            <td>32,42</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='35' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>35.00.00 - СЕЛЬСКОЕ, ЛЕСНОЕ И РЫБНОЕ ХОЗЯЙСТВО</td>
+	        <td>149</td>
+	        <td>67,7</b></td>
+            <td>17,17</b></td> </tr><tr id='tr_vuz' ugs='35' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная сельскохозяйственная академия имени академика Д.К. Беляева»</td>
+	        <td>149</td>
+	        <td>67,7</b></td>
+            <td>17,17</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='36' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>36.00.00 - ВЕТЕРИНАРИЯ И ЗООТЕХНИЯ</td>
+	        <td>118</td>
+	        <td>69,4</b></td>
+            <td>17,49</b></td> </tr><tr id='tr_vuz' ugs='36' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная сельскохозяйственная академия имени академика Д.К. Беляева»</td>
+	        <td>118</td>
+	        <td>69,4</b></td>
+            <td>17,49</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='37' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>37.00.00 - ПСИХОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>118</td>
+	        <td>73,8</b></td>
+            <td>15,92</b></td> </tr><tr id='tr_vuz' ugs='37' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>118</td>
+	        <td>73,8</b></td>
+            <td>15,92</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='38' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>38.00.00 - ЭКОНОМИКА И УПРАВЛЕНИЕ</td>
+	        <td>1773</td>
+	        <td>78,1</b></td>
+            <td>19,95</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановская государственная сельскохозяйственная академия имени академика Д.К. Беляева»</td>
+	        <td>107</td>
+	        <td>84,3</b></td>
+            <td>12,87</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>849</td>
+	        <td>80,9</b></td>
+            <td>16,79</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>282</td>
+	        <td>61,4</b></td>
+            <td>17,94</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный химико-технологический университет»</td>
+	        <td>309</td>
+	        <td>81,1</b></td>
+            <td>19,03</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>226</td>
+	        <td>88,6</b></td>
+            <td>38,97</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='39' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>39.00.00 - СОЦИОЛОГИЯ И СОЦИАЛЬНАЯ РАБОТА</td>
+	        <td>71</td>
+	        <td>76,3</b></td>
+            <td>14,14</b></td> </tr><tr id='tr_vuz' ugs='39' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>63</td>
+	        <td>75,0</b></td>
+            <td>13,93</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='40' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>40.00.00 - ЮРИСПРУДЕНЦИЯ</td>
+	        <td>188</td>
+	        <td>69,9</b></td>
+            <td>18,37</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>188</td>
+	        <td>69,9</b></td>
+            <td>18,37</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='41' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>41.00.00 - ПОЛИТИЧЕСКИЕ НАУКИ И РЕГИОНОВЕДЕНИЕ</td>
+	        <td>16</td>
+	        <td>76,2</b></td>
+            <td>13,58</b></td> </tr><tr id='tr_vuz' ugs='41' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>16</td>
+	        <td>76,2</b></td>
+            <td>13,58</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='42' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>42.00.00 - СРЕДСТВА МАССОВОЙ ИНФОРМАЦИИ И ИНФОРМАЦИОННО-БИБЛИОТЕЧНОЕ ДЕЛО</td>
+	        <td>35</td>
+	        <td>48,6</b></td>
+            <td>18,03</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>21</td>
+	        <td>36,8</b></td>
+            <td>15,79</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный энергетический университет имени В.И. Ленина»</td>
+	        <td>14</td>
+	        <td>93,3</b></td>
+            <td>21,40</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='43' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>43.00.00 - СЕРВИС И ТУРИЗМ</td>
+	        <td>51</td>
+	        <td>72,9</b></td>
+            <td>13,15</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>38</td>
+	        <td>73,1</b></td>
+            <td>11,87</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>13</td>
+	        <td>72,2</b></td>
+            <td>16,92</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='44' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>44.00.00 - ОБРАЗОВАНИЕ И ПЕДАГОГИЧЕСКИЕ НАУКИ</td>
+	        <td>465</td>
+	        <td>78,4</b></td>
+            <td>16,68</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>465</td>
+	        <td>78,4</b></td>
+            <td>16,68</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='45' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>45.00.00 - ЯЗЫКОЗНАНИЕ И ЛИТЕРАТУРОВЕДЕНИЕ</td>
+	        <td>99</td>
+	        <td>60,0</b></td>
+            <td>21,79</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>99</td>
+	        <td>60,0</b></td>
+            <td>21,79</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='46' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>46.00.00 - ИСТОРИЯ И АРХЕОЛОГИЯ</td>
+	        <td>41</td>
+	        <td>55,4</b></td>
+            <td>18,75</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>38</td>
+	        <td>53,5</b></td>
+            <td>18,90</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='49' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>49.00.00 - ФИЗИЧЕСКАЯ КУЛЬТУРА И СПОРТ</td>
+	        <td>25</td>
+	        <td>78,1</b></td>
+            <td>21,13</b></td> </tr><tr id='tr_vuz' ugs='49' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>25</td>
+	        <td>78,1</b></td>
+            <td>21,13</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='51' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>51.00.00 - КУЛЬТУРОВЕДЕНИЕ И СОЦИОКУЛЬТУРНЫЕ ПРОЕКТЫ</td>
+	        <td>17</td>
+	        <td>68,0</b></td>
+            <td>13,19</b></td> </tr><tr id='tr_vuz' ugs='51' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>10</td>
+	        <td>66,7</b></td>
+            <td>16,21</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='54' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>54.00.00 - ИЗОБРАЗИТЕЛЬНОЕ И ПРИКЛАДНЫЕ ВИДЫ ИСКУССТВ</td>
+	        <td>38</td>
+	        <td>69,1</b></td>
+            <td>15,88</b></td> </tr><tr id='tr_vuz' ugs='54' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный политехнический университет»</td>
+	        <td>19</td>
+	        <td>57,6</b></td>
+            <td>14,84</b></td> </tr><tr id='tr_vuz' ugs='54' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ивановский государственный университет»</td>
+	        <td>19</td>
+	        <td>86,4</b></td>
+            <td>16,92</b></td> </tr></table><p style='font: normal 13px/14px Calibri;'><br /><sup>*</sup>Сведения о трудоустройстве выпускников образовательных организаций получены в рамках соглашения Минобрнауки России, Рособрнадзора и Пенсионного фонда России по данным, предоставленным образовательными организациями в ФРДО.</p><p style='font: normal 13px/14px Calibri;'><sup>**</sup>Приведены статистически значимые данные (численность выпускников по УГН(С) более 10 человек).</p>  </div>
+</div>
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+

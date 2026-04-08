@@ -1,0 +1,725 @@
+<!-- Cached copy, generated 20:15 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="yandex-verification" content="68c75751805dfb0d" />
+<title>Мониторинг (ВО)</title>
+<link rel="shortcut icon" href="../../../img/icon/micon.ico">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/materials.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/kendo.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/kendo.js"></script>
+
+<script type="text/javascript">
+
+$(function() {
+
+  $(".block").click(function() {
+    	$(this).parent().children(".blockcontent").slideToggle(300,function() {
+		if ($(this).css('display')=='none') {
+ 		  $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+ 		 } else {
+		  $('body, html').animate({scrollTop: $(this).parent().offset().top-3}, 250);
+    	 }
+         set_Copyright();
+        });
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+      });
+  $(document).ready(function(){
+     $(".blockcontent").each(function(indx, element){
+       if ($(this).css('display')=='none')
+ 		 $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/next_7848.png)');
+       else
+        $(this).parent().children(".block").children(".nav").css('background-image','url(../../../img/down_7848.png)');
+
+        set_Copyright();
+     })
+  });
+
+  $('.inst').hover(function(e) {
+
+                      $('.inst_add').stop(0).fadeOut(500);
+                      $('#add'+$(this).attr('id')).delay(300).appendTo(this).fadeIn(600);
+                      //$('.inst_add').css('text-decoration','none');
+                  }
+                  ,function(e) {
+                      $('.inst_add').clearQueue().fadeOut(500);
+                  });
+
+  $('#tr_ugs td[id=td_ugs]').click(function(){ //alert('f');
+    $(this).parent('tr').children('#td_ugs').toggleClass('td_ugs_n td_ugs_v');
+    //alert($(this).attr('ugs'));
+    $('#trud tr[ugs='+$(this).attr('ugs')+']').fadeToggle(0);
+  });
+
+  $(document).ready(function(){
+
+     $('#cv_e').text(set_ending($('#cv').text()));
+     $('#cf_e').text(set_ending($('#cf').text()));
+     createChart();
+
+
+  });
+
+  $('#show_map').click(function(){
+     $('#maps').parent('div').width($(window).width()*0.8)
+                            .height($(window).height()*0.8)
+                            .css('left',($(window).width()*0.1))
+                            .css('top',($(window).height()*0.1))
+                            .fadeIn(300);
+
+
+     if($('#maps').html()=='') {
+         $('#maps').height($(window).height()*0.8);
+
+        ymaps.ready(function() {
+              var myMap;
+              myMap = new ymaps.Map('maps', {
+                                       center: [37.3, 55.495],
+                                       zoom: 7,
+                                       behaviors: ['default', 'scrollZoom']
+                                   });
+  	          myMap.controls.add('mapTools');
+  	          myMap.controls.add('zoomControl');
+
+
+              $('.inst[coordinates]').each(function(idx,el){
+                if($(el).attr('coordinates')!='') {
+  	            myMap.geoObjects.add(
+  	              new ymaps.GeoObject({
+                                       geometry: {
+                                             type: "Point",
+                                             coordinates: $(el).attr('coordinates').split(/\s*,\s*/)
+
+                                       },
+                                       properties: {
+                                             iconContent: '',
+                                             hintContent: $(el).children('a').text(),
+                                             balloonContent: ''
+                                       }
+                                    }, {
+
+                                             iconLayout: 'default#image',
+                                             iconImageHref: 'img/temp/st_map_'+$(el).attr('icon')+'.png',
+                                             iconImageSize: [19, 15],
+											         iconImageOffset: [-6, -6]
+                                    })
+
+                );
+              }
+
+              myMap.setBounds(myMap.geoObjects.getBounds());
+
+            });
+        }); //ymaps.ready
+     }
+   });
+
+
+})
+
+function set_ending(R) {
+  if((R%10==0) | ((R%10>=5) & (R%10<=9)) | ((R>10) & (R%100<15))) return "ов";
+  else if(((R > 10) & (R%100>=15) & (R%10=='1')) | ((R <= 10) & (R%10=='1'))) return "";
+  else  return "а";
+}
+
+ </script>
+
+
+
+<body id="body" style="display:block; min-width:800px;padding:0px 0px;font:normal 400 16px Calibri;">
+<div style='display:none;height:0px;width:0px;position:fixed;z-index:1000;box-shadow:0px 0px 50px 10px rgba(0,0,0,0.7);background:url(../../../img/bg_map.png);'>
+  <div id='maps'></div>
+  <div style='float:right;position:absolute;top:0px;right:0px;padding:0px 1px;cursor:pointer;background:url(../../../img/1433338524_close.png) no-repeat;width:32px;height:32px;' onclick='$(this).parent("div").fadeOut(100);'></div>
+</div>
+
+
+<center>
+<p style='text-align:center'>Информационно-аналитические материалы по результатам проведения<br>
+мониторинга деятельности образовательных организаций высшего образования 2015 года</p>
+
+<table style='margin:40px 40px;'>
+          <td style='border:none;height:150px;padding-left:149px;vertical-align:middle;font-size:40px;background: url(../../../img/temp/gerb/Yugra.svg.png) 0px center no-repeat; background-size: contain; '>Ханты-Мансийский автономный округ</td>
+        </table><script>
+   function createChart() {
+       $('#chart1').kendoChart({
+	                           legend: {visible: false},
+	                           seriesDefaults: {type: "bar", stack: true,
+	                                                labels: {visible: false,  background: "rgba(255,255,255,0.6)", color:"#000",
+	   						                        format: "N0"    },
+	                   },
+	                           series: [{
+	                               name: "st_1",
+	                               data: [7, 5],
+	                               color: "#34BD45"
+	                           }, {
+	                               name: "st_0",
+	                               data: [, 5],
+	                               color: "#606060"
+	                           }, {
+	                               name: "st_3",
+	                               data: [, 11],
+	                               color: "#C4CFEE"
+	                           }, {
+	                               name: "st_4",
+	                               data: [1, 1],
+	                               color: "#D74F4F"
+	                           }, {
+	                               name: "st_5",
+	                               data: [, ],
+	                               color: "#D3D3D3"
+	                           }],
+	                           valueAxis: {max: 25, line: {visible: false }, minorGridLines: { visible: true }},
+	                           categoryAxis: [{
+	                               categories: ["вузы", "филиалы"], labels: {font:"13px Calibri"},
+	                               majorGridLines: {visible: false}
+	                           }],
+	                           tooltip: {visible: true,template: "#= value #"}
+                    });
+
+          $('#chart2').kendoChart({
+	                          legend: {visible: false},
+	                          seriesDefaults: {type: "bar", stack: true,
+	                                               labels: {visible: false,  background: "rgba(255,255,255,0.6)",   color:"#000",
+	  						                        format: "N0"    },
+	                  },
+	                          series: [{
+	                              name: "st_1",
+	                              data: [,1,,,,],
+	                              color: "#34BD45"
+	                          }, {
+	                              name: "st_0",
+	                              data: [,,,1,,],
+	                              color: "#606060"
+	                          }, {
+	                              name: "st_3",
+	                              data: [,,,,,],
+	                              color: "#C4CFEE"
+	                          }, {
+	                              name: "st_4",
+	                              data: [,,,,,],
+	                              color: "#D74F4F"
+	                          }, {
+	                              name: "st_5",
+	                              data: [,,,,,],
+	                              color: "#D3D3D3"
+	                          }],
+	                          valueAxis: {max: 2, line: {visible: false }, minorGridLines: { visible: true }},
+	                          categoryAxis: [{
+
+
+	                              categories: ["военной и силовой","медицинской","сельскохозяйственной","творческой","спортивной","транспортной"], labels: {font:"12px Calibri"},
+	                              majorGridLines: {visible: false}
+	                          }],
+	                          tooltip: {visible: true,template: "#= value #"}
+                    });
+
+   }
+
+
+
+
+
+            </script>
+
+
+<p style='text-align:center'>Министерство образования и науки Российской Федерации<br>
+Департамент государственной политики в сфере высшего
+образования</p>
+</center><br />
+
+<div>
+  <div class="block section" style="">
+	 1. Перечень показателей для анализа эффективности деятельности образовательной организации<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+        <table id='metodika' width="100%" >
+          <tr><td></td><td style='text-align:center;'><b>Единица измерения</b></td><td style='text-align:center;'><b>Специфика<br />деятельности</b></td><td style='text-align:center;'><b>Пороговое значение</b></td></tr>
+          <tr style='background:#eee;'><td colspan='4'><b>E.1. Образовательная деятельность</b></td></td></tr>
+          <tr><td style='padding-left:15px;'>Е.1.1. Средний балл единого государственного экзамена (далее ЕГЭ) студентов, принятых по результатам ЕГЭ на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td rowspan='2' class='vfirew'>60,00</td></tr>          <tr><td style='padding-left:15px;'>Е.1.2. Средний балл студентов, принятых по результатам ЕГЭ и результатам испытаний профессиональной направленности/творческих испытаний (проводимых по 100-бальной шкале) на обучение по очной форме по программам бакалавриата и специалитета за счет средств соответствующих бюджетов бюджетной системы Российской Федерации и с оплатой стоимости затрат на обучение физическими и юридическими лицами</td>
+              <td style='text-align:center;'>балл</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.2. Научно-исследовательская деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.2.1. Объем научно-исследовательских и опытно-конструкторских работ (далее НИОКР в расчете на одного научно-педагогического работника (далее НПР)</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p>
+                  <p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td rowspan='2' class='vfirew'>51,28</td></tr>          <tr><td style='padding-left:15px;'>Е.2.2. Объем НИОКР и средств, направленных на творческие проекты, в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+
+          <tr style='background:#eee;'><td colspan='4'><b>E.3. Международная деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес численности иностранных студентов, обучающихся по программам бакалавриата, специалитета, магистратуры, в общей численности студентов (приведенный контингент)</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>1,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.4. Финансово-экономическая деятельность</b></td></tr>
+          <tr><td style='padding-left:15px;'>Доходы образовательной организации из всех источников в расчете на одного НПР</td>
+              <td style='text-align:center;'>тыс.руб.</td>
+              <td>Все</td>
+              <td class='vfirew'>1 327,57</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.5. Заработная плата ППС</b></td></tr>
+          <tr><td style='padding-left:15px;'>Отношение заработной платы профессорско-преподавательского состава к средней заработной плате по экономике региона</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>125,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.6. Трудоустройство (показатель для вузов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Удельный вес выпускников, трудоустроившихся в течение календарного года, следующего за годом выпуска, в общей численности выпускников образовательной организации обучавшихся по основным образовательным программам высшего образования</td>
+              <td style='text-align:center;'>%</td>
+              <td>Все</td>
+              <td class='vfirew'>80,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.7. Контингент студентов (показатель для филиалов)</b></td></tr>
+          <tr><td style='padding-left:15px;'>Приведенный контингент студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td>Все</td>
+              <td class='vfirew'>220,00</td></tr>          <tr style='background:#eee;'><td colspan='4'><b>E.8. Дополнительные показатели образовательных организаций</b></td></tr>
+          <tr><td style='padding-left:15px;'>Е.8.1. Доля преподавателей военно-профессиональных, специальных учебных дисциплин, имеющих профильное высшее образование, опыт работы в войсках (на флотах), штабах, управлениях, частях, воинских формированиях, организациях, не менее 5 лет, воинское (специальное) звание не ниже «майор», а также боевой опыт, в том числе ликвидации чрезвычайных ситуаций природного и техногенного характера или государственные награды, государственные или отраслевые почетные звания, государственные премии</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_1.png) no-repeat;'>Военная и силовая</p></td>
+              <td class='vfirew'>50,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.2. Доля работников (приведенных к числу ставок) из числа профессорско-преподавательского состава, имеющих государственные почетные звания, лауреатов международных и всероссийских конкурсов, лауреатов государственных премий, в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_4.png) no-repeat;'>Творческая</p></td>
+              <td class='vfirew'>51,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.3. Доля студентов, включенных в списки кандидатов в спортивные сборные команды Российской Федерации по видам спорта, в общей численности студентов</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_5.png) no-repeat;'>Спортивная</p></td>
+              <td class='vfirew'>5,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.4. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям раздела 14.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_2.png) no-repeat;'>Медицинская</p></td>
+              <td class='vfirew'>69,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.5. Среднегодовой контингент обучающихся по программам повышения квалификации и профессиональной переподготовки, реализуемых на базе образовательных программ и направлений подготовки, отражающих специфику образовательной организации</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_6.png) no-repeat;'>Транспортная</p></td>
+              <td class='vfirew'>7,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.6. Доля работников (приведенных к числу ставок) из числа ППС в численности работников ППС без совместителей и работающих по договорам гражданско-правового характера, имеющих ученую степень кандидата или доктора наук, соответствующую специальностям разделов 03.00.00, 05.20.00, 06.00.00, 25.00.00 Номенклатуры специальностей научных работников</td>
+              <td style='text-align:center;'>%</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_3.png) no-repeat;'>Сельскохозяйственная</p></td>
+              <td class='vfirew'>59,00</td></tr>          <tr><td style='padding-left:15px;'>Е.8.7. Численность сотрудников, из числа ППС (приведенных к доле ставки), имеющих ученые степени кандидата или доктора наук, в расчете на 100 студентов</td>
+              <td style='text-align:center;'>ед.</td>
+              <td><p style='padding-left:18px;background:url(../../../img/temp/specific_0.png) no-repeat;'>Без специфики</p></td>
+              <td class='vfirew'>2,78</td></tr>
+        </table>
+        <p style='margin-top:10px;font-size:13px;'><a href='attach/АК-30_05вн_30.03.2015.pdf' style='padding-left:19px; background:url(../../../img/save_pdf_act.png) left center no-repeat;'>Методика расчета показателей мониторинга эффективности образовательных организаций высшего образования 2015 года (pdf)</a></p>
+
+  </div>
+</div>
+
+<div>
+  <div class="block section">
+	 2. Общая статистика<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:block;">
+    <p>В мониторинге принимали участие: <b id='cv'>8</b> вуз<span id='cv_e'>(-ов)</span>, <b id='cf'>22</b> филиал<span id='cf_e'>(-ов)</span>.</span></p><div id='chart1' style='height:120px;'></div><p>В том числе образовательные организации, обладающие спецификой деятельности:</p><div id='chart2' style='height:260px;width:70%;'></div>
+
+
+    <div style='font-size:13px;'>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#34BD45;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили 4 и более показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#606060;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - выполнили менее 4 показателей;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#C4CFEE;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - в стадии реорганизации/реорганизованы;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D74F4F;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - по результатам мониторинга 2014 года (по данным за 2013 год) не выполнили 4-х или более показателей, осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</span>
+      <span><div style='width:10px;height:10px;display:inline-block;background:#D3D3D3;box-shadow:-1px -1px 1px rgba(0,0,0,0.4) inset;border-radius:2px;'></div> - проводится анализ достоверности предоставленных данных;</span>
+
+    </div>
+  </div>
+</div>
+<div>
+  <div class="block section">
+	 3. Результаты мониторинга деятельности образовательных организаций высшего образования по вузам и филиалам<div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+
+        <table class='an' width="100%"><thead id='otr'>
+          <tr>
+            <td colspan='2' rowspan='2' style='background:none;border-top:none;border-left:none;vertical-align:top;text-align:left;'></td>
+            <td colspan='9'>Распределение приведенного контингента студентов по отраслям наук</td>
+          </tr>
+          <tr>
+            <td>Математи-<br />еские и<br />естествен-<br />ные науки</td>
+            <td>Инженерное<br />дело,<br />технологии и<br />технические<br />науки</td>
+            <td>Здраво-<br />охранение и<br />медицинские<br />науки</td>
+            <td>Сельское<br />хозяйство и<br />сельско-<br />хозяйствен-<br />ные науки</td>
+            <td>Науки об<br />обществе</td>
+            <td>Образова-<br />ние и педа-<br />гогические<br />науки</td>
+            <td>Гуманитар-<br />ные науки</td>
+            <td>Искусство и<br />культура</td>
+            <td>Оборона и<br />безопасность<br />государства,<br />военные<br />науки</td>
+          </tr></thead>
+       <tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=110139 icon='1' coordinates='76.532564, 60.960075' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110139'>Академический институт прикладной энергетики</a><div id='add110139' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628600, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, Западный промышленный узел,панель 14, Индустриальная , д. 46</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Частное образовательное учреждение высшего профессионального образования "Академический институт прикладной энергетики"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>33,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=2075 icon='4' coordinates='76.610609, 60.947140' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=2075'>Западно-Сибирский Институт Финансов и Права</a><div id='add2075' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628600, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, ул. Пермская, д. 25</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью
+"Образовательные технологии"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>138,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=1784 icon='1' coordinates='76.602488, 60.930537' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1784'>Нижневартовский государственный университет</a><div id='add1784' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628605, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, ул. Ленина, 56</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:6.7919134163774% 100%'>166,3</td><td class='dkont' style='background-size:16.540739228099% 100%'>405</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:25.146007759853% 100%'>615,7</td><td class='dkont' style='background-size:33.473555237901% 100%'>819,6</td><td class='dkont' style='background-size:14.18827853788% 100%'>347,4</td><td class='dkont' style='background-size:3.8595058198897% 100%'>94,5</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=110409 icon='1' coordinates='73.402770, 61.255445' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110409'>Сургутский государственный педагогический университет</a><div id='add110409' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628417, Ханты-Мансийский автономный округ-Югра, г.Сургут, 50 лет ВЛКСМ, 10/2</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Ханты-Мансийский автономный округ - Югра</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.0336297808232% 100%'>83</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:27.360645380765% 100%'>563</td><td class='dkont' style='background-size:55.921660105944% 100%'>1150,7</td><td class='dkont' style='background-size:7.7270739174807% 100%'>159</td><td class='dkont' style='background-size:4.9569908149876% 100%'>102</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[5]</td>  <td id=110410 icon='1' coordinates='73.410882, 61.239822' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110410'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</a><div id='add110410' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628412, Ханты-Мансийский автономный округ-Югра, г.Сургут, пр.Ленина, д.1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Департамент образования и молодежной политики Ханты-Мансийского автономного округа-Югры</p><p style='padding-bottom:4px;'>- Департамент по управлению государственным имуществом Ханты-Мансийского автономного округа-Югры</p></div></div>   </td><td class='dkont' style='background-size:7.3319755600815% 100%'>379,8</td><td class='dkont' style='background-size:19.687068657638% 100%'>1019,8</td><td class='dkont' style='background-size:18.571249312265% 100%'>962</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:38.387660350769% 100%'>1988,5</td><td class='dkont' style='background-size:2.9970753178058% 100%'>155,3</td><td class='dkont' style='background-size:11.248926168666% 100%'>582,7</td><td class='dkont' style='background-size:1.7760446327738% 100%'>92</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=110411 icon='1' coordinates='73.410163, 61.256220' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=110411'>Сургутский институт мировой экономики и бизнеса "Планета"</a><div id='add110411' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628426, Ханты-Мансийский автономный округ-Югра, г.Сургут, пр. Мира 34/3</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Физические лица</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>20,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=110428 icon='1' coordinates='69.030122, 61.006390' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_2.png) right top no-repeat;'>
+                       <a href='inst.php?id=110428'>Ханты-Мансийская государственная медицинская академия</a><div id='add110428' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628011, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, ул.Мира, дом 40</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Югорский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Ханты-Мансийский автономный округ-Югра</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>515</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=333 icon='1' coordinates='69.027930, 61.001383' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=333'>Югорский государственный университет</a><div id='add333' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628012, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, ул. Чехова, д. 16</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ханты-Мансийская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:10.437786530639% 100%'>323,3</td><td class='dkont' style='background-size:33.983340866533% 100%'>1052,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:40.769677794279% 100%'>1262,8</td><td class='dkont' style='background-size:5.0526247820753% 100%'>156,5</td><td class='dkont' style='background-size:9.7565700264738% 100%'>302,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10001050 icon='3' coordinates='73.387104, 61.272639' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001050'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</a><div id='add10001050' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628400, Ханты-Мансийский автономный округ-Югра, г.Сургут, Нефтеюганское шоссе, 8</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>17</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=1808 icon='3' coordinates='75.180707, 61.253719' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=1808'>Лангепасский филиал РАНХиГС</a><div id='add1808' class='inst_add'><div class='adr'><p><b>г. Лангепас</b></p><p style='padding:7px 0px;'>628672, Ханты-Мансийский автономный округ-Югра, г.Лангепас, улица Солнечная дом 21/1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'>-</div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Правительство Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>8,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[2]</td>  <td id=10000624 icon='0' coordinates='72.592625, 61.102946' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000624'>Нефтеюганский филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Омский государственный технический университет"</a><div id='add10000624' class='inst_add'><div class='adr'><p><b>г. Нефтеюганск</b></p><p style='padding:7px 0px;'>628305, Ханты-Мансийский автономный округ-Югра, г.Нефтеюганск, Промышленная зона Пионерная, ул. Парковая, здание 13</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нефтеюганске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:57.692307692308% 100%'>82,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:42.307692307692% 100%'>60,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[2]</td>  <td id=10000623 icon='0' coordinates='76.532564, 60.960075' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000623'>Нижневартовский филиал Омского государственного технического университета</a><div id='add10000623' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628600, Ханты-Мансийский автономный округ-Югра, г.Нижневартовск, Западный промышленный узел, Панель 14, ул.Индустриальная, д.46</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:91.270903010033% 100%'>272,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.7290969899666% 100%'>26,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10001048 icon='3' coordinates='76.578674, 60.936521' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001048'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</a><div id='add10001048' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628611, Ханты-Мансийский автономный округ-Югра, г.Нижневартовск, ул.Мусы Джалиля, д. 51-А</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:95.740365111562% 100%'>47,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:4.2596348884381% 100%'>2,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=10001198 icon='1' coordinates='76.590110, 60.929230' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001198'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</a><div id='add10001198' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628600, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, 15 микрорайон, ул. Дружбы Народов, д. 13а</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:7.1301247771836% 100%'>36</td><td class='dkont' style='background-size:1.9805902158843% 100%'>10</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:90.889285006932% 100%'>458,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[2]</td>  <td id=12012958 icon='0' coordinates='73.414080, 61.254987' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012958'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</a><div id='add12012958' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628400, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул. 50 лет ВЛКСМ 1, 8 этаж.</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- ООО "Научный потенциал"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>31,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=10003405 icon='1' coordinates='73.363828, 61.260321' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003405'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</a><div id='add10003405' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628404, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул.Энтузиастов, д.38</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>246,5</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10001199 icon='3' coordinates='73.413909, 61.248059' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001199'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</a><div id='add10001199' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628400, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул.Рабочая, д.43, корп.1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:98.852284803401% 100%'>465,1</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:1.1477151965994% 100%'>5,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[1]</td>  <td id=10000622 icon='0' coordinates='73.402043, 61.241510' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000622'>Сургутский филиал Омского государственного технического университета</a><div id='add10000622' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628400, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул. Энергетиков, 18</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:91.948764867338% 100%'>201</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.0512351326624% 100%'>17,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[4]</td>  <td id=12012940 icon='1' coordinates='76.600386, 60.928469' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012940'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</a><div id='add12012940' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628605, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, улица Омская, д. 66а</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Общество с ограниченной ответственностью "ВАНСЭЛС"</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>55,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=12013042 icon='3' coordinates='73.423908, 61.253585' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12013042'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</a><div id='add12013042' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628403, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул.30 лет Победы, д.21/1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- гражданин РФ Грачев Владимир Викторович</p><p style='padding-bottom:4px;'>- гражданска РФ Грачева Надежда Викторовна</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:84.953395472703% 100%'>31,9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:15.046604527297% 100%'>5,7</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10000748 icon='3' coordinates='63.563182, 61.371814' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000748'>Филиал Российского государственного профессионально-педагогического университета в г.Советском</a><div id='add10000748' class='inst_add'><div class='adr'><p><b>г. Советский</b></p><p style='padding:7px 0px;'>628240, Ханты-Мансийский автономный округ-Югра, г.Советский, ул. Калинина, 21 кор.2</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Советском Ханты-Мансийского автономного округа – Югр</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>48</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=10001343 icon='1' coordinates='76.556602, 60.945799' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10001343'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</a><div id='add10001343' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628616, Ханты-Мансийский автономный округ-Югра, г. Нижневартовск, ул.Мира, 9</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:25.304950968668% 100%'>211,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:74.695049031332% 100%'>624,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10000786 icon='3' coordinates='63.563182, 61.371814' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000786'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Советском Ханты-Мансийского автономного округа – Югр</a><div id='add10000786' class='inst_add'><div class='adr'><p><b>г. Советский</b></p><p style='padding:7px 0px;'>628240, Ханты-Мансийский автономный округ-Югра, г.Советский, ул.Ленина, д.6</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Российского государственного профессионально-педагогического университета в г.Советском</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:16.245487364621% 100%'>9</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:83.393501805054% 100%'>46,2</td><td class='dkont' style='background-size:0.36101083032491% 100%'>0,2</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10000789 icon='3' coordinates='73.458017, 61.233150' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10000789'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Российский государственный социальный университет» в г. Сургуте Ханты-Мансийского автономного округа – Югра </a><div id='add10000789' class='inst_add'><div class='adr'><p><b>г. Сургут</b></p><p style='padding:7px 0px;'>628400, Ханты-Мансийский автономный округ-Югра, г.Сургут, ул. Югорская д.15/1</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный педагогический университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский государственный университет Ханты-Мансийского автономного округа - Югры</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт мировой экономики и бизнеса "Планета"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>(ликвидирован) Сургутский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский  филиал  негосударственного образовательного  частного учреждения высшего образования МОСКОВСКАЯ АКАДЕМИЯ ПРЕДПРИНИМАТЕЛЬСТВА при Правительстве Москвы</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Сургутский институт нефти и газа (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет»</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Сургутский институт экономики, управления и права (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Сургутский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Филиал Негосударственного образовательного учреждения высшего профессионального образования "Столичная финансово-гуманитарная академия" в г.Сургуте</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:98.042168674699% 100%'>130,2</td><td class='dkont' style='background-size:1.9578313253012% 100%'>2,6</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10003408 icon='3' coordinates='72.616816, 61.082818' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003408'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нефтеюганске</a><div id='add10003408' class='inst_add'><div class='adr'><p><b>г. Нефтеюганск</b></p><p style='padding:7px 0px;'>628310, Ханты-Мансийский автономный округ-Югра, г.Нефтеюганск, микрорайон 16, д.33</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нефтеюганский филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Омский государственный технический университет"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:91.893883566691% 100%'>124,7</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:8.1061164333088% 100%'>11</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_1_0.png) 2px 2px no-repeat;'>[6]</td>  <td id=10003407 icon='1' coordinates='76.556207, 60.939908' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10003407'>Филиал федерального государственного бюджетного образовательного учреждения высшего профессионального образования «Тюменский государственный нефтегазовый университет» в городе Нижневартовске</a><div id='add10003407' class='inst_add'><div class='adr'><p><b>г. Нижневартовск</b></p><p style='padding:7px 0px;'>628616, Ханты-Мансийский автономный округ-Югра, г.Нижневартовск, ул.Ленина, д.5</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Академический институт прикладной энергетики</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Западно-Сибирский Институт Финансов и Права</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Омского государственного технического университета</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Нижневартовский филиал Сибирской государственной автомобильно-дорожной академии (СибАДИ)</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Нижневартовский экономико-правовой институт (филиал) федерального государственного бюджетного образовательного учреждения высшего профессионального образования "Тюменский государственный университет"</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал негосударственного образовательного учреждения высшего профессионального образования "Институт международного права и экономики имени А.С. Грибоедова" в г. Нижневартовске</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Филиал ФГБОУ ВПО "Южно-Уральский государственный университет" (НИУ) в г.Нижневартовске</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:94.08575653031% 100%'>381,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:5.9142434696895% 100%'>24</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_0_0.png) 2px 2px no-repeat;'>[1]</td>  <td id=10001232 icon='0' coordinates='69.021013, 60.999346' class='inst' style='text-align:left;padding:3px 20px 3px 3px;background: url(../../../img/temp/specific_4.png) right top no-repeat;'>
+                       <a href='inst.php?id=10001232'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</a><div id='add10001232' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628012, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, ул. Гагарина, 10</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ханты-Мансийская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Югорский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство образования и науки Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>81</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=10006604 icon='3' coordinates='69.018884, 61.000445' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=10006604'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</a><div id='add10006604' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628012, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, ул. Гагарина, д.10</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ханты-Мансийская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Югорский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p>- Министерство культуры Российской Федерации</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>49,2</td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_3_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=12012909 icon='3' coordinates='69.036931, 61.012564' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012909'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</a><div id='add12012909' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628012, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, переулок Надежды, д.10</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ханты-Мансийская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Югорский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</div><div class='anothervuz' style='background:url(../../../img/temp/st_4_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Международная ассоциация развитиянауки, образования и культуры России (Италия)</p><p style='padding-bottom:4px;'>- Международная общественная организация "Лига развития науки и образования" (Россия)</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>46,8</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr><tr >  <td style='border-right:none;padding:5px 0px 2px 18px; font:italic 400 9px Calibri;background:url(../../../img/temp/st_4_0.png) 2px 2px no-repeat;'>[X]</td>  <td id=12012852 icon='4' coordinates='69.043174, 61.007000' class='inst' style='text-align:left;padding:3px 20px 3px 3px;'>
+                       <a href='inst.php?id=12012852'>Ханты-Мансийский филиал негосударственного образовательного частного учреждения высшего  образования  "Уральский институт коммерции и права"</a><div id='add12012852' class='inst_add'><div class='adr'><p><b>г. Ханты-Мансийск</b></p><p style='padding:7px 0px;'>628007, Ханты-Мансийский автономный округ-Югра, г.Ханты-Мансийск, ул.Мира,д.51</p><p style='font-size:11px;'><b><u>также в этом городе расположены:</u></b></p><div style='overflow-y:auto;max-height:300px;'><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Ханты-Мансийская государственная медицинская академия</div><div class='anothervuz' style='background:url(../../../img/temp/st_1_0.png) 0px 1px no-repeat;'>Югорский государственный университет</div><div class='anothervuz' style='background:url(../../../img/temp/st_0_0.png) 0px 1px no-repeat;'>Ханты-Мансийский институт дизайна и прикладных искусств (филиал) ФГБОУ ВПО "Уральская государственная архитектурно-художественная академия"</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Московского государственного института культуры (ЗАКРЫТИЕ в 2015 г.)</div><div class='anothervuz' style='background:url(../../../img/temp/st_3_0.png) 0px 1px no-repeat;'>Ханты-Мансийский филиал Негосударственного образовательного учреждения высшего профессионального образования "Институт управления"</div></div></div><div class='uch'><p style='padding-bottom:5px;font-size:11px;'><b><u>Учредитель(и):</u></b></p><p style='padding-bottom:4px;'>- Смирнов Геннадий Григорьевич</p></div></div>   </td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:100% 100%'>38,4</td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td><td class='dkont' style='background-size:0% 100%'></td></tr>
+
+        </table>
+       <div style='font: normal normal 400 11px/17px Calibri;color:#000;padding-top:5px;'>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_1_0.png) 0px 2px no-repeat;'> - выполнили 4 и более показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_0_0.png) 0px 2px no-repeat;'> - выполнили менее 4 показателей</p>
+       <p style='padding-left:17px;background:url(../../../img/temp/st_3_0.png) 0px 2px no-repeat;'> - вузы (филиалы), находящиеся в стадии реорганизации/реорганизованные</p>
+       <!--<p style='padding-left:17px;background:url(../../../img/temp/st_4_0.png) 0px 2px no-repeat;'> - вузы (филиалы), по результатам мониторинга прошлого года выполнившие менее 4-х показателей и не предоставившие информацию о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК</p>-->
+       <p style='padding-left:17px;background:url(../../../img/temp/st_5_0.png) 0px 2px no-repeat;'> - проводится анализ достоверности предоставленных данных; вузы (филиалы), по результатам мониторинга 2014 года (по данным за 2013 год) не выполнившие 4-х или более показателей, по которым осуществляется подтверждение прохождения мероприятий по государственному контролю (надзору) в сфере образования за деятельностью организации/предоставления информации о проведении мероприятий по повышению эффективности деятельности с учетом рекомендаций РГ МВК;</p>
+       <p><i>[X]</i> - количество выполненных показателей</p><hr style='height:0px; width:50%;margin:3px 0px;' align='left'>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_1.png) no-repeat;'> - образовательные организации военной и силовой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_2.png) no-repeat;'> - образовательные организации медицинской направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_3.png) no-repeat;'> - образовательные организации сельскохозяйственной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_4.png) no-repeat;'> - образовательные организации творческой направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_5.png) no-repeat;'> - образовательные организации спортивной направленности</p>
+       <p style='padding-left:20px;background:url(../../../img/temp/specific_6.png) no-repeat;'> - образовательные организации транспортной направленности</p>
+       </div>
+
+  </div>
+</div>
+
+
+<div>
+  <div class="block section">
+	 4. Эффективность региональной образовательной системы<sup>*</sup><div class='nav'></div>
+  </div>
+  <div class="blockcontent" style="display:none;">
+<table id='trud'>
+        <tr style='text-align:center;font: normal 400 13px/12px Calibri;'><td></td>
+            <!--<td style='width:9%;text-align:center;'><b>Количество ОО</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество УГС в регионе</b></td>-->
+            <!--<td style='width:9%;text-align:center;'><b>Количество допущенных к обработке, чел.</b></td>-->
+            <td style='width:15%;text-align:center;'><b>Численность выпускников 2013 года<sup>**</sup>, трудоустроенных в 2014 году, чел.</b></td>
+            <td style='width:15%;text-align:center;'><b>Доля трудоустроенных выпускников, %</b></td>
+            <td style='width:15%;text-align:center;'><b>Средняя заработная плата выпускников, тыс. руб.</b></td></tr><tr style='background:#eee;'><td style='text-align:left;'><!--Количество УГС в регионе - --></td>
+	        <td>2540</td>
+	        <td>83,0</b></td>
+            <td>41,33</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='3' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>03.00.00 - ФИЗИКА И АСТРОНОМИЯ</td>
+	        <td>8</td>
+	        <td>66,7</b></td>
+            <td>55,58</b></td> </tr><tr id='tr_vuz' ugs='3' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>8</td>
+	        <td>66,7</b></td>
+            <td>55,58</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='5' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>05.00.00 - НАУКИ О ЗЕМЛЕ</td>
+	        <td>37</td>
+	        <td>80,4</b></td>
+            <td>29,78</b></td> </tr><tr id='tr_vuz' ugs='5' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>24</td>
+	        <td>77,4</b></td>
+            <td>29,59</b></td> </tr><tr id='tr_vuz' ugs='5' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>13</td>
+	        <td>86,7</b></td>
+            <td>30,12</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='6' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>06.00.00 - БИОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>35</td>
+	        <td>70,0</b></td>
+            <td>34,81</b></td> </tr><tr id='tr_vuz' ugs='6' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>31</td>
+	        <td>72,1</b></td>
+            <td>38,03</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='8' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>08.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ СТРОИТЕЛЬСТВА</td>
+	        <td>63</td>
+	        <td>79,7</b></td>
+            <td>39,78</b></td> </tr><tr id='tr_vuz' ugs='8' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>63</td>
+	        <td>79,7</b></td>
+            <td>39,78</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='9' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>09.00.00 - ИНФОРМАТИКА И ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА</td>
+	        <td>69</td>
+	        <td>87,3</b></td>
+            <td>55,73</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Академический институт прикладной энергетики»</td>
+	        <td>11</td>
+	        <td>100,0</b></td>
+            <td>59,29</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>29</td>
+	        <td>80,6</b></td>
+            <td>68,26</b></td> </tr><tr id='tr_vuz' ugs='9' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>21</td>
+	        <td>95,5</b></td>
+            <td>45,41</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='11' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>11.00.00 - ЭЛЕКТРОНИКА, РАДИОТЕХНИКА И СИСТЕМЫ СВЯЗИ</td>
+	        <td>12</td>
+	        <td>70,6</b></td>
+            <td>58,10</b></td> </tr><tr id='tr_vuz' ugs='11' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>12</td>
+	        <td>70,6</b></td>
+            <td>58,10</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='13' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>13.00.00 - ЭЛЕКТРО- И ТЕПЛОЭНЕРГЕТИКА</td>
+	        <td>61</td>
+	        <td>91,0</b></td>
+            <td>58,68</b></td> </tr><tr id='tr_vuz' ugs='13' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Академический институт прикладной энергетики»</td>
+	        <td>28</td>
+	        <td>96,6</b></td>
+            <td>52,34</b></td> </tr><tr id='tr_vuz' ugs='13' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>33</td>
+	        <td>86,8</b></td>
+            <td>64,07</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='20' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>20.00.00 - ТЕХНОСФЕРНАЯ БЕЗОПАСНОСТЬ И ПРИРОДООБУСТРОЙСТВО</td>
+	        <td>104</td>
+	        <td>86,0</b></td>
+            <td>52,19</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>69</td>
+	        <td>85,2</b></td>
+            <td>56,59</b></td> </tr><tr id='tr_vuz' ugs='20' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>35</td>
+	        <td>87,5</b></td>
+            <td>43,52</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='21' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>21.00.00 - ПРИКЛАДНАЯ ГЕОЛОГИЯ, ГОРНОЕ ДЕЛО, НЕФТЕГАЗОВОЕ ДЕЛО И ГЕОДЕЗИЯ</td>
+	        <td>26</td>
+	        <td>86,7</b></td>
+            <td>57,75</b></td> </tr><tr id='tr_vuz' ugs='21' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>26</td>
+	        <td>86,7</b></td>
+            <td>57,75</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='23' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>23.00.00 - ТЕХНИКА И ТЕХНОЛОГИИ НАЗЕМНОГО ТРАНСПОРТА</td>
+	        <td>27</td>
+	        <td>81,8</b></td>
+            <td>46,74</b></td> </tr><tr id='tr_vuz' ugs='23' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>27</td>
+	        <td>81,8</b></td>
+            <td>46,74</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='27' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>27.00.00 - УПРАВЛЕНИЕ В ТЕХНИЧЕСКИХ СИСТЕМАХ</td>
+	        <td>24</td>
+	        <td>82,8</b></td>
+            <td>57,80</b></td> </tr><tr id='tr_vuz' ugs='27' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>24</td>
+	        <td>82,8</b></td>
+            <td>57,80</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='31' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>31.00.00 - КЛИНИЧЕСКАЯ МЕДИЦИНА</td>
+	        <td>75</td>
+	        <td>62,5</b></td>
+            <td>37,91</b></td> </tr><tr id='tr_vuz' ugs='31' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>47</td>
+	        <td>61,0</b></td>
+            <td>36,36</b></td> </tr><tr id='tr_vuz' ugs='31' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Ханты-Мансийская государственная медицинская академия»</td>
+	        <td>28</td>
+	        <td>65,1</b></td>
+            <td>40,51</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='37' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>37.00.00 - ПСИХОЛОГИЧЕСКИЕ НАУКИ</td>
+	        <td>30</td>
+	        <td>81,1</b></td>
+            <td>34,67</b></td> </tr><tr id='tr_vuz' ugs='37' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>20</td>
+	        <td>80,0</b></td>
+            <td>33,43</b></td> </tr><tr id='tr_vuz' ugs='37' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>10</td>
+	        <td>83,3</b></td>
+            <td>37,15</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='38' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>38.00.00 - ЭКОНОМИКА И УПРАВЛЕНИЕ</td>
+	        <td>757</td>
+	        <td>86,1</b></td>
+            <td>40,98</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Западно-Сибирский Институт Финансов и Права»</td>
+	        <td>90</td>
+	        <td>89,1</b></td>
+            <td>36,59</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>46</td>
+	        <td>92,0</b></td>
+            <td>29,30</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>86</td>
+	        <td>88,7</b></td>
+            <td>36,08</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>298</td>
+	        <td>82,5</b></td>
+            <td>44,65</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский институт мировой экономики и бизнеса «Планета»</td>
+	        <td>54</td>
+	        <td>75,0</b></td>
+            <td>39,53</b></td> </tr><tr id='tr_vuz' ugs='38' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>183</td>
+	        <td>92,4</b></td>
+            <td>42,83</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='39' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>39.00.00 - СОЦИОЛОГИЯ И СОЦИАЛЬНАЯ РАБОТА</td>
+	        <td>91</td>
+	        <td>91,9</b></td>
+            <td>32,64</b></td> </tr><tr id='tr_vuz' ugs='39' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>85</td>
+	        <td>91,4</b></td>
+            <td>32,27</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='40' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>40.00.00 - ЮРИСПРУДЕНЦИЯ</td>
+	        <td>176</td>
+	        <td>70,1</b></td>
+            <td>39,39</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Западно-Сибирский Институт Финансов и Права»</td>
+	        <td>33</td>
+	        <td>61,1</b></td>
+            <td>33,66</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>82</td>
+	        <td>66,1</b></td>
+            <td>38,91</b></td> </tr><tr id='tr_vuz' ugs='40' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>61</td>
+	        <td>83,6</b></td>
+            <td>43,14</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='42' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>42.00.00 - СРЕДСТВА МАССОВОЙ ИНФОРМАЦИИ И ИНФОРМАЦИОННО-БИБЛИОТЕЧНОЕ ДЕЛО</td>
+	        <td>78</td>
+	        <td>85,7</b></td>
+            <td>29,57</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>29</td>
+	        <td>93,5</b></td>
+            <td>24,77</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>12</td>
+	        <td>85,7</b></td>
+            <td>38,08</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>26</td>
+	        <td>74,3</b></td>
+            <td>29,62</b></td> </tr><tr id='tr_vuz' ugs='42' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>11</td>
+	        <td>100,0</b></td>
+            <td>32,85</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='43' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>43.00.00 - СЕРВИС И ТУРИЗМ</td>
+	        <td>107</td>
+	        <td>80,5</b></td>
+            <td>27,33</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>56</td>
+	        <td>83,6</b></td>
+            <td>27,77</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>23</td>
+	        <td>69,7</b></td>
+            <td>19,97</b></td> </tr><tr id='tr_vuz' ugs='43' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>28</td>
+	        <td>84,8</b></td>
+            <td>32,48</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='44' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>44.00.00 - ОБРАЗОВАНИЕ И ПЕДАГОГИЧЕСКИЕ НАУКИ</td>
+	        <td>458</td>
+	        <td>87,2</b></td>
+            <td>44,18</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>178</td>
+	        <td>89,0</b></td>
+            <td>39,66</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>177</td>
+	        <td>85,9</b></td>
+            <td>49,62</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>29</td>
+	        <td>76,3</b></td>
+            <td>38,47</b></td> </tr><tr id='tr_vuz' ugs='44' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>74</td>
+	        <td>91,4</b></td>
+            <td>44,27</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='45' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>45.00.00 - ЯЗЫКОЗНАНИЕ И ЛИТЕРАТУРОВЕДЕНИЕ</td>
+	        <td>56</td>
+	        <td>83,6</b></td>
+            <td>36,12</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>26</td>
+	        <td>78,8</b></td>
+            <td>36,66</b></td> </tr><tr id='tr_vuz' ugs='45' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>30</td>
+	        <td>88,2</b></td>
+            <td>35,65</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='46' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>46.00.00 - ИСТОРИЯ И АРХЕОЛОГИЯ</td>
+	        <td>98</td>
+	        <td>87,5</b></td>
+            <td>34,11</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Нижневартовский государственный  университет»</td>
+	        <td>61</td>
+	        <td>89,7</b></td>
+            <td>33,77</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>20</td>
+	        <td>87,0</b></td>
+            <td>35,20</b></td> </tr><tr id='tr_vuz' ugs='46' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>11</td>
+	        <td>84,6</b></td>
+            <td>37,65</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='49' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>49.00.00 - ФИЗИЧЕСКАЯ КУЛЬТУРА И СПОРТ</td>
+	        <td>83</td>
+	        <td>77,6</b></td>
+            <td>43,77</b></td> </tr><tr id='tr_vuz' ugs='49' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>12</td>
+	        <td>80,0</b></td>
+            <td>33,53</b></td> </tr><tr id='tr_vuz' ugs='49' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный университет Ханты-Мансийского автономного округа - Югры»</td>
+	        <td>43</td>
+	        <td>76,8</b></td>
+            <td>40,93</b></td> </tr><tr id='tr_vuz' ugs='49' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Югорский государственный университет»</td>
+	        <td>28</td>
+	        <td>77,8</b></td>
+            <td>52,53</b></td> </tr><tr id='tr_ugs' style='font-weight: bold;'><td id='td_ugs' ugs='51' class='td_ugs_n' style='text-align:left;padding-left:20px;cursor:pointer;'>51.00.00 - КУЛЬТУРОВЕДЕНИЕ И СОЦИОКУЛЬТУРНЫЕ ПРОЕКТЫ</td>
+	        <td>35</td>
+	        <td>87,5</b></td>
+            <td>44,27</b></td> </tr><tr id='tr_vuz' ugs='51' style='display:none;background:#f6f6f4;'><td style='text-align:left;padding-left:20px;'>«Сургутский государственный педагогический университет»</td>
+	        <td>20</td>
+	        <td>87,0</b></td>
+            <td>41,78</b></td> </tr></table><p style='font: normal 13px/14px Calibri;'><br /><sup>*</sup>Сведения о трудоустройстве выпускников образовательных организаций получены в рамках соглашения Минобрнауки России, Рособрнадзора и Пенсионного фонда России по данным, предоставленным образовательными организациями в ФРДО.</p><p style='font: normal 13px/14px Calibri;'><sup>**</sup>Приведены статистически значимые данные (численность выпускников по УГН(С) более 10 человек).</p>  </div>
+</div>
+
+
+
+
+
+
+  <div id="copyright" style='font-size:11px;  margin:25px 30px 0px 30px; padding:3px 0px;color:#777777; border-top:5px solid #A5C0D3;background:#fff;box-shadow:0px -5px 15px 15px #fff;'>
+    <div style='float:left;'>&copy;</div>
+    <div style='float:left;'>
+      <a href='http://www.miccedu.ru/'>
+        <img style='margin:0px 2px;' src='/img/footer_logo.gif' width='40' height='15' border='0' alt='ГИВЦ'>
+      </a>
+    </div>
+    <div style='float:left; font:normal 400 11px Tahoma;color:500;padding:0px 8px;'>При использовании материалов сайта ссылка на сайт www.miccedu.ru обязательна</div>
+    <div style='float:right; text-align:right;'>Телефон/факс: +7 (499) 269-46-87, e-mail: <a href="mailto:general@miccedu.ru">general@miccedu.ru</a><br/>107996, Москва, ул.Стромынка, д.20, офис 231</div>
+    <div style='clear:both; width:800px; height:0px; margin:0px auto; overflow:hidden;'>&nbsp;</div> 
+	  </div>
+  
+  <script>
+  
+    function set_Copyright() {
+      document.getElementById('copyright').style.marginTop = '25px' ;
+      if (window.innerHeight > $('#copyright').offset().top+50) {
+        document.getElementById('copyright').style.marginTop = window.innerHeight - $('#copyright').offset().top - 20 + 'px';
+        }
+    }
+    $(window).load(function(){
+      set_Copyright();
+    });
+	
+	
+	window.onresize = function() {
+      set_Copyright();
+    };
+	
+	
+    set_Copyright();
+  </script>
+  
+  
+  
+<script>
+	
+    $(document).ready(function(){     
+	  $('body>table:eq(1)>tbody>tr>td:eq(0)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top left,  url(/img/monitoring_logo/bb_l.png) repeat-y right, #ddd;border:none;');
+	  $('body>table:eq(1)>tbody>tr>td:eq(2)').attr('style','background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+	  $('body').attr('style',$('body').attr('style')+' background: url(../../..//img/temp/arch_background_2015.svg) top right, url(/img/monitoring_logo/bb_r.png) repeat-y left,  #ddd;border:none;');
+    });
+		
+	
+  </script>  
+
+  <div id='to_begin' style='display:none;position:fixed;bottom:20px;left:20px;padding:6px 15px 6px 48px;background:url(../../../img/arrow_up_778.png) left 15px center no-repeat, #eee;background-size:25px 10px;box-shadow:3px 3px 5px 0px rgba(0,0,0,0.3);border-radius:3px;font:normal 700 16px Calibri;color:#778;cursor:pointer;'>Наверх</div>
+<script>
+
+$(function() {
+  $(window).scroll(function(){
+    if ($(window).scrollTop()>0)
+      $('#to_begin').fadeIn(300);
+    else 
+	  $('#to_begin').fadeOut(300);
+  });
+  
+ $('#to_begin').click(function(){
+    $(window).scrollTop(0);
+  }); 
+
+});
+</script>
+
+ <!--копирайт-->
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38124250 = new Ya.Metrika({ id:38124250, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true, ut:"noindex" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38124250?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+
+
+
+
+
