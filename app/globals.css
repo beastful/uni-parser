@@ -24,3 +24,19 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif; */
 }
+
+
+/* Prevent any absolute positioning from leaking */
+.recharts-wrapper {
+  overflow: visible !important;
+}
+
+/* Ensure each section is a block */
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+/* Tables won't float over charts */
+.overflow-x-auto {
+  clear: both;
+}
